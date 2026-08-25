@@ -23100,8 +23100,10 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         ``relay_info`` is the (thread_id, initial_name) pair from the relay
         connector's send-result feedback — supplied on the title turn, where
         the source is the parent-channel event and carries no auto-thread
-        markers (see _relay_auto_thread_info). When absent, the native
-        marker-based lane supplies thread identity from the source itself.
+        markers (see _relay_auto_thread_info). When absent, a marker-based lane
+        supplies thread identity from the source itself; the authenticated relay
+        stamp decides whether that marker belongs to the connector or the native
+        Discord adapter.
         """
         if relay_info is None and not await asyncio.to_thread(
             self._is_discord_auto_thread_lane, source
@@ -23126,12 +23128,15 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         if rename_thread is None:
             return
         target_thread_id = relay_info[0] if relay_info else str(source.thread_id)
-        # Relay lane (relay_info present): ask the CONNECTOR to enforce the
+        # Relay lane (send feedback or an authenticated relay source): ask the
+        # CONNECTOR to enforce the
         # no-clobber guard from its own created-name memory — the gateway
         # can't reliably reproduce the thread's initial name byte-for-byte
         # (normalization drift silently declined every rename before this).
         # Native-marker lane keeps the legacy string guard.
-        use_connector_guard = relay_info is not None
+        use_connector_guard = relay_info is not None or bool(
+            getattr(source, "delivered_via_upstream_relay", False)
+        )
         guard_name = (
             None
             if use_connector_guard
@@ -23150,9 +23155,15 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         # feedback) so the discriminators resolve. Native lane needs nothing:
         # its source IS the thread and it renames via the direct Discord API,
         # not the relay egress guard.
-        parent_chat_id = (
-            str(source.chat_id) if use_connector_guard and source.chat_id else None
-        )
+        parent_chat_id = None
+        if use_connector_guard:
+            relay_parent = getattr(source, "parent_chat_id", None)
+            if relay_parent:
+                parent_chat_id = str(relay_parent)
+            elif relay_info is not None and source.chat_id:
+                # The title-turn send-feedback lane starts from the parent
+                # channel event, so chat_id is the parent in that shape.
+                parent_chat_id = str(source.chat_id)
         logger.info(
             "discord auto-thread rename: thread=%s lane=%s new_title=%r",
             target_thread_id,
@@ -23160,13 +23171,19 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             thread_name,
         )
         try:
-            renamed = await rename_thread(
-                target_thread_id,
-                thread_name,
-                prefer_connector_created=use_connector_guard,
-                only_if_current_name=guard_name,
-                parent_chat_id=parent_chat_id,
-            )
+            if use_connector_guard:
+                renamed = await rename_thread(
+                    target_thread_id,
+                    thread_name,
+                    prefer_connector_created=True,
+                    parent_chat_id=parent_chat_id,
+                )
+            else:
+                renamed = await rename_thread(
+                    target_thread_id,
+                    thread_name,
+                    only_if_current_name=guard_name,
+                )
             logger.info(
                 "discord auto-thread rename result: thread=%s applied=%s",
                 target_thread_id,

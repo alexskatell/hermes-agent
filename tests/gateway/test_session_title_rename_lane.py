@@ -10,11 +10,12 @@ ten minutes, so the throwaway can be the one that survives.
 from __future__ import annotations
 
 import types
+from typing import Any, cast
 
 import pytest
 
 from gateway.config import Platform
-from gateway.run import TurnRunner
+from gateway.run import GatewayRunner, TurnRunner
 
 
 def _attach(lane):
@@ -53,3 +54,44 @@ def test_the_rename_waits_for_the_model_title(lane):
 
     callback("Fix flaky auth test", "llm")
     assert renames == ["Fix flaky auth test"]
+
+
+@pytest.mark.asyncio
+async def test_native_discord_rename_uses_only_native_adapter_keywords():
+    """The native adapter must not receive relay-only rename keywords."""
+    calls: list[tuple[str, str, str | None]] = []
+
+    class NativeDiscordAdapter:
+        async def rename_thread(
+            self,
+            thread_id: str,
+            name: str,
+            *,
+            only_if_current_name: str | None = None,
+        ) -> bool:
+            calls.append((thread_id, name, only_if_current_name))
+            return True
+
+    source = types.SimpleNamespace(
+        thread_id="thread-1",
+        chat_id="thread-1",
+        auto_thread_initial_name="raw user prompt",
+    )
+    adapter = NativeDiscordAdapter()
+    runner = types.SimpleNamespace(
+        adapters={Platform.DISCORD: adapter},
+        _is_discord_auto_thread_lane=lambda src: True,
+        _adapter_for_source=lambda src: adapter,
+        _sanitize_discord_thread_title=lambda title: title,
+    )
+
+    await GatewayRunner._rename_discord_auto_thread_for_session_title(
+        cast(Any, runner),
+        cast(Any, source),
+        "session-1",
+        "Semantic Session Title",
+    )
+
+    assert calls == [
+        ("thread-1", "Semantic Session Title", "raw user prompt")
+    ]

@@ -19,7 +19,7 @@ Covers:
 from __future__ import annotations
 
 import re
-from typing import Any, Dict
+from typing import Any, Dict, cast
 
 import pytest
 
@@ -467,6 +467,60 @@ async def test_sibling_threads_in_one_channel_each_rename_to_own_thread():
     assert renames == [
         ("th-A", "Sea Shanty Draft", True, "chan-parent"),
         ("th-B", "Exotic Short Story", True, "chan-parent"),
+    ]
+
+
+@pytest.mark.asyncio
+async def test_relay_thread_marker_without_feedback_keeps_connector_guard():
+    """A later turn inside a connector-created thread is still a relay rename.
+
+    Marker-based turns carry no send-result relay_info, so the authenticated
+    relay stamp must keep connector-only kwargs away from the native adapter
+    while preserving the connector's no-clobber and tenant-routing guards.
+    """
+    from types import SimpleNamespace
+
+    adapter, _ = _adapter()
+    renames: list = []
+
+    async def rename_thread(
+        thread_id,
+        name,
+        *,
+        only_if_current_name=None,
+        prefer_connector_created=False,
+        parent_chat_id=None,
+    ):
+        renames.append(
+            (
+                thread_id,
+                name,
+                only_if_current_name,
+                prefer_connector_created,
+                parent_chat_id,
+            )
+        )
+        return True
+
+    adapter.rename_thread = rename_thread  # type: ignore[method-assign]
+    runner = _mk_runner_stub()(adapter)
+    src = SimpleNamespace(
+        platform=Platform.DISCORD,
+        chat_id="th-B",
+        chat_type="thread",
+        thread_id="th-B",
+        parent_chat_id="chan-parent",
+        delivered_via_upstream_relay=True,
+        auto_thread_created=True,
+        auto_thread_initial_name="Initial words",
+    )
+
+    await runner._rename_discord_auto_thread_for_session_title(
+        cast(Any, src), "sessB", "Semantic Relay Thread Title"
+    )
+
+    assert renames == [
+        ("th-B", "Semantic Relay Thread Title", None, True, "chan-parent")
     ]
 
 
