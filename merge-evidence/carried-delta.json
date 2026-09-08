@@ -1,0 +1,29 @@
+{
+  "snapshot_sha256": "18adb035f96fc081b31178d5ba7a239a7605d79c88053e66276856d1d792fd15",
+  "carried_commit": "902f9fc1409efa1e10a345c8f2d9842b542a9e66",
+  "tracked_paths": [
+    "agent/agent_runtime_helpers.py",
+    "agent/chat_completion_helpers.py",
+    "agent/conversation_loop.py",
+    "agent/reasoning_effort.py",
+    "agent/runtime_api.py",
+    "agent/runtime_dispatch.py",
+    "agent/title_generator.py",
+    "agent/turn_runtime.py",
+    "gateway/run.py",
+    "hermes_state_messages.py",
+    "hermes_state_registry.py",
+    "plugins/platforms/discord/adapter.py",
+    "tests/agent/test_reasoning_effort_module.py",
+    "tests/agent/test_title_generator.py",
+    "tests/gateway/test_discord_free_response.py"
+  ],
+  "tracked_patch_identical_to_commit": true,
+  "untracked_snapshot_hashes": {
+    "tests/agent/test_runtime_iteration_progress.py": "ecc690323c9d48ef61495b3fee269e46c87c03919f3ab18178cded26a7322b6d",
+    "tests/agent/test_sdk_iteration_progress.py": "ca1285bc8680c5d878de1579bede17fb79be854c1b6c090a0b4f2ec28afde55d",
+    "tests/agent/test_turn_runtime_fallback.py": "94df8dca2c47e5bbe49f3552efae176daae041e2a7a913548b833f9ffc0d4918",
+    "tests/run_agent/test_runtime_fallback_integration.py": "c449765d29001ee4ac21066e9982a52b599ae38a229b7383fab9bc44a1b66061"
+  },
+  "untracked_identical_to_commit": true
+}

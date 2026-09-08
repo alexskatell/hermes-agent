@@ -1,0 +1,4295 @@
+{
+  "exact_upstream": "63ec22e797ba73b369d1bcc0bcc69622edd9d7e8",
+  "files": [
+    {
+      "file": "tests/agent/test_auxiliary_client.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Upstream deadline test has a sub-140ms wall-clock bound; failed on the exact-parent baseline and passes intermittently in fresh processes.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": false,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_auxiliary_client.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 203
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-pg0n9a8q/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-pg0n9a8q",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/agent/test_auxiliary_client.py::TestCodexAuxiliaryAdapterTimeout::test_enforces_total_timeout_while_stream_keeps_emitting_events"
+        ],
+        "file": "tests/agent/test_auxiliary_client.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_auxiliary_client.py.log",
+        "seconds": 8.86,
+        "summary": "1 failed, 203 passed in 8.28s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_auxiliary_client.py"
+        ],
+        "counts": {
+          "passed": 204
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-sy8up__5/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-sy8up__5",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_auxiliary_client.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_auxiliary_client.py.log",
+        "seconds": 7.79,
+        "summary": "204 passed in 7.27s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_auxiliary_named_custom_providers.py",
+      "classification": "environment-only",
+      "reason": "Original runner selected Python 3.11 without Anthropic dependencies, changing provider construction/autodetection. Both trees pass with the same installed Python 3.12 venv.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_auxiliary_named_custom_providers.py"
+        ],
+        "counts": {
+          "passed": 20
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-yz5optyr/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-yz5optyr",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_auxiliary_named_custom_providers.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_auxiliary_named_custom_providers.py.log",
+        "seconds": 2.88,
+        "summary": "20 passed in 2.31s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_auxiliary_named_custom_providers.py"
+        ],
+        "counts": {
+          "passed": 20
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-an5au10d/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-an5au10d",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_auxiliary_named_custom_providers.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_auxiliary_named_custom_providers.py.log",
+        "seconds": 2.67,
+        "summary": "20 passed in 2.17s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_auxiliary_transport_autodetect.py",
+      "classification": "environment-only",
+      "reason": "Original runner selected Python 3.11 without Anthropic dependencies, changing provider construction/autodetection. Both trees pass with the same installed Python 3.12 venv.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_auxiliary_transport_autodetect.py"
+        ],
+        "counts": {
+          "passed": 16
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-gdofumcm/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-gdofumcm",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_auxiliary_transport_autodetect.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_auxiliary_transport_autodetect.py.log",
+        "seconds": 1.7,
+        "summary": "16 passed in 1.19s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_auxiliary_transport_autodetect.py"
+        ],
+        "counts": {
+          "passed": 16
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-bmkkq3wu/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-bmkkq3wu",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_auxiliary_transport_autodetect.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_auxiliary_transport_autodetect.py.log",
+        "seconds": 1.68,
+        "summary": "16 passed in 1.19s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_codex_aux_timeout_fd_ownership.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Upstream timer/owner-thread test intermittently misses shutdown before client.close; reproduced on the exact-parent baseline.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_codex_aux_timeout_fd_ownership.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 1
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-1ivg_7w0/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-1ivg_7w0",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/agent/test_codex_aux_timeout_fd_ownership.py::TestCodexAuxiliaryTimeoutFdOwnership::test_stalled_stream_timeout_shuts_down_from_timer_and_closes_from_owner"
+        ],
+        "file": "tests/agent/test_codex_aux_timeout_fd_ownership.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_codex_aux_timeout_fd_ownership.py.log",
+        "seconds": 2.53,
+        "summary": "1 failed, 1 passed in 2.16s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_codex_aux_timeout_fd_ownership.py"
+        ],
+        "counts": {
+          "passed": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-kq2slc5e/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-kq2slc5e",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_codex_aux_timeout_fd_ownership.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_codex_aux_timeout_fd_ownership.py.log",
+        "seconds": 1.97,
+        "summary": "2 passed in 1.77s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_command_token_source.py",
+      "classification": "environment-only",
+      "reason": "Original runner selected Python 3.11 without Anthropic dependencies, changing provider construction/autodetection. Both trees pass with the same installed Python 3.12 venv.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_command_token_source.py"
+        ],
+        "counts": {
+          "passed": 29
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-vyfjvhci/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-vyfjvhci",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_command_token_source.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_command_token_source.py.log",
+        "seconds": 1.84,
+        "summary": "29 passed in 1.34s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_command_token_source.py"
+        ],
+        "counts": {
+          "passed": 29
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-udpyp161/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-udpyp161",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_command_token_source.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_command_token_source.py.log",
+        "seconds": 1.22,
+        "summary": "29 passed in 1.00s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_fallback_dynamic_credential.py",
+      "classification": "environment-only",
+      "reason": "Original runner selected Python 3.11 without Anthropic dependencies, changing provider construction/autodetection. Both trees pass with the same installed Python 3.12 venv.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_fallback_dynamic_credential.py"
+        ],
+        "counts": {
+          "passed": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-qc2_383i/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-qc2_383i",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_fallback_dynamic_credential.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_fallback_dynamic_credential.py.log",
+        "seconds": 1.79,
+        "summary": "5 passed in 1.21s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_fallback_dynamic_credential.py"
+        ],
+        "counts": {
+          "passed": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-izg7wbpt/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-izg7wbpt",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_fallback_dynamic_credential.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_fallback_dynamic_credential.py.log",
+        "seconds": 1.17,
+        "summary": "5 passed in 0.87s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_nous_portal_anthropic_wire.py",
+      "classification": "environment-only",
+      "reason": "Original runner selected Python 3.11 without Anthropic dependencies, changing provider construction/autodetection. Both trees pass with the same installed Python 3.12 venv.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_nous_portal_anthropic_wire.py"
+        ],
+        "counts": {
+          "passed": 25
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-dgchbti3/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-dgchbti3",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_nous_portal_anthropic_wire.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_nous_portal_anthropic_wire.py.log",
+        "seconds": 1.69,
+        "summary": "25 passed in 1.22s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_nous_portal_anthropic_wire.py"
+        ],
+        "counts": {
+          "passed": 25
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-41md1ttu/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-41md1ttu",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_nous_portal_anthropic_wire.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_nous_portal_anthropic_wire.py.log",
+        "seconds": 1.07,
+        "summary": "25 passed in 0.82s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_sdk_iteration_progress.py",
+      "classification": "environment-only",
+      "reason": "Original Python 3.11 runner lacked the standalone plugin. The local-only test is absent upstream and passes twice using the installed, patched SDK in .venv-safe.",
+      "action": "Keep the prior real-SDK dataclass regression and reproducible patch README; verify installed patch without modifying the venv.",
+      "original_failing_summary": true,
+      "baseline": {
+        "absent": true,
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_sdk_iteration_progress.py"
+        ],
+        "file": "tests/agent/test_sdk_iteration_progress.py",
+        "label": "differential-base",
+        "tree": "/tmp/hermes-triage-base-63ec22e797",
+        "counts": {}
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_sdk_iteration_progress.py"
+        ],
+        "counts": {
+          "passed": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-xr5gkb_s/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-xr5gkb_s",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_sdk_iteration_progress.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_sdk_iteration_progress.py.log",
+        "seconds": 1.53,
+        "summary": "2 passed in 1.18s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_set_runtime_main_custom_provider.py",
+      "classification": "environment-only",
+      "reason": "Original runner selected Python 3.11 without Anthropic dependencies, changing provider construction/autodetection. Both trees pass with the same installed Python 3.12 venv.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_set_runtime_main_custom_provider.py"
+        ],
+        "counts": {
+          "passed": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-b7k0jno7/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-b7k0jno7",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_set_runtime_main_custom_provider.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_set_runtime_main_custom_provider.py.log",
+        "seconds": 1.76,
+        "summary": "5 passed in 1.14s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_set_runtime_main_custom_provider.py"
+        ],
+        "counts": {
+          "passed": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-o09mp3kv/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-o09mp3kv",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_set_runtime_main_custom_provider.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_set_runtime_main_custom_provider.py.log",
+        "seconds": 1.09,
+        "summary": "5 passed in 0.77s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/agent/test_vision_routing_31179.py",
+      "classification": "environment-only",
+      "reason": "Original runner selected Python 3.11 without Anthropic dependencies, changing provider construction/autodetection. Both trees pass with the same installed Python 3.12 venv.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_vision_routing_31179.py"
+        ],
+        "counts": {
+          "passed": 8
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-qcjq5y3a/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-qcjq5y3a",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_vision_routing_31179.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__agent__test_vision_routing_31179.py.log",
+        "seconds": 4.12,
+        "summary": "8 passed in 3.40s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/agent/test_vision_routing_31179.py"
+        ],
+        "counts": {
+          "passed": 8
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-77j0m7oi/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-77j0m7oi",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/agent/test_vision_routing_31179.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__agent__test_vision_routing_31179.py.log",
+        "seconds": 2.07,
+        "summary": "8 passed in 1.75s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/computer_use/test_cua_no_overlay.py",
+      "classification": "environment-only",
+      "reason": "The macOS CuaDriver.app prerequisite is absent from the isolated test home; both trees raise the same prerequisite error.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/computer_use/test_cua_no_overlay.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 9,
+          "skipped": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-lm5wme3q/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-lm5wme3q",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/computer_use/test_cua_no_overlay.py::TestEmbeddedDaemonOverlayFlag::test_serve_process_disables_overlay_when_policy_requires_it"
+        ],
+        "file": "tests/computer_use/test_cua_no_overlay.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__computer_use__test_cua_no_overlay.py.log",
+        "seconds": 0.82,
+        "summary": "1 failed, 9 passed, 5 skipped in 0.46s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/computer_use/test_cua_no_overlay.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 9,
+          "skipped": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-_zuri36t/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-_zuri36t",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/computer_use/test_cua_no_overlay.py::TestEmbeddedDaemonOverlayFlag::test_serve_process_disables_overlay_when_policy_requires_it"
+        ],
+        "file": "tests/computer_use/test_cua_no_overlay.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__computer_use__test_cua_no_overlay.py.log",
+        "seconds": 0.46,
+        "summary": "1 failed, 9 passed, 5 skipped in 0.22s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/cron/test_file_permissions.py",
+      "classification": "environment-only",
+      "reason": "Original run inherited directory permissions; both trees pass with fresh isolated HOME/HERMES_HOME.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/cron/test_file_permissions.py"
+        ],
+        "counts": {
+          "passed": 7
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-w3lkvf41/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-w3lkvf41",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/cron/test_file_permissions.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__cron__test_file_permissions.py.log",
+        "seconds": 0.96,
+        "summary": "7 passed in 0.51s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/cron/test_file_permissions.py"
+        ],
+        "counts": {
+          "passed": 7
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-m_c3bodf/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-m_c3bodf",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/cron/test_file_permissions.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__cron__test_file_permissions.py.log",
+        "seconds": 0.37,
+        "summary": "7 passed in 0.17s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/gateway/test_buzz_adapter.py",
+      "classification": "environment-only",
+      "reason": "Fixture creates a path beyond the macOS pathname limit (Errno 63); identical failure on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_buzz_adapter.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 185
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-xm8wqe98/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-xm8wqe98",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/gateway/test_buzz_adapter.py::TestInboundMediaAuthorizationGate::test_live_media_redacts_long_path_before_bounding"
+        ],
+        "file": "tests/gateway/test_buzz_adapter.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__gateway__test_buzz_adapter.py.log",
+        "seconds": 3.78,
+        "summary": "1 failed, 185 passed in 3.22s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_buzz_adapter.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 185
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-xim3dt32/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-xim3dt32",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/gateway/test_buzz_adapter.py::TestInboundMediaAuthorizationGate::test_live_media_redacts_long_path_before_bounding"
+        ],
+        "file": "tests/gateway/test_buzz_adapter.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__gateway__test_buzz_adapter.py.log",
+        "seconds": 2.6,
+        "summary": "1 failed, 185 passed in 2.31s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/gateway/test_scale_to_zero.py",
+      "classification": "environment-only",
+      "reason": "Original AF_UNIX path is too long on macOS; both trees pass with the shorter /private/tmp sandbox.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_scale_to_zero.py"
+        ],
+        "counts": {
+          "passed": 25
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-sf6yrd1c/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-sf6yrd1c",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/gateway/test_scale_to_zero.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__gateway__test_scale_to_zero.py.log",
+        "seconds": 1.23,
+        "summary": "25 passed in 0.78s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_scale_to_zero.py"
+        ],
+        "counts": {
+          "passed": 25
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-xyb65kbz/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-xyb65kbz",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/gateway/test_scale_to_zero.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__gateway__test_scale_to_zero.py.log",
+        "seconds": 0.61,
+        "summary": "25 passed in 0.39s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/gateway/test_shutdown_forensics.py",
+      "classification": "environment-only",
+      "reason": "The diagnostic spawner requires the GNU timeout executable, absent from this macOS PATH; both trees return None.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_shutdown_forensics.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 9
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-yynul6ig/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-yynul6ig",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/gateway/test_shutdown_forensics.py::TestSpawnAsyncDiagnostic::test_spawns_subprocess_and_writes_output"
+        ],
+        "file": "tests/gateway/test_shutdown_forensics.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__gateway__test_shutdown_forensics.py.log",
+        "seconds": 0.95,
+        "summary": "1 failed, 9 passed in 0.58s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_shutdown_forensics.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 9
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-pvloymgd/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-pvloymgd",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/gateway/test_shutdown_forensics.py::TestSpawnAsyncDiagnostic::test_spawns_subprocess_and_writes_output"
+        ],
+        "file": "tests/gateway/test_shutdown_forensics.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__gateway__test_shutdown_forensics.py.log",
+        "seconds": 0.47,
+        "summary": "1 failed, 9 passed in 0.28s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/gateway/test_systemd_notify.py",
+      "classification": "environment-only",
+      "reason": "The test assumes Linux abstract UNIX-domain sockets on macOS; identical failure on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_systemd_notify.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-xb296n4o/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-xb296n4o",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/gateway/test_systemd_notify.py::test_notify_supports_systemd_abstract_socket"
+        ],
+        "file": "tests/gateway/test_systemd_notify.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__gateway__test_systemd_notify.py.log",
+        "seconds": 1.01,
+        "summary": "1 failed, 2 passed in 0.55s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_systemd_notify.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-jh50pt6j/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-jh50pt6j",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/gateway/test_systemd_notify.py::test_notify_supports_systemd_abstract_socket"
+        ],
+        "file": "tests/gateway/test_systemd_notify.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__gateway__test_systemd_notify.py.log",
+        "seconds": 0.43,
+        "summary": "1 failed, 2 passed in 0.23s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/gateway/test_voice_command.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Both exact-parent and merged per-file runs stall after 43 progress dots and hit the 240s process timeout; the earlier multi-file baseline result is not equivalent isolation.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_voice_command.py"
+        ],
+        "counts": {},
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-gdvszni9/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-gdvszni9",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 124,
+        "failures": [],
+        "file": "tests/gateway/test_voice_command.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__gateway__test_voice_command.py.log",
+        "seconds": 240.07,
+        "summary": "no summary",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/gateway/test_voice_command.py"
+        ],
+        "counts": {},
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-2blstjnx/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-2blstjnx",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 124,
+        "failures": [],
+        "file": "tests/gateway/test_voice_command.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__gateway__test_voice_command.py.log",
+        "seconds": 240.08,
+        "summary": "no summary",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/hermes_cli/test_dashboard_auth_gate.py",
+      "classification": "environment-only",
+      "reason": "Port 9119 is already occupied on this host; both trees report BACKEND_PORT_IN_USE and exit 75. No service was stopped.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_dashboard_auth_gate.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 31
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-mqc4ckrz/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-mqc4ckrz",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_dashboard_auth_gate.py::test_start_server_loopback_sets_auth_required_false",
+          "tests/hermes_cli/test_dashboard_auth_gate.py::test_start_server_loopback_public_url_enables_gate"
+        ],
+        "file": "tests/hermes_cli/test_dashboard_auth_gate.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__hermes_cli__test_dashboard_auth_gate.py.log",
+        "seconds": 2.53,
+        "summary": "2 failed, 31 passed in 1.93s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_dashboard_auth_gate.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 31
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-5beavqe0/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-5beavqe0",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_dashboard_auth_gate.py::test_start_server_loopback_sets_auth_required_false",
+          "tests/hermes_cli/test_dashboard_auth_gate.py::test_start_server_loopback_public_url_enables_gate"
+        ],
+        "file": "tests/hermes_cli/test_dashboard_auth_gate.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__hermes_cli__test_dashboard_auth_gate.py.log",
+        "seconds": 1.74,
+        "summary": "2 failed, 31 passed in 1.47s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/hermes_cli/test_plugin_scanner_recursion.py",
+      "classification": "environment-only",
+      "reason": "Installed claude-agent-sdk entry point invalidates a fixed plugin-count assertion on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": false,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_plugin_scanner_recursion.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 11
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-t7z9c_9l/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-t7z9c_9l",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_plugin_scanner_recursion.py::TestCategoryNamespaceRecursion::test_depth_cap_two"
+        ],
+        "file": "tests/hermes_cli/test_plugin_scanner_recursion.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__hermes_cli__test_plugin_scanner_recursion.py.log",
+        "seconds": 2.22,
+        "summary": "1 failed, 11 passed in 1.69s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_plugin_scanner_recursion.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 11
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-rsr4jhke/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-rsr4jhke",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_plugin_scanner_recursion.py::TestCategoryNamespaceRecursion::test_depth_cap_two"
+        ],
+        "file": "tests/hermes_cli/test_plugin_scanner_recursion.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__hermes_cli__test_plugin_scanner_recursion.py.log",
+        "seconds": 1.25,
+        "summary": "1 failed, 11 passed in 0.98s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/hermes_cli/test_plugins.py",
+      "classification": "environment-only",
+      "reason": "Installed claude-agent-sdk entry point adds a second non-bundled plugin to the upstream fixed-count fixture on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": false,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_plugins.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 75
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-c6kjchqg/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-c6kjchqg",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_plugins.py::TestPluginDiscovery::test_failed_discovery_is_not_cached"
+        ],
+        "file": "tests/hermes_cli/test_plugins.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__hermes_cli__test_plugins.py.log",
+        "seconds": 5.55,
+        "summary": "1 failed, 75 passed in 5.04s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_plugins.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 75
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-mim15p8j/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-mim15p8j",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_plugins.py::TestPluginDiscovery::test_failed_discovery_is_not_cached"
+        ],
+        "file": "tests/hermes_cli/test_plugins.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__hermes_cli__test_plugins.py.log",
+        "seconds": 4.24,
+        "summary": "1 failed, 75 passed in 3.93s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/hermes_cli/test_plugins_cmd_category_discovery.py",
+      "classification": "environment-only",
+      "reason": "Installed claude-agent-sdk entry point adds an unexpected plugin to upstream fixed-count assertions on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": false,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_plugins_cmd_category_discovery.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 11
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-un_e8u2m/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-un_e8u2m",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_plugins_cmd_category_discovery.py::TestDiscoverAllPlugins::test_mixed_flat_and_category",
+          "tests/hermes_cli/test_plugins_cmd_category_discovery.py::TestCmdListJson::test_json_status_uses_key"
+        ],
+        "file": "tests/hermes_cli/test_plugins_cmd_category_discovery.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__hermes_cli__test_plugins_cmd_category_discovery.py.log",
+        "seconds": 1.02,
+        "summary": "2 failed, 11 passed in 0.63s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_plugins_cmd_category_discovery.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 11
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-m8254ak1/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-m8254ak1",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_plugins_cmd_category_discovery.py::TestDiscoverAllPlugins::test_mixed_flat_and_category",
+          "tests/hermes_cli/test_plugins_cmd_category_discovery.py::TestCmdListJson::test_json_status_uses_key"
+        ],
+        "file": "tests/hermes_cli/test_plugins_cmd_category_discovery.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__hermes_cli__test_plugins_cmd_category_discovery.py.log",
+        "seconds": 0.63,
+        "summary": "2 failed, 11 passed in 0.41s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/hermes_cli/test_session_recovery_lost_and_found.py",
+      "classification": "pre-existing-upstream",
+      "reason": "The unsafe-system-sqlite error message no longer contains the expected .recover wording; same failing assertion on the exact-parent baseline.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_session_recovery_lost_and_found.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 9,
+          "skipped": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-vdz15erg/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-vdz15erg",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_session_recovery_lost_and_found.py::test_unreadable_schema_without_cli_names_the_sqlite3_requirement"
+        ],
+        "file": "tests/hermes_cli/test_session_recovery_lost_and_found.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__hermes_cli__test_session_recovery_lost_and_found.py.log",
+        "seconds": 1.9,
+        "summary": "1 failed, 9 passed, 2 skipped in 1.43s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/hermes_cli/test_session_recovery_lost_and_found.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 9,
+          "skipped": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-9f02peg9/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-9f02peg9",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/hermes_cli/test_session_recovery_lost_and_found.py::test_unreadable_schema_without_cli_names_the_sqlite3_requirement"
+        ],
+        "file": "tests/hermes_cli/test_session_recovery_lost_and_found.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__hermes_cli__test_session_recovery_lost_and_found.py.log",
+        "seconds": 1.31,
+        "summary": "1 failed, 9 passed, 2 skipped in 1.08s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/hermes_cli/test_update_autostash.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Static classification only: test and update implementation are identical to the exact parent. The original log reaches a launchd supervision failure. Its gateway-discovery fixture does not stub the macOS fleet restart path.",
+      "action": "DO NOT RUN on this host. Source-identical classification is provisional without a safe isolated-service baseline; recorded as unresolved safety exclusion.",
+      "original_failing_summary": true,
+      "baseline": null,
+      "merged": null
+    },
+    {
+      "file": "tests/hermes_cli/test_update_head_moved_gate.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Static classification only: test and update implementation are identical to the exact parent; original success-path test exits 1 in the fleet-restart phase.",
+      "action": "DO NOT RUN on this host. Source-identical classification is provisional without a safe isolated-service baseline; recorded as unresolved safety exclusion.",
+      "original_failing_summary": true,
+      "baseline": null,
+      "merged": null
+    },
+    {
+      "file": "tests/hermes_cli/test_update_launchd_fleet_restart.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Static classification only: upstream-identical test/source; original failures include live PID leakage and stale launchctl/systemctl warning expectations.",
+      "action": "DO NOT RUN on this host. Source-identical classification is provisional without a safe isolated-service baseline; recorded as unresolved safety exclusion.",
+      "original_failing_summary": true,
+      "baseline": null,
+      "merged": null
+    },
+    {
+      "file": "tests/perf_guards/test_pattern_b_scaling.py",
+      "classification": "environment-only",
+      "reason": "Original 20-worker run crossed the wall-clock scaling threshold once; original retry and both lower-concurrency per-file reruns pass.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": false,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/perf_guards/test_pattern_b_scaling.py"
+        ],
+        "counts": {
+          "passed": 2,
+          "xfailed": 1,
+          "xpassed": 1
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-149z1_m8/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-149z1_m8",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/perf_guards/test_pattern_b_scaling.py",
+        "label": "extra-base",
+        "log": "/tmp/hermes-triage-extra-base-tests__perf_guards__test_pattern_b_scaling.py.log",
+        "seconds": 1.6,
+        "summary": "2 passed, 1 xfailed, 1 xpassed in 1.30s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/perf_guards/test_pattern_b_scaling.py"
+        ],
+        "counts": {
+          "passed": 2,
+          "xfailed": 1,
+          "xpassed": 1
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-tu7b8ql0/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-tu7b8ql0",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/perf_guards/test_pattern_b_scaling.py",
+        "label": "extra-merged",
+        "log": "/tmp/hermes-triage-extra-merged-tests__perf_guards__test_pattern_b_scaling.py.log",
+        "seconds": 0.82,
+        "summary": "2 passed, 1 xfailed, 1 xpassed in 0.64s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/plugins/memory/test_hindsight_provider.py",
+      "classification": "environment-only",
+      "reason": "Optional hindsight-client/client_api dependencies are absent and lazy installs are disabled; identical dependency-driven failures on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/plugins/memory/test_hindsight_provider.py"
+        ],
+        "counts": {
+          "failed": 8,
+          "passed": 77,
+          "skipped": 1
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-9zaesaht/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-9zaesaht",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/plugins/memory/test_hindsight_provider.py::TestConfig::test_get_client_passes_idle_timeout_to_hindsight_embedded",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_prefetch_waits_for_server_completion_before_recall",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_prefetch_proceeds_after_server_wait_timeout",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_timed_out_ops_are_dropped_not_repolled",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_operation_notfound_treated_as_complete",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_transient_status_error_keeps_waiting",
+          "tests/plugins/memory/test_hindsight_provider.py::TestMultiplexBackgroundScope::test_writer_thread_resolves_profile_secret",
+          "tests/plugins/memory/test_hindsight_provider.py::TestMultiplexBackgroundScope::test_daemon_start_thread_resolves_profile_secret"
+        ],
+        "file": "tests/plugins/memory/test_hindsight_provider.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__plugins__memory__test_hindsight_provider.py.log",
+        "seconds": 6.38,
+        "summary": "8 failed, 77 passed, 1 skipped, 3 warnings in 5.93s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/plugins/memory/test_hindsight_provider.py"
+        ],
+        "counts": {
+          "failed": 8,
+          "passed": 77,
+          "skipped": 1
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-eezyploo/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-eezyploo",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/plugins/memory/test_hindsight_provider.py::TestConfig::test_get_client_passes_idle_timeout_to_hindsight_embedded",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_prefetch_waits_for_server_completion_before_recall",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_prefetch_proceeds_after_server_wait_timeout",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_timed_out_ops_are_dropped_not_repolled",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_operation_notfound_treated_as_complete",
+          "tests/plugins/memory/test_hindsight_provider.py::TestPrefetchServerRetainVisibility::test_transient_status_error_keeps_waiting",
+          "tests/plugins/memory/test_hindsight_provider.py::TestMultiplexBackgroundScope::test_writer_thread_resolves_profile_secret",
+          "tests/plugins/memory/test_hindsight_provider.py::TestMultiplexBackgroundScope::test_daemon_start_thread_resolves_profile_secret"
+        ],
+        "file": "tests/plugins/memory/test_hindsight_provider.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__plugins__memory__test_hindsight_provider.py.log",
+        "seconds": 2.31,
+        "summary": "8 failed, 77 passed, 1 skipped, 3 warnings in 2.13s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/run_agent/test_background_review.py",
+      "classification": "merge-induced",
+      "reason": "Early primary-route restoration from the carried AgentRuntime delta reaches a missing _fallback_activated attribute in the upstream bare-agent fixture. Exact parent passes 15; merged diagnostic run fails 4/15; initialized fixture passes 15. This local-delta incompatibility was inherited, not introduced by a conflict edit.",
+      "action": "Set the initialized fallback flag in the fixture and include captured worker errors in boundary assertions; preserve real runtime selection, cancellation, and relay ordering.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_background_review.py"
+        ],
+        "counts": {
+          "passed": 15
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-a7fulzu2/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-a7fulzu2",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/run_agent/test_background_review.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__run_agent__test_background_review.py.log",
+        "seconds": 2.0,
+        "summary": "15 passed in 1.57s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_background_review.py"
+        ],
+        "counts": {
+          "passed": 15
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-nqn4qs0g/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-nqn4qs0g",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/run_agent/test_background_review.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__run_agent__test_background_review.py.log",
+        "seconds": 1.13,
+        "summary": "15 passed in 0.84s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/run_agent/test_run_agent.py",
+      "classification": "environment-only",
+      "reason": "Original runner lacked anthropic. Both trees pass in Python 3.12 with the installed dependency; no streaming or provider source change is needed.",
+      "action": "Also port two carried runtime-host mock targets to model_tools.handle_function_call; 290 tests pass with compatibility warnings treated as errors.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_run_agent.py"
+        ],
+        "counts": {
+          "passed": 284
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-4fqvyuo4/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-4fqvyuo4",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/run_agent/test_run_agent.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__run_agent__test_run_agent.py.log",
+        "seconds": 38.78,
+        "summary": "284 passed in 37.99s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_run_agent.py"
+        ],
+        "counts": {
+          "passed": 290
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-93yr59xr/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-93yr59xr",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/run_agent/test_run_agent.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__run_agent__test_run_agent.py.log",
+        "seconds": 29.53,
+        "summary": "290 passed, 1 warning in 29.08s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/run_agent/test_streaming.py",
+      "classification": "environment-only",
+      "reason": "Original runner lacked anthropic. Both trees pass in Python 3.12 with the installed dependency; no streaming or provider source change is needed.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_streaming.py"
+        ],
+        "counts": {
+          "passed": 42
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-h9j0rp5p/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-h9j0rp5p",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/run_agent/test_streaming.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__run_agent__test_streaming.py.log",
+        "seconds": 9.02,
+        "summary": "42 passed in 8.38s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_streaming.py"
+        ],
+        "counts": {
+          "passed": 42
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-zh6wdin0/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-zh6wdin0",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/run_agent/test_streaming.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__run_agent__test_streaming.py.log",
+        "seconds": 7.0,
+        "summary": "42 passed in 6.66s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/run_agent/test_switch_model_reasoning_override.py",
+      "classification": "environment-only",
+      "reason": "Original runner lacked anthropic. Both trees pass in Python 3.12 with the installed dependency; no streaming or provider source change is needed.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_switch_model_reasoning_override.py"
+        ],
+        "counts": {
+          "passed": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-21dxs768/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-21dxs768",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/run_agent/test_switch_model_reasoning_override.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__run_agent__test_switch_model_reasoning_override.py.log",
+        "seconds": 1.52,
+        "summary": "2 passed in 1.09s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_switch_model_reasoning_override.py"
+        ],
+        "counts": {
+          "passed": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-inu2f_g0/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-inu2f_g0",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/run_agent/test_switch_model_reasoning_override.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__run_agent__test_switch_model_reasoning_override.py.log",
+        "seconds": 0.82,
+        "summary": "2 passed in 0.61s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/run_agent/test_tool_activity_heartbeat.py",
+      "classification": "pre-existing-upstream",
+      "reason": "The test expects two callbacks in 120ms while the implementation floors the interval at 100ms; reproduced unchanged on the exact parent.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_tool_activity_heartbeat.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 4
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-mqyoews3/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-mqyoews3",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/run_agent/test_tool_activity_heartbeat.py::test_heartbeat_touches_periodically_and_stops"
+        ],
+        "file": "tests/run_agent/test_tool_activity_heartbeat.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__run_agent__test_tool_activity_heartbeat.py.log",
+        "seconds": 3.4,
+        "summary": "1 failed, 4 passed in 2.93s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/run_agent/test_tool_activity_heartbeat.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 4
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-mot3yyny/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-mot3yyny",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/run_agent/test_tool_activity_heartbeat.py::test_heartbeat_touches_periodically_and_stops"
+        ],
+        "file": "tests/run_agent/test_tool_activity_heartbeat.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__run_agent__test_tool_activity_heartbeat.py.log",
+        "seconds": 2.01,
+        "summary": "1 failed, 4 passed in 1.82s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/scripts/test_contributor_map.py",
+      "classification": "environment-only",
+      "reason": "Case-insensitive macOS filesystem makes lower-case and mixed-case fixture paths alias; identical failure on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/scripts/test_contributor_map.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 10
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-vwowbix2/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-vwowbix2",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/scripts/test_contributor_map.py::test_add_contributor_refuses_a_case_collision"
+        ],
+        "file": "tests/scripts/test_contributor_map.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__scripts__test_contributor_map.py.log",
+        "seconds": 0.94,
+        "summary": "1 failed, 10 passed in 0.57s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/scripts/test_contributor_map.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 10
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-q7udjlbv/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-q7udjlbv",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/scripts/test_contributor_map.py::test_add_contributor_refuses_a_case_collision"
+        ],
+        "file": "tests/scripts/test_contributor_map.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__scripts__test_contributor_map.py.log",
+        "seconds": 0.5,
+        "summary": "1 failed, 10 passed in 0.35s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/state/test_write_lock_patience.py",
+      "classification": "pre-existing-upstream",
+      "reason": "The exhausted-patience assertion is timing-sensitive: exact parent fails once, merged passes, and isolated retries are recorded separately.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/state/test_write_lock_patience.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-koshj99n/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-koshj99n",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/state/test_write_lock_patience.py::TestTranscriptWritePatience::test_exhausted_patience_names_the_real_cause"
+        ],
+        "file": "tests/state/test_write_lock_patience.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__state__test_write_lock_patience.py.log",
+        "seconds": 9.67,
+        "summary": "1 failed, 5 passed in 9.29s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/state/test_write_lock_patience.py"
+        ],
+        "counts": {
+          "passed": 6
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-3gqzu4q8/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-3gqzu4q8",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/state/test_write_lock_patience.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__state__test_write_lock_patience.py.log",
+        "seconds": 8.88,
+        "summary": "6 passed in 8.65s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/test_guest_durability_barriers.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Default durability applies FULL (2), while the upstream unset-config test expects NORMAL (1); same failure on both trees.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_guest_durability_barriers.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-vgcu6fpr/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-vgcu6fpr",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/test_guest_durability_barriers.py::test_guest_barriers_leave_synchronous_alone_when_unset"
+        ],
+        "file": "tests/test_guest_durability_barriers.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__test_guest_durability_barriers.py.log",
+        "seconds": 0.88,
+        "summary": "1 failed, 2 passed in 0.42s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_guest_durability_barriers.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-k61vilwq/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-k61vilwq",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/test_guest_durability_barriers.py::test_guest_barriers_leave_synchronous_alone_when_unset"
+        ],
+        "file": "tests/test_guest_durability_barriers.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__test_guest_durability_barriers.py.log",
+        "seconds": 0.51,
+        "summary": "1 failed, 2 passed in 0.33s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/test_hermes_state.py",
+      "classification": "environment-only",
+      "reason": "Original Python 3.11 FTS trace assertion fails; both exact-parent and merged Python 3.12 per-file runs pass. Multi-file round2 pragma failures disappear with per-file isolation.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_hermes_state.py"
+        ],
+        "counts": {
+          "passed": 259,
+          "skipped": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-ji32usbg/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-ji32usbg",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/test_hermes_state.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__test_hermes_state.py.log",
+        "seconds": 9.89,
+        "summary": "259 passed, 2 skipped in 9.48s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_hermes_state.py"
+        ],
+        "counts": {
+          "passed": 259,
+          "skipped": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-f7aq6lay/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-f7aq6lay",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/test_hermes_state.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__test_hermes_state.py.log",
+        "seconds": 9.6,
+        "summary": "259 passed, 2 skipped in 9.33s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/test_managed_runtime_resolution.py",
+      "classification": "environment-only",
+      "reason": "Repository-wide AST guard descends into the nonstandard .venv-safe name and flags third-party mcp/cli/claude.py. The baseline has no in-tree venv; no Hermes source lookup is implicated.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_managed_runtime_resolution.py"
+        ],
+        "counts": {
+          "passed": 7
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-tvk5cftj/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-tvk5cftj",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/test_managed_runtime_resolution.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__test_managed_runtime_resolution.py.log",
+        "seconds": 1.78,
+        "summary": "7 passed in 1.38s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_managed_runtime_resolution.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 6
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-xp_7kvzl/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-xp_7kvzl",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/test_managed_runtime_resolution.py::test_no_unreviewed_bare_managed_runtime_lookups"
+        ],
+        "file": "tests/test_managed_runtime_resolution.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__test_managed_runtime_resolution.py.log",
+        "seconds": 2.92,
+        "summary": "1 failed, 6 passed in 2.69s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/test_tui_gateway_server.py",
+      "classification": "environment-only",
+      "reason": "Original dependency-sensitive provider enumeration and round2 multi-file toolset pollution disappear in clean Python 3.12 per-file runs on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_tui_gateway_server.py"
+        ],
+        "counts": {
+          "passed": 637
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-fqf16nit/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-fqf16nit",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/test_tui_gateway_server.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__test_tui_gateway_server.py.log",
+        "seconds": 40.46,
+        "summary": "637 passed in 39.64s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/test_tui_gateway_server.py"
+        ],
+        "counts": {
+          "passed": 641
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-bmem5n5s/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-bmem5n5s",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/test_tui_gateway_server.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__test_tui_gateway_server.py.log",
+        "seconds": 33.33,
+        "summary": "641 passed in 32.83s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_approval.py",
+      "classification": "pre-existing-upstream",
+      "reason": "The nonrecursive cleanup test expects an allowed result for a path that the current upstream protected-root policy denies; same assertion on both trees.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_approval.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 117
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-spw5klb8/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-spw5klb8",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_approval.py::TestDetectDangerousRm::test_nonrecursive_verification_artifact_cleanup_is_not_dangerous"
+        ],
+        "file": "tests/tools/test_approval.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_approval.py.log",
+        "seconds": 6.12,
+        "summary": "1 failed, 117 passed in 5.54s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_approval.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 117
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-npw1glbu/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-npw1glbu",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_approval.py::TestDetectDangerousRm::test_nonrecursive_verification_artifact_cleanup_is_not_dangerous"
+        ],
+        "file": "tests/tools/test_approval.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_approval.py.log",
+        "seconds": 4.93,
+        "summary": "1 failed, 117 passed in 4.54s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_code_kernel.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Parallel cell test observes an empty output instead of 1; reproduced on both trees with the same venv and isolated homes.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_code_kernel.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 21
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-roaj_6dv/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-roaj_6dv",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_code_kernel.py::TestKernelOwnershipAndLifecycle::test_parallel_cells_share_one_kernel_process"
+        ],
+        "file": "tests/tools/test_code_kernel.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_code_kernel.py.log",
+        "seconds": 8.47,
+        "summary": "1 failed, 21 passed in 7.92s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_code_kernel.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 21
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-h_e0kmu2/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-h_e0kmu2",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_code_kernel.py::TestKernelOwnershipAndLifecycle::test_parallel_cells_share_one_kernel_process"
+        ],
+        "file": "tests/tools/test_code_kernel.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_code_kernel.py.log",
+        "seconds": 7.45,
+        "summary": "1 failed, 21 passed in 7.10s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_code_kernel_remote.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Original run exposed dictionary-changed-size during unsynchronized iteration over _REMOTE_KERNELS. Source is upstream-identical; original retry and both fresh per-file reruns pass.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": false,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_code_kernel_remote.py"
+        ],
+        "counts": {
+          "passed": 13
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-c105eu8u/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-c105eu8u",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_code_kernel_remote.py",
+        "label": "extra-base",
+        "log": "/tmp/hermes-triage-extra-base-tests__tools__test_code_kernel_remote.py.log",
+        "seconds": 3.65,
+        "summary": "13 passed in 3.24s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_code_kernel_remote.py"
+        ],
+        "counts": {
+          "passed": 13
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-tjujdh2c/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-tjujdh2c",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_code_kernel_remote.py",
+        "label": "extra-merged",
+        "log": "/tmp/hermes-triage-extra-merged-tests__tools__test_code_kernel_remote.py.log",
+        "seconds": 3.26,
+        "summary": "13 passed in 3.02s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_daytona_environment.py",
+      "classification": "environment-only",
+      "reason": "Optional daytona==0.155.0 is absent and lazy installs are disabled; all 15 cases fail identically on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_daytona_environment.py"
+        ],
+        "counts": {
+          "failed": 15
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-m4v_dt27/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-m4v_dt27",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_daytona_environment.py::TestCwdResolution::test_default_cwd_resolves_home",
+          "tests/tools/test_daytona_environment.py::TestCwdResolution::test_empty_home_keeps_default_cwd",
+          "tests/tools/test_daytona_environment.py::TestPersistence::test_persistent_resumes_via_get",
+          "tests/tools/test_daytona_environment.py::TestPersistence::test_non_persistent_skips_lookup",
+          "tests/tools/test_daytona_environment.py::TestCleanup::test_persistent_cleanup_stops_sandbox",
+          "tests/tools/test_daytona_environment.py::TestCleanup::test_cleanup_swallows_errors",
+          "tests/tools/test_daytona_environment.py::TestExecute::test_basic_command",
+          "tests/tools/test_daytona_environment.py::TestExecute::test_daytona_error_triggers_retry",
+          "tests/tools/test_daytona_environment.py::TestResourceConversion::test_memory_converted_to_gib",
+          "tests/tools/test_daytona_environment.py::TestResourceConversion::test_small_values_clamped_to_1",
+          "tests/tools/test_daytona_environment.py::TestInterrupt::test_interrupt_stops_sandbox_and_returns_130",
+          "tests/tools/test_daytona_environment.py::TestRetryExhausted::test_both_attempts_fail",
+          "tests/tools/test_daytona_environment.py::TestEnsureSandboxReady::test_restarts_stopped_sandbox",
+          "tests/tools/test_daytona_environment.py::TestEnsureSandboxReady::test_no_restart_when_running",
+          "tests/tools/test_daytona_environment.py::TestSyncSafety::test_single_upload_quotes_parent_path"
+        ],
+        "file": "tests/tools/test_daytona_environment.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_daytona_environment.py.log",
+        "seconds": 1.86,
+        "summary": "15 failed in 1.27s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_daytona_environment.py"
+        ],
+        "counts": {
+          "failed": 15
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-8zurhraj/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-8zurhraj",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_daytona_environment.py::TestCwdResolution::test_default_cwd_resolves_home",
+          "tests/tools/test_daytona_environment.py::TestCwdResolution::test_empty_home_keeps_default_cwd",
+          "tests/tools/test_daytona_environment.py::TestPersistence::test_persistent_resumes_via_get",
+          "tests/tools/test_daytona_environment.py::TestPersistence::test_non_persistent_skips_lookup",
+          "tests/tools/test_daytona_environment.py::TestCleanup::test_persistent_cleanup_stops_sandbox",
+          "tests/tools/test_daytona_environment.py::TestCleanup::test_cleanup_swallows_errors",
+          "tests/tools/test_daytona_environment.py::TestExecute::test_basic_command",
+          "tests/tools/test_daytona_environment.py::TestExecute::test_daytona_error_triggers_retry",
+          "tests/tools/test_daytona_environment.py::TestResourceConversion::test_memory_converted_to_gib",
+          "tests/tools/test_daytona_environment.py::TestResourceConversion::test_small_values_clamped_to_1",
+          "tests/tools/test_daytona_environment.py::TestInterrupt::test_interrupt_stops_sandbox_and_returns_130",
+          "tests/tools/test_daytona_environment.py::TestRetryExhausted::test_both_attempts_fail",
+          "tests/tools/test_daytona_environment.py::TestEnsureSandboxReady::test_restarts_stopped_sandbox",
+          "tests/tools/test_daytona_environment.py::TestEnsureSandboxReady::test_no_restart_when_running",
+          "tests/tools/test_daytona_environment.py::TestSyncSafety::test_single_upload_quotes_parent_path"
+        ],
+        "file": "tests/tools/test_daytona_environment.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_daytona_environment.py.log",
+        "seconds": 1.23,
+        "summary": "15 failed in 0.99s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_delegate.py",
+      "classification": "environment-only",
+      "reason": "Original assertion compares /tmp or /var to their /private aliases as strings. Both trees pass with canonical /private/tmp temporary paths; child DB still targets the parent profile.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_delegate.py"
+        ],
+        "counts": {
+          "passed": 81
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-cw07iurm/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-cw07iurm",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_delegate.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_delegate.py.log",
+        "seconds": 7.69,
+        "summary": "81 passed in 6.89s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_delegate.py"
+        ],
+        "counts": {
+          "passed": 81
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-xrw_dqtv/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-xrw_dqtv",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_delegate.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_delegate.py.log",
+        "seconds": 5.32,
+        "summary": "81 passed in 4.92s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_execution_flag_detection.py",
+      "classification": "environment-only",
+      "reason": "Fixture assumes GNU sort/man/script option semantics; macOS binaries do not execute the leading-dash marker. Identical three failures on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_execution_flag_detection.py"
+        ],
+        "counts": {
+          "failed": 3,
+          "passed": 81,
+          "skipped": 1
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-mwgdtot4/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-mwgdtot4",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_execution_flag_detection.py::test_real_binaries_execute_leading_dash_program_payload[sort-args2-{bulk}-False]",
+          "tests/tools/test_execution_flag_detection.py::test_real_binaries_execute_leading_dash_program_payload[man-args4-None-True]",
+          "tests/tools/test_execution_flag_detection.py::test_real_binaries_execute_leading_dash_program_payload[man-args5-None-True]"
+        ],
+        "file": "tests/tools/test_execution_flag_detection.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_execution_flag_detection.py.log",
+        "seconds": 75.28,
+        "summary": "3 failed, 81 passed, 1 skipped in 74.81s (0:01:14)",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_execution_flag_detection.py"
+        ],
+        "counts": {
+          "failed": 3,
+          "passed": 81,
+          "skipped": 1
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-qqrg69gk/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-qqrg69gk",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_execution_flag_detection.py::test_real_binaries_execute_leading_dash_program_payload[sort-args2-{bulk}-False]",
+          "tests/tools/test_execution_flag_detection.py::test_real_binaries_execute_leading_dash_program_payload[man-args4-None-True]",
+          "tests/tools/test_execution_flag_detection.py::test_real_binaries_execute_leading_dash_program_payload[man-args5-None-True]"
+        ],
+        "file": "tests/tools/test_execution_flag_detection.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_execution_flag_detection.py.log",
+        "seconds": 73.58,
+        "summary": "3 failed, 81 passed, 1 skipped in 73.30s (0:01:13)",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_file_tools.py",
+      "classification": "environment-only",
+      "reason": "Expected /tmp paths differ from macOS canonical /private/tmp paths; two identical mock-argument failures on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_file_tools.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 45,
+          "skipped": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-dvopuyw5/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-dvopuyw5",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_file_tools.py::TestWriteFileHandler::test_writes_content",
+          "tests/tools/test_file_tools.py::TestPatchHandler::test_replace_mode_calls_patch_replace"
+        ],
+        "file": "tests/tools/test_file_tools.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_file_tools.py.log",
+        "seconds": 3.05,
+        "summary": "2 failed, 45 passed, 2 skipped in 1.96s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_file_tools.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 45,
+          "skipped": 2
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-wqsmlk37/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-wqsmlk37",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_file_tools.py::TestWriteFileHandler::test_writes_content",
+          "tests/tools/test_file_tools.py::TestPatchHandler::test_replace_mode_calls_patch_replace"
+        ],
+        "file": "tests/tools/test_file_tools.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_file_tools.py.log",
+        "seconds": 2.42,
+        "summary": "2 failed, 45 passed, 2 skipped in 1.83s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_file_tools_live.py",
+      "classification": "environment-only",
+      "reason": "Original run hit a process-exit cleanup race (ProcessLookupError); original retry and both fresh per-file reruns pass.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": false,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_file_tools_live.py"
+        ],
+        "counts": {
+          "passed": 21
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-wwpfresa/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-wwpfresa",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_file_tools_live.py",
+        "label": "extra-base",
+        "log": "/tmp/hermes-triage-extra-base-tests__tools__test_file_tools_live.py.log",
+        "seconds": 3.01,
+        "summary": "21 passed in 2.79s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_file_tools_live.py"
+        ],
+        "counts": {
+          "passed": 21
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-i123rcy8/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-i123rcy8",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_file_tools_live.py",
+        "label": "extra-merged",
+        "log": "/tmp/hermes-triage-extra-merged-tests__tools__test_file_tools_live.py.log",
+        "seconds": 2.7,
+        "summary": "21 passed in 2.49s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_process_registry.py",
+      "classification": "environment-only",
+      "reason": "Eight upstream systemd-scope tests are not Linux-marked and run on macOS, where the production systemd gate correctly stays off. Same failures on both trees; round2 grace-value pollution disappears per-file.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_process_registry.py"
+        ],
+        "counts": {
+          "failed": 8,
+          "passed": 94,
+          "skipped": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-7q9wzok9/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-7q9wzok9",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_wraps_in_systemd_scope_when_supervisor_and_available",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_post_spawn_failure_never_kills_gateway_process_group",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_is_wrapped_in_systemd_scope",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_run_user_scope_available_caches_after_probe",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_scope_first_probe_is_serialized",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_failed_systemd_probe_retries_after_cache_ttl"
+        ],
+        "file": "tests/tools/test_process_registry.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_process_registry.py.log",
+        "seconds": 10.71,
+        "summary": "8 failed, 94 passed, 5 skipped, 1 warning in 10.14s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_process_registry.py"
+        ],
+        "counts": {
+          "failed": 8,
+          "passed": 94,
+          "skipped": 5
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-2llqnyus/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-2llqnyus",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_wraps_in_systemd_scope_when_supervisor_and_available",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_post_spawn_failure_never_kills_gateway_process_group",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_is_wrapped_in_systemd_scope",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_run_user_scope_available_caches_after_probe",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_scope_first_probe_is_serialized",
+          "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_failed_systemd_probe_retries_after_cache_ttl"
+        ],
+        "file": "tests/tools/test_process_registry.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_process_registry.py.log",
+        "seconds": 10.3,
+        "summary": "8 failed, 94 passed, 5 skipped, 1 warning in 9.99s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_read_file_utf8_binary_regression.py",
+      "classification": "environment-only",
+      "reason": "Native rg cleanup encounters macOS killpg PermissionError; identical failure on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_read_file_utf8_binary_regression.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 11
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-0w7tn_on/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-0w7tn_on",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_read_file_utf8_binary_regression.py::TestSiblingSites::test_search_finds_cjk_content"
+        ],
+        "file": "tests/tools/test_read_file_utf8_binary_regression.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_read_file_utf8_binary_regression.py.log",
+        "seconds": 3.11,
+        "summary": "1 failed, 11 passed in 2.60s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_read_file_utf8_binary_regression.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 11
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-thtljtu1/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-thtljtu1",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_read_file_utf8_binary_regression.py::TestSiblingSites::test_search_finds_cjk_content"
+        ],
+        "file": "tests/tools/test_read_file_utf8_binary_regression.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_read_file_utf8_binary_regression.py.log",
+        "seconds": 2.07,
+        "summary": "1 failed, 11 passed in 1.77s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_search_native_rg.py",
+      "classification": "environment-only",
+      "reason": "Original rg native subprocess failures disappear with the clean venv/PATH and per-file environment on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_search_native_rg.py"
+        ],
+        "counts": {
+          "passed": 3
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-giv6ppnf/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-giv6ppnf",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_search_native_rg.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_search_native_rg.py.log",
+        "seconds": 4.23,
+        "summary": "3 passed in 3.78s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_search_native_rg.py"
+        ],
+        "counts": {
+          "passed": 3
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-hmyklra9/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-hmyklra9",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_search_native_rg.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_search_native_rg.py.log",
+        "seconds": 3.61,
+        "summary": "3 passed in 3.36s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_search_zero_match_and_multipath.py",
+      "classification": "environment-only",
+      "reason": "Original rg subprocess failures disappear with the clean venv/PATH and per-file environment on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_search_zero_match_and_multipath.py"
+        ],
+        "counts": {
+          "passed": 19
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-busxfo09/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-busxfo09",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_search_zero_match_and_multipath.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_search_zero_match_and_multipath.py.log",
+        "seconds": 2.56,
+        "summary": "19 passed in 2.01s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_search_zero_match_and_multipath.py"
+        ],
+        "counts": {
+          "passed": 19
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-75c2d4vt/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-75c2d4vt",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 0,
+        "failures": [],
+        "file": "tests/tools/test_search_zero_match_and_multipath.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_search_zero_match_and_multipath.py.log",
+        "seconds": 2.01,
+        "summary": "19 passed in 1.57s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_transcription_tools.py",
+      "classification": "pre-existing-upstream",
+      "reason": "Both trees fail the compute-type mock expectation (int8 versus float32) and the 100ms command-idle deadline; retained as upstream test/configuration and timing failures.",
+      "action": "Leave unchanged; not a merge regression.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_transcription_tools.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 52
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-c349azii/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-c349azii",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_transcription_tools.py::TestTranscribeLocalExtended::test_config_device_and_compute_type_passed_to_whisper",
+          "tests/tools/test_transcription_tools.py::TestRunCommandSttIdleTimeout::test_stderr_progress_extends_beyond_timeout"
+        ],
+        "file": "tests/tools/test_transcription_tools.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_transcription_tools.py.log",
+        "seconds": 3.78,
+        "summary": "2 failed, 52 passed in 3.23s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_transcription_tools.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 52
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-6ztotgs7/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-6ztotgs7",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_transcription_tools.py::TestTranscribeLocalExtended::test_config_device_and_compute_type_passed_to_whisper",
+          "tests/tools/test_transcription_tools.py::TestRunCommandSttIdleTimeout::test_stderr_progress_extends_beyond_timeout"
+        ],
+        "file": "tests/tools/test_transcription_tools.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_transcription_tools.py.log",
+        "seconds": 2.85,
+        "summary": "2 failed, 52 passed in 2.52s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_voice_mode.py",
+      "classification": "environment-only",
+      "reason": "Remaining WSL2 shell assumptions fail on macOS on both trees; per-file isolation also removes the round2 Pulse socket contamination.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_voice_mode.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 38,
+          "skipped": 22
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-fbpkwy2h/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-fbpkwy2h",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_voice_mode.py::TestWSL2PowerShellFallback::test_powershell_pipeline_preserves_real_exit_status",
+          "tests/tools/test_voice_mode.py::TestWSL2PowerShellFallback::test_wsl2_unique_temp_filename"
+        ],
+        "file": "tests/tools/test_voice_mode.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_voice_mode.py.log",
+        "seconds": 2.04,
+        "summary": "2 failed, 38 passed, 22 skipped in 1.54s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_voice_mode.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 38,
+          "skipped": 22
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-gm473mw4/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-gm473mw4",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_voice_mode.py::TestWSL2PowerShellFallback::test_powershell_pipeline_preserves_real_exit_status",
+          "tests/tools/test_voice_mode.py::TestWSL2PowerShellFallback::test_wsl2_unique_temp_filename"
+        ],
+        "file": "tests/tools/test_voice_mode.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_voice_mode.py.log",
+        "seconds": 1.56,
+        "summary": "2 failed, 38 passed, 22 skipped in 1.24s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_wake_word.py",
+      "classification": "environment-only",
+      "reason": "Optional ai-edge-litert/tflite runtime is absent on this Mac; same dependency failure on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_wake_word.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 24,
+          "skipped": 4
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-3m836oeu/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-3m836oeu",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_wake_word.py::test_openwakeword_ensures_base_models_for_custom_path"
+        ],
+        "file": "tests/tools/test_wake_word.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_wake_word.py.log",
+        "seconds": 2.27,
+        "summary": "1 failed, 24 passed, 4 skipped in 1.78s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_wake_word.py"
+        ],
+        "counts": {
+          "failed": 1,
+          "passed": 24,
+          "skipped": 4
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-c_b3s8vk/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-c_b3s8vk",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_wake_word.py::test_openwakeword_ensures_base_models_for_custom_path"
+        ],
+        "file": "tests/tools/test_wake_word.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_wake_word.py.log",
+        "seconds": 1.82,
+        "summary": "1 failed, 24 passed, 4 skipped in 1.56s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    },
+    {
+      "file": "tests/tools/test_web_tools_config.py",
+      "classification": "environment-only",
+      "reason": "Optional parallel-web==0.4.2 is absent and lazy installs are disabled; identical dependency errors on both trees.",
+      "action": "Use the verified isolated Python 3.12 runner; leave product/test policy unchanged.",
+      "original_failing_summary": true,
+      "baseline": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_web_tools_config.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 50
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-rst29l53/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-rst29l53",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_web_tools_config.py::TestParallelClientConfig::test_creates_client_with_key",
+          "tests/tools/test_web_tools_config.py::TestParallelClientConfig::test_singleton_returns_same_instance"
+        ],
+        "file": "tests/tools/test_web_tools_config.py",
+        "label": "differential-base",
+        "log": "/tmp/hermes-triage-differential-base-tests__tools__test_web_tools_config.py.log",
+        "seconds": 2.55,
+        "summary": "2 failed, 50 passed in 2.08s",
+        "tree": "/tmp/hermes-triage-base-63ec22e797"
+      },
+      "merged": {
+        "command": [
+          "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "tests/tools/test_web_tools_config.py"
+        ],
+        "counts": {
+          "failed": 2,
+          "passed": 50
+        },
+        "environment": {
+          "GIT_CONFIG_GLOBAL": "/dev/null",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "HERMES_HOME": "/private/tmp/hermes-triage-home-v5vlvk2p/.hermes",
+          "HOME": "/private/tmp/hermes-triage-home-v5vlvk2p",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8",
+          "PATH": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONHASHSEED": "0",
+          "PYTHONUTF8": "1",
+          "TMPDIR": "/private/tmp",
+          "TZ": "UTC"
+        },
+        "exit": 1,
+        "failures": [
+          "tests/tools/test_web_tools_config.py::TestParallelClientConfig::test_creates_client_with_key",
+          "tests/tools/test_web_tools_config.py::TestParallelClientConfig::test_singleton_returns_same_instance"
+        ],
+        "file": "tests/tools/test_web_tools_config.py",
+        "label": "differential-merged",
+        "log": "/tmp/hermes-triage-differential-merged-tests__tools__test_web_tools_config.py.log",
+        "seconds": 1.75,
+        "summary": "2 failed, 50 passed in 1.52s",
+        "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+      }
+    }
+  ],
+  "counts": {
+    "pre-existing-upstream": 14,
+    "environment-only": 39,
+    "merge-induced": 1
+  },
+  "original_summary_counts": {
+    "environment-only": 34,
+    "pre-existing-upstream": 12,
+    "merge-induced": 1
+  }
+}

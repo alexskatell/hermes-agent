@@ -1,0 +1,12 @@
+[
+  "tests/agent/test_turn_runtime_fallback.py",
+  "tests/run_agent/test_runtime_fallback_integration.py",
+  "tests/agent/test_runtime_iteration_progress.py",
+  "tests/run_agent/test_provider_fallback.py",
+  "tests/tools/test_async_delegation.py",
+  "tests/gateway/test_completion_delivery.py",
+  "tests/gateway/test_runtime_merge_delivery_identity.py",
+  "tests/gateway/test_fallback_chain_reload.py",
+  "tests/agent/test_sdk_iteration_progress.py",
+  "tests/run_agent/test_background_review.py"
+]

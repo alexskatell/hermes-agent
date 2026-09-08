@@ -1,0 +1,6 @@
+[
+  "tests/agent/test_codex_aux_timeout_fd_ownership.py",
+  "tests/agent/test_auxiliary_client.py",
+  "tests/state/test_write_lock_patience.py",
+  "tests/run_agent/test_tool_activity_heartbeat.py"
+]

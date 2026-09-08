@@ -1,0 +1,159 @@
+[
+  {
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/triage-files.json --label differential --trees both --jobs 4 > /tmp/hermes-triage-differential.log 2>&1",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "results": {
+      "differential-base": {
+        "file_count": 48,
+        "test_counts": {
+          "passed": 2666,
+          "failed": 63,
+          "skipped": 44
+        },
+        "timeouts": 1,
+        "absent": 1
+      },
+      "differential-merged": {
+        "file_count": 48,
+        "test_counts": {
+          "passed": 2680,
+          "failed": 61,
+          "skipped": 44
+        },
+        "timeouts": 1,
+        "absent": 0
+      }
+    },
+    "per_file_receipts": "merge-evidence/differential.jsonl"
+  },
+  {
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/regression-files.json --label regression --trees merged --jobs 3 > /tmp/hermes-triage-regression.log 2>&1",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "results": {
+      "regression-merged": {
+        "file_count": 10,
+        "test_counts": {
+          "passed": 163
+        },
+        "timeouts": 0,
+        "absent": 0
+      }
+    },
+    "per_file_receipts": "merge-evidence/regression.jsonl"
+  },
+  {
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/extra-files.json --label extra --trees both --jobs 2 > /tmp/hermes-triage-extra.log 2>&1",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "results": {
+      "extra-base": {
+        "file_count": 4,
+        "test_counts": {
+          "passed": 43,
+          "xfailed": 1,
+          "xpassed": 1
+        },
+        "timeouts": 0,
+        "absent": 0
+      },
+      "extra-merged": {
+        "file_count": 4,
+        "test_counts": {
+          "passed": 43,
+          "xfailed": 1,
+          "xpassed": 1
+        },
+        "timeouts": 0,
+        "absent": 0
+      }
+    },
+    "per_file_receipts": "merge-evidence/extra.jsonl"
+  },
+  {
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/retry-files.json --label retry --trees both --jobs 1 > /tmp/hermes-triage-retry.log 2>&1",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "results": {
+      "retry-base": {
+        "file_count": 4,
+        "test_counts": {
+          "failed": 2,
+          "passed": 215
+        },
+        "timeouts": 0,
+        "absent": 0
+      },
+      "retry-merged": {
+        "file_count": 4,
+        "test_counts": {
+          "passed": 216,
+          "failed": 1
+        },
+        "timeouts": 0,
+        "absent": 0
+      }
+    },
+    "per_file_receipts": "merge-evidence/retry.jsonl"
+  },
+  {
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/final-regression-files.json --label final-regression --trees merged --jobs 3 > /tmp/hermes-triage-final-regression.log 2>&1",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "results": {
+      "final-regression-merged": {
+        "file_count": 11,
+        "test_counts": {
+          "passed": 453
+        },
+        "timeouts": 0,
+        "absent": 0
+      }
+    },
+    "per_file_receipts": "merge-evidence/final-regression.jsonl"
+  },
+  {
+    "command": "env -i PATH=\"$PWD/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin\" HOME=\"$(mktemp -d /private/tmp/hermes-triage-repro-XXXXXX)\" TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0 .venv-safe/bin/python -m pytest -q -p no:cacheprovider tests/run_agent/test_background_review.py > /tmp/hermes-triage-background-red.log 2>&1; printf 'EXIT=%s\\n' \"$?\"",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "test_summary": "4 failed, 11 passed in 1.73s",
+    "pytest_exit": 1
+  },
+  {
+    "command": "env -i PATH=\"$PWD/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin\" HOME=\"$(mktemp -d /private/tmp/hermes-triage-repro-XXXXXX)\" TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0 .venv-safe/bin/python -m pytest -q -p no:cacheprovider tests/run_agent/test_background_review.py > /tmp/hermes-triage-background-green.log 2>&1; printf 'EXIT=%s\\n' \"$?\"",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "test_summary": "15 passed in 0.92s",
+    "pytest_exit": 0
+  },
+  {
+    "command": "env -i PATH=\"$PWD/.venv-safe/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin\" HOME=\"$(mktemp -d /private/tmp/hermes-triage-compat-XXXXXX)\" TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0 .venv-safe/bin/python -m pytest -q -p no:cacheprovider -W error::hermes_cli.plugin_compat.HermesPluginCompatWarning tests/run_agent/test_run_agent.py > /tmp/hermes-triage-canonical-dispatch.log 2>&1; printf 'EXIT=%s\\n' \"$?\"",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "test_summary": "290 passed in 27.33s",
+    "pytest_exit": 0
+  },
+  {
+    "command": ".venv-safe/bin/ruff check gateway/wake.py tests/agent/test_sdk_iteration_progress.py tests/run_agent/test_background_review.py tests/run_agent/test_run_agent.py merge-evidence/run_triage.py",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "result": "First run: one PLW1514 in the new runner; fixed by specifying UTF-8. Final run: All checks passed!"
+  },
+  {
+    "command": "git diff --check",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "result": "passed"
+  },
+  {
+    "command": "git apply --reverse --check --directory=.venv-safe/lib/python3.12/site-packages scripts/runtime-plugin-patches/claude-sdk-0.1.0-host-delta.patch",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "result": "passed: installed plugin matches tracked patch"
+  },
+  {
+    "command": "uv pip check --python .venv-safe/bin/python",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "result": "134 packages checked; all installed packages compatible"
+  },
+  {
+    "command": "git diff 34cb9cb601 -- gateway/run_turn_runner.py",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "result": "empty: pending live commentary buffering was not imported"
+  },
+  {
+    "command": "git -C /tmp/hermes-triage-base-63ec22e797 diff --exit-code",
+    "workdir": "/Users/oc/workspace/hermes-upstream-merge-20260908",
+    "result": "passed: exact baseline tracked source remained unchanged"
+  }
+]

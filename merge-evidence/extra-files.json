@@ -1,0 +1,6 @@
+[
+  "tests/perf_guards/test_pattern_b_scaling.py",
+  "tests/tools/test_code_kernel_remote.py",
+  "tests/tools/test_file_tools_live.py",
+  "tests/gateway/test_watchdog_review_76354.py"
+]
