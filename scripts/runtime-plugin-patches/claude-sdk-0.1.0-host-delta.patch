@@ -1,0 +1,83 @@
+--- a/hermes_claude_agent_sdk/configuration.py
++++ b/hermes_claude_agent_sdk/configuration.py
+@@ -70,7 +70,7 @@
+         setting_sources: tuple[str, ...] = (),
+         mcp_servers: Mapping[str, object] | None = None,
+         allowed_tools: tuple[str, ...] = (),
+-        turn_timeout_seconds: float = 600.0,
++        turn_timeout_seconds: float = 14400.0,
+         connect_timeout_seconds: float = 60.0,
+         close_timeout_seconds: float = 15.0,
+     ) -> "SDKSessionConfiguration":
+--- a/hermes_claude_agent_sdk/content_events.py
++++ b/hermes_claude_agent_sdk/content_events.py
+@@ -32,6 +32,7 @@
+     RuntimeCompletedEvent,
+     RuntimeContentEvent,
+     RuntimeEvent,
++    RuntimeIterationEvent,
+     RuntimeToolRequestEvent,
+     RuntimeUsageEvent,
+     RuntimeUsageReceipt,
+@@ -434,6 +435,7 @@
+         self._provider = _safe_identifier(provider, default="claude-agent-sdk")
+         self._selected_model = _safe_model_identifier(model)
+         self._reported_models: set[str] = set()
++        self._response_ids: set[str] = set()
+         self._usage_models: set[str] = set()
+         self._usage_canonical_models: dict[str, str | None] = {}
+         self._usage_malformed = False
+@@ -459,6 +461,7 @@
+         contaminating a later turn.
+         """
+         self._reported_models.clear()
++        self._response_ids.clear()
+         self._usage_models.clear()
+         self._usage_canonical_models.clear()
+         self._usage_malformed = False
+@@ -470,15 +473,34 @@
+         name = _sdk_type_name(message)
+         if name == "AssistantMessage":
+             return self._project_assistant(message)
++        if name == "StreamEvent":
++            return ProjectionResult(events=self._iteration_events(message))
+         if name == "UserMessage":
+             return self._project_user(message)
+         if name == "ResultMessage":
+             return self._project_result(message)
+         if name == "SystemMessage":
+             self._observe_init_model(message)
+-        # SystemMessage, StreamEvent, and unknown lifecycle types are
+-        # display/bookkeeping only and never enter the public event stream.
++        # Unknown lifecycle payloads never become visible content or status.
+         return ProjectionResult()
++
++    def _iteration_events(self, message: Any) -> tuple[RuntimeEvent, ...]:
++        """Count root model responses once, across streamed and assembled frames."""
++        if _safe_attr(message, "parent_tool_use_id") not in (None, ""):
++            return ()
++        if _sdk_type_name(message) == "StreamEvent":
++            event = _safe_attr(message, "event")
++            if _mapping_value(event, "type") != "message_start":
++                return ()
++            message_id = _mapping_value(_mapping_value(event, "message"), "id")
++        else:
++            message_id = _safe_attr(message, "message_id")
++        if not isinstance(message_id, str) or not message_id or len(message_id) > _MAX_IDENTIFIER_CHARS:
++            return ()
++        if message_id in self._response_ids:
++            return ()
++        self._response_ids.add(message_id)
++        return (RuntimeIterationEvent(iteration=len(self._response_ids)),)
+ 
+     def _observe_init_model(self, message: Any) -> None:
+         """Retain only a validated SDK init model as session evidence."""
+@@ -697,7 +719,7 @@
+             # Their private/provider-specific data is intentionally omitted.
+ 
+         text = "\n".join(text_parts)[:_MAX_TEXT_CHARS] if text_parts else None
+-        events: list[RuntimeEvent] = []
++        events: list[RuntimeEvent] = list(self._iteration_events(message))
+         if text:
+             events.append(RuntimeContentEvent(text=text))
+         events.extend(tool_events)

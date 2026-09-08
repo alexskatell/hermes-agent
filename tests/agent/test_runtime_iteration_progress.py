@@ -16,7 +16,7 @@ def test_iteration_event_rejects_invalid_counts(value):
 
 
 def test_host_progress_is_monotonic_and_resets_for_next_turn():
-    agent = SimpleNamespace(_api_call_count=99, _touch_activity=lambda **kwargs: None)
+    agent = SimpleNamespace(_api_call_count=99, _touch_activity=lambda *args, **kwargs: None)
     host = HermesRuntimeHostServices(agent, task_id="test", runtime_id="test-runtime")
     assert agent._api_call_count == 0
 

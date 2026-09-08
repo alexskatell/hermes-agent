@@ -15,6 +15,12 @@
       "delivery_owner": "host"
     },
     "host_status_v1": {},
+    "iteration_progress_v1": {
+      "consumer": "RuntimeHostServices.emit_iteration",
+      "event_type": "RuntimeIterationEvent",
+      "scope": "turn",
+      "validation": "positive integer, monotonically increasing within the turn"
+    },
     "host_tool_execution_v1": {},
     "host_tool_request_id_v1": {
       "consumer": "RuntimeHostServices.execute_tool",

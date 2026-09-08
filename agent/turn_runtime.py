@@ -283,6 +283,11 @@ def run_registered_runtime(agent: Any, runtime_registration: Any, context: Any) 
             runtime_api_calls, bool
         ):
             runtime_api_calls = 0
+        # Iteration events may be the only count on failed/cancelled SDK turns.
+        # Host progress resets at the turn boundary; finalization must not erase it.
+        observed_api_calls = getattr(agent, "_api_call_count", 0)
+        if type(observed_api_calls) is int:
+            runtime_api_calls = max(runtime_api_calls, observed_api_calls)
         runtime_failure = dispatched.failure
         runtime_cancelled = dispatched.cancelled
         runtime_final_response = (

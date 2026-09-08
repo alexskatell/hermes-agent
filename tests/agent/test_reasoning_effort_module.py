@@ -147,6 +147,7 @@ class TestCodexVocabulary:
                 tools=[],
                 provider="openai-codex",
                 base_url="https://chatgpt.com/backend-api/codex",
+                is_codex_backend=True,
                 reasoning_config={"enabled": True, "effort": "max"},
             )
             assert kwargs["reasoning"]["effort"] == expected
