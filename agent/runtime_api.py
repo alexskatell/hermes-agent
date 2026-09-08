@@ -38,6 +38,7 @@ HOST_RUNTIME_CAPABILITIES: FrozenSet[str] = frozenset(
         "host_status_v1",
         "host_tool_execution_v1",
         "host_tool_request_id_v1",
+        "iteration_progress_v1",
         "provider_profile_registration_v1",
         "runtime_model_provenance_v1",
         "runtime_state_v1",
@@ -80,6 +81,7 @@ class RuntimeFailurePhase(str, Enum):
 class RuntimeEventKind(str, Enum):
     CONTENT = "content"
     STATUS = "status"
+    ITERATION = "iteration"
     TOOL_REQUEST = "tool_request"
     APPROVAL_REQUEST = "approval_request"
     SESSION_STATE = "session_state"
@@ -345,6 +347,18 @@ class RuntimeStatusEvent:
 
 
 @dataclass(frozen=True)
+class RuntimeIterationEvent:
+    """One-based model iteration within this turn, never a tool/chunk count."""
+
+    iteration: int
+    kind: RuntimeEventKind = field(default=RuntimeEventKind.ITERATION, init=False)
+
+    def __post_init__(self) -> None:
+        if type(self.iteration) is not int or self.iteration < 1:
+            raise ValueError("runtime iteration must be a positive integer")
+
+
+@dataclass(frozen=True)
 class RuntimeToolRequestEvent:
     request_id: str
     name: str
@@ -403,6 +417,7 @@ class RuntimeFailedEvent:
 RuntimeEvent: TypeAlias = (
     RuntimeContentEvent
     | RuntimeStatusEvent
+    | RuntimeIterationEvent
     | RuntimeToolRequestEvent
     | RuntimeApprovalRequestEvent
     | RuntimeCompactionEvent
@@ -431,6 +446,8 @@ class RuntimeHostServices(Protocol):
     ) -> bool: ...
 
     async def emit_status(self, message: str) -> None: ...
+
+    async def emit_iteration(self, iteration: int) -> None: ...
 
     async def emit_content(self, text: str) -> None: ...
 

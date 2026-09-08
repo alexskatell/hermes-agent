@@ -127,6 +127,46 @@ class TestGenerateTitle:
         with patch("agent.title_generator.call_llm", return_value=mock_response):
             assert generate_title("question", "answer") == "Investigate the title resolver bug"
 
+    @pytest.mark.parametrize("fragment", [
+        '{"title',
+        '{"{"title": "Explain model configuration for main and sub',
+        '"title": "Fix login button on mob',
+        '<think>naming it</think>{"title',
+    ])
+    def test_rejects_truncated_json_fragment(self, fragment):
+        """A reasoning model that spends ``max_tokens`` thinking returns a cut-off JSON payload.
+        Neither JSON parse can salvage it, and the prose fallback must not adopt the raw fragment:
+        it was persisted verbatim and renamed Discord threads to '{"title'."""
+        mock_response = MagicMock()
+        mock_response.choices = [MagicMock()]
+        mock_response.choices[0].message.content = fragment
+
+        with patch("agent.title_generator.call_llm", return_value=mock_response):
+            assert generate_title("question") is None
+
+    def test_unterminated_json_with_complete_title_string_still_titles(self):
+        """The fragment guard rejects cut-off payloads, not merely imperfect JSON: a closed title
+        string inside an unterminated object is still salvaged by the loose scan."""
+        mock_response = MagicMock()
+        mock_response.choices = [MagicMock()]
+        mock_response.choices[0].message.content = '{"title": "Fix login button on mobile"'
+
+        with patch("agent.title_generator.call_llm", return_value=mock_response):
+            assert generate_title("question") == "Fix login button on mobile"
+
+    def test_rejects_answer_that_truncation_would_shorten(self):
+        """The answer-shape guard must see the untruncated text: ``_clean_title`` cuts at 80 chars, which
+        trimmed a 29-word answer to 12 words and let it rename a Discord thread to
+        'The user is referencing a previous conversation/session that stopped due to a...'."""
+        answer = ("The user is referencing a previous conversation/session that stopped due to a Claude error "
+                  "and wants me to continue the work from where it left off in that thread")
+        mock_response = MagicMock()
+        mock_response.choices = [MagicMock()]
+        mock_response.choices[0].message.content = answer
+
+        with patch("agent.title_generator.call_llm", return_value=mock_response):
+            assert generate_title("question") is None
+
 
 
     def test_invokes_failure_callback_on_exception(self):

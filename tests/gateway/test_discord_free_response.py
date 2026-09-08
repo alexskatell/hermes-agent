@@ -110,6 +110,8 @@ def adapter(monkeypatch):
         "DISCORD_THREAD_REQUIRE_MENTION",
         "DISCORD_FREE_RESPONSE_CHANNELS",
         "DISCORD_AUTO_THREAD",
+        "DISCORD_AUTO_THREAD_FREE_CHANNELS",
+        "DISCORD_AUTO_THREAD_REPLY_MESSAGES",
         "DISCORD_NO_THREAD_CHANNELS",
         "DISCORD_ALLOWED_CHANNELS",
         "DISCORD_IGNORED_CHANNELS",
@@ -253,6 +255,33 @@ async def test_discord_reply_message_skips_auto_thread(adapter, monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_discord_reply_message_auto_threads_when_opted_in(adapter, monkeypatch):
+    """An explicit opt-in should thread quote-replies in the parent channel."""
+    monkeypatch.setenv("DISCORD_AUTO_THREAD", "true")
+    monkeypatch.setenv("DISCORD_AUTO_THREAD_FREE_CHANNELS", "true")
+    monkeypatch.setenv("DISCORD_AUTO_THREAD_REPLY_MESSAGES", "true")
+    monkeypatch.setenv("DISCORD_REQUIRE_MENTION", "true")
+    monkeypatch.setenv("DISCORD_FREE_RESPONSE_CHANNELS", "123")
+
+    thread = FakeThread(channel_id=999, parent=FakeTextChannel(channel_id=123))
+    adapter._auto_create_thread = AsyncMock(return_value=thread)
+    message = make_message(
+        channel=FakeTextChannel(channel_id=123),
+        content="turn this reply into its own thread",
+        msg_type=discord_platform.discord.MessageType.reply,
+    )
+
+    await adapter._handle_message(message)
+
+    adapter._auto_create_thread.assert_awaited_once_with(message)
+    adapter.handle_message.assert_awaited_once()
+    event = adapter.handle_message.await_args.args[0]
+    assert event.source.chat_id == "999"
+    assert event.source.chat_type == "thread"
+    assert event.source.thread_id == "999"
+
+
+@pytest.mark.asyncio
 async def test_discord_voice_linked_channel_skips_mention_requirement_and_auto_thread(adapter, monkeypatch):
     """Active voice-linked text channels should behave like free-response channels."""
     monkeypatch.setenv("DISCORD_REQUIRE_MENTION", "true")
@@ -305,6 +334,31 @@ async def test_discord_free_response_channel_skips_auto_thread(adapter, monkeypa
     event = adapter.handle_message.await_args.args[0]
     assert event.text == "casual chat in free-response channel"
     assert event.source.chat_type == "group"
+
+
+@pytest.mark.asyncio
+async def test_discord_free_response_channel_auto_threads_when_opted_in(adapter, monkeypatch):
+    """An explicit opt-in should thread top-level free-response messages."""
+    monkeypatch.setenv("DISCORD_REQUIRE_MENTION", "true")
+    monkeypatch.setenv("DISCORD_FREE_RESPONSE_CHANNELS", "789")
+    monkeypatch.setenv("DISCORD_AUTO_THREAD", "true")
+    monkeypatch.setenv("DISCORD_AUTO_THREAD_FREE_CHANNELS", "true")
+
+    thread = FakeThread(channel_id=999, parent=FakeTextChannel(channel_id=789))
+    adapter._auto_create_thread = AsyncMock(return_value=thread)
+    message = make_message(
+        channel=FakeTextChannel(channel_id=789),
+        content="start a threaded outbound task",
+    )
+
+    await adapter._handle_message(message)
+
+    adapter._auto_create_thread.assert_awaited_once_with(message)
+    adapter.handle_message.assert_awaited_once()
+    event = adapter.handle_message.await_args.args[0]
+    assert event.source.chat_id == "999"
+    assert event.source.chat_type == "thread"
+    assert event.source.thread_id == "999"
 
 
 @pytest.mark.asyncio

@@ -1101,6 +1101,11 @@ def _build_anthropic_client_from_runtime(agent, rt: Dict[str, Any]) -> None:
 
 def _rebuild_primary_client(agent, rt: Dict[str, Any], *, reason: str) -> None:
     """Rebuild the primary client from a ``_primary_runtime`` snapshot (MoA facade / native Anthropic / OpenAI wire)."""
+    if agent.api_mode == "agent_runtime":
+        # A whole-turn runtime owns auth/transport (mirrors _build_client): no API client.
+        agent.client = None
+        agent._anthropic_client = None
+        return
     if (agent.provider or "").strip().lower() == "moa":
         # MoA has empty client_kwargs; rebuild via the shared facade factory so the
         # reference_callback relay survives recovery.

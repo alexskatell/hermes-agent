@@ -28,6 +28,7 @@ from agent.runtime_api import (
     RuntimeFailure,
     RuntimeFailurePhase,
     RuntimeHostServices,
+    RuntimeIterationEvent,
     RuntimeMCPServerInventoryEntry,
     RuntimeDescriptor,
     RuntimeRegistration,
@@ -48,6 +49,7 @@ from agent.runtime_api import (
 _RUNTIME_EVENT_TYPES = (
     RuntimeContentEvent,
     RuntimeStatusEvent,
+    RuntimeIterationEvent,
     RuntimeToolRequestEvent,
     RuntimeApprovalRequestEvent,
     RuntimeCompactionEvent,
@@ -421,6 +423,8 @@ async def _collect_runtime_turn(
                     break
             elif isinstance(event, RuntimeStatusEvent):
                 await host.emit_status(event.message)
+            elif isinstance(event, RuntimeIterationEvent):
+                await host.emit_iteration(event.iteration)
             elif isinstance(event, RuntimeContentEvent):
                 # Runtime content is projected through the same sanitized
                 # stream funnel as built-in provider deltas. Older test and
@@ -728,6 +732,8 @@ class HermesRuntimeHostServices:
             self._tool_call_ids_seen = set()
             self._tool_calls_in_flight = set()
             self._tool_call_count = 0
+            self._iteration_count = 0
+            self._agent._api_call_count = 0
             self._content_scrubber.reset()
             try:
                 from gateway.session_context import get_session_env
@@ -983,6 +989,18 @@ class HermesRuntimeHostServices:
     async def emit_status(self, message: str) -> None:
         self._ensure_open_parent()
         self._emit_status_locked(message)
+
+    async def emit_iteration(self, iteration: int) -> None:
+        """Project SDK progress without changing runtime-owned budget policy."""
+        if type(iteration) is not int or iteration < 1:
+            raise ValueError("runtime iteration must be a positive integer")
+        with self._delivery_lock:
+            self._ensure_open_parent_locked()
+            if iteration <= self._iteration_count:
+                return
+            self._iteration_count = iteration
+            self._agent._api_call_count = iteration
+            self._emit_status_locked(f"runtime iteration #{iteration}")
 
     async def emit_content(self, text: str) -> None:
         """Project visible runtime content through Hermes' sanitizing funnel."""

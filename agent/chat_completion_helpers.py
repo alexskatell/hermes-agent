@@ -1982,6 +1982,18 @@ def _reresolve_fallback_reasoning_config(agent) -> None:
         logger.debug("Failed to resolve reasoning_config for fallback %s; keeping current: %s", agent.model, _reasoning_err)
 
 
+def _apply_fallback_request_overrides(agent, fb: dict) -> None:
+    """Merge a fallback entry's ``request_overrides`` (e.g. a literal Codex ``reasoning.effort``)
+    over the agent's; ``restore_primary_runtime`` reinstates the primary snapshot's copy."""
+    from copy import deepcopy
+    overrides = fb.get("request_overrides")
+    if not isinstance(overrides, dict) or not overrides:
+        return
+    merged = dict(getattr(agent, "request_overrides", {}) or {})
+    merged.update(deepcopy(overrides))
+    agent.request_overrides = merged
+
+
 def _rescope_fallback_extra_body(agent, old_model: str, old_provider: str, old_base_url: str) -> None:
     """Drop the OLD provider's custom_providers-contributed extra_body keys, then merge the fallback
     provider's own. KEY-SCOPED: a key is dropped only if its value still equals what the old provider's
@@ -2091,6 +2103,7 @@ def try_activate_fallback(agent, reason: "FailoverReason | None" = None) -> bool
         _update_fallback_context_compressor(agent)
         _reresolve_fallback_reasoning_config(agent)
         _rescope_fallback_extra_body(agent, old_model, old_provider, old_base_url)
+        _apply_fallback_request_overrides(agent, fb)
         rewrite_prompt_model_identity(agent, fb_model, fb_provider)
 
         _buffer_fallback_notice(agent, (

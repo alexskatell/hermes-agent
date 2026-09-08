@@ -136,6 +136,21 @@ class TestGlm52Vocabulary:
 
 
 class TestCodexVocabulary:
+    def test_astra_max_reaches_codex_without_expanding_other_models(self):
+        from agent.transports import get_transport
+        import agent.transports.codex  # noqa: F401
+
+        for model, expected in (("gpt-6-astra", "max"), ("gpt-6-astra-other", "xhigh")):
+            kwargs = get_transport("codex_responses").build_kwargs(
+                model=model,
+                messages=[{"role": "user", "content": "Hi"}],
+                tools=[],
+                provider="openai-codex",
+                base_url="https://chatgpt.com/backend-api/codex",
+                reasoning_config={"enabled": True, "effort": "max"},
+            )
+            assert kwargs["reasoning"]["effort"] == expected
+
     def test_minimal_and_ultra(self):
         assert clamp_effort("minimal", CODEX_GPT56_EFFORTS) == "low"
         assert clamp_effort("ultra", CODEX_GPT56_EFFORTS) == "max"

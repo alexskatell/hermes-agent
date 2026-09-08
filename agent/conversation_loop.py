@@ -1426,6 +1426,11 @@ def run_conversation(
     except Exception:
         logger.debug("per-turn env credential refresh failed", exc_info=True)
 
+    # Undo a turn-scoped provider fallback BEFORE runtime resolution: the primary's
+    # whole-turn runtime is selected from agent.provider/api_mode, and build_turn_context's
+    # own restore call (kept; now a no-op) would run only after the descriptor was skipped.
+    agent._restore_primary_runtime()
+
     # Resolve the descriptor before compaction. The built-in closure is invoked
     # only after normal Hermes setup has populated the turn state below.
     runtime_registration = resolve_turn_runtime(
@@ -1480,7 +1485,12 @@ def run_conversation(
         **{f.name: getattr(_ctx, f.name.lstrip("_")) for f in fields(_LoopState) if f.name in _CTX_FIELDS},
     )
     if runtime_registration is not None:
-        return run_registered_runtime(agent, runtime_registration, s)
+        _runtime_result = run_registered_runtime(agent, runtime_registration, s)
+        if _runtime_result is not None:
+            return _runtime_result
+        # The runtime failed before any visible output and a fallback_providers entry was
+        # activated: finish this turn on the built-in loop with the failover prompt identity.
+        s.active_system_prompt = _sync_failover_system_message(agent, [], s.active_system_prompt)
 
     while (s.api_call_count < agent.max_iterations and agent.iteration_budget.remaining > 0) or agent._budget_grace_call:
         if _run_phase(begin_iteration, agent, s).action == "break":

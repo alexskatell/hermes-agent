@@ -159,8 +159,65 @@ def _runtime_persistence_succeeded(agent: Any, result: Mapping[str, Any]) -> boo
     return True
 
 
-def run_registered_runtime(agent: Any, runtime_registration: Any, context: Any) -> Dict[str, Any]:
-    """Dispatch the resolved runtime using the completed Hermes turn context."""
+# Phases in which the runtime showed the user nothing and ran no host tool: the whole turn
+# can be redone on a configured fallback provider without duplicating output or effects.
+_FALLBACK_SAFE_PHASES = frozenset(
+    {RuntimeFailurePhase.PREFLIGHT, RuntimeFailurePhase.BEFORE_VISIBLE_OUTPUT}
+)
+
+# Bounded failure-code fragments -> FailoverReason so the shared fallback machinery arms the
+# same rate-limit cooldown and operator notices it uses for wire-level errors.
+_FAILURE_CODE_REASONS = (
+    ("rate_limit", "rate_limit"),
+    ("billing", "billing"),
+    ("auth", "auth"),
+    ("overloaded", "overloaded"),
+    ("server_error", "server_error"),
+    ("timeout", "timeout"),
+)
+
+
+def _failover_reason_for(failure: Any) -> Any:
+    from agent.error_classifier import FailoverReason
+
+    code = str(getattr(failure, "code", "") or "").lower()
+    for fragment, name in _FAILURE_CODE_REASONS:
+        if fragment in code:
+            return FailoverReason(name)
+    return None
+
+
+def _try_runtime_fallback(agent: Any, runtime_registration: Any, failure: Any) -> bool:
+    """Swap the agent onto the next ``fallback_providers`` entry after an external runtime
+    failed before any visible output. True means the caller must finish the turn on the
+    built-in loop instead of finalizing the failure."""
+    if failure is None or runtime_registration.plugin_id == "hermes-core":
+        return False
+    if getattr(failure, "phase", None) not in _FALLBACK_SAFE_PHASES:
+        return False
+    if getattr(agent, "_fallback_activated", False) or not agent._has_pending_fallback():
+        return False
+    if not agent._try_activate_fallback(_failover_reason_for(failure)):
+        return False
+    # The built-in loop owns compaction and compression for the rest of this turn.
+    agent._runtime_descriptor = None
+    agent._runtime_compaction_ownership = None
+    logger.warning(
+        "Runtime %s failed before visible output (%s); finishing the turn on fallback %s via %s",
+        runtime_registration.descriptor.runtime_id,
+        getattr(failure, "code", "?"),
+        agent.model,
+        agent.provider,
+    )
+    return True
+
+
+def run_registered_runtime(agent: Any, runtime_registration: Any, context: Any) -> Optional[Dict[str, Any]]:
+    """Dispatch the resolved runtime using the completed Hermes turn context.
+
+    Returns ``None`` when the runtime failed before any visible output and a fallback
+    provider was activated: the caller then finishes the same turn on the built-in loop.
+    """
     messages = context.messages
     user_message = context.user_message
     original_user_message = context.original_user_message
@@ -211,6 +268,8 @@ def run_registered_runtime(agent: Any, runtime_registration: Any, context: Any) 
     )
     agent._last_effective_prompt_hash = request.effective_prompt_hash
     dispatched = runtime_session.run_turn(request)
+    if _try_runtime_fallback(agent, runtime_registration, dispatched.failure):
+        return None
     # The built-in Codex adapter owns its projected persistence and must
     # retain its existing short-circuit. External runtimes only return an
     # immutable result envelope; host finalization owns the durable turn.

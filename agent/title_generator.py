@@ -176,6 +176,14 @@ def _first_line(text: str) -> str:
     return next((ln.strip() for ln in text.splitlines() if ln.strip()), "")
 
 
+def _looks_like_json_fragment(text: str) -> bool:
+    """True for a cut-off or garbled JSON payload that neither parse above could salvage. A reasoning
+    model that spends ``max_tokens`` on thinking returns '{"title' or '{"{"title": "Explain ...';
+    treating that as prose persisted the fragment and renamed Discord threads to '{"title'."""
+    stripped = text.strip()
+    return stripped.lstrip("\"'`").lstrip().startswith(("{", "[")) or stripped.startswith(('"title"', "'title'"))
+
+
 def _extract_title_text(content: str) -> str:
     """Strict JSON, then a loose JSON scan, then first-line prose (a provider ignoring ``response_format`` still titles)."""
     if not content:
@@ -201,7 +209,11 @@ def _extract_title_text(content: str) -> str:
         raw = strip_think_blocks(None, raw).strip()
     except Exception:
         logger.debug("strip_think_blocks unavailable for title output", exc_info=True)
-    return _strip_title_prefix(_first_line(raw)).strip("\"'").strip()
+    line = _first_line(raw)
+    if _looks_like_json_fragment(line):
+        logger.debug("Rejecting truncated JSON title output: %r", line[:80])
+        return ""
+    return _strip_title_prefix(line).strip("\"'").strip()
 
 
 def _clean_title(text: str) -> Optional[str]:
@@ -268,17 +280,19 @@ def generate_title(
             max_tokens=64, temperature=0.3, timeout=timeout, main_runtime=main_runtime,
             extra_body={"response_format": _TITLE_RESPONSE_FORMAT},
         )
-        title = _clean_title(_extract_title_text(response.choices[0].message.content or ""))
+        extracted = _extract_title_text(response.choices[0].message.content or "")
         # Answer-shaped output guard: titling is a 3-7 word task, so a title with many words is a model that
         # ignored the task and answered the user's message instead ("I don't have context on X — that's not
         # something I recognize..."). Truncating would store half an assistant blob as the session title,
         # which is still an assistant blob — reject instead so the caller retries on the next exchange
         # (maybe_auto_title fires for the first two exchanges). Port of can1357/oh-my-pi#7306.
-        if title is not None and len(title.split()) > _MAX_TITLE_WORDS:
+        # Count words BEFORE _clean_title: its 80-char cut trimmed a 29-word answer to 12 words and let it through.
+        word_count = len(extracted.split())
+        if word_count > _MAX_TITLE_WORDS:
             # Answer-shaped output: reject (not truncate) so the caller retries next exchange.
-            logger.debug("Rejecting answer-shaped title output (%d words > %d)", len(title.split()), _MAX_TITLE_WORDS)
+            logger.debug("Rejecting answer-shaped title output (%d words > %d)", word_count, _MAX_TITLE_WORDS)
             return None
-        return title
+        return _clean_title(extracted)
     except Exception as e:
         # WARNING so it shows in agent.log without debug mode; stack at debug.
         logger.warning("Title generation failed: %s", e)
