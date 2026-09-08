@@ -81,6 +81,9 @@ def _delegation_display_metadata(evt: dict) -> dict:
     metadata = {"delegation_id": str(evt.get("delegation_id") or ""), "task_count": task_count,
                 "completed_count": completed_count or task_count - failed_count,
                 "failed_count": failed_count}
+    if evt.get("task_failure_notice"):
+        metadata["task_failure_notice"] = True
+        metadata["task_index"] = (results[0] if results else {}).get("task_index", "")
     duration = evt.get("total_duration_seconds") or evt.get("duration_seconds")
     if isinstance(duration, (int, float)):
         metadata["duration_seconds"] = duration
