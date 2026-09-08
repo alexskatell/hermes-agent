@@ -19,12 +19,120 @@ from tools.mcp_tool_schema import MCP_TOOL_NAME_PREFIX
 
 logger = logging.getLogger("tools.mcp_tool")
 
+# A queued loop callback or its running retry task; one owner per name, under _lock.
+_discovery_retries: Dict[str, asyncio.Handle | asyncio.Task] = {}
+
+
+def _discovery_retry_config(name: str) -> Optional[dict]:
+    from hermes_cli.config import load_config
+    if not _parse_boolish(load_config().get("mcp_discovery_retry", True), default=True):
+        return None
+    config = _config._load_mcp_config().get(name)
+    return config if config is not None and _enabled(config) else None
+
+
+def _schedule_discovery_retry(name: str) -> None:
+    """Retain one retry on the MCP loop, including its caller's profile context."""
+    loop = _loop._running_loop()
+    if loop is None:
+        return
+    if _discovery_retry_config(name) is None:
+        return
+    scope = _core._server_registry_scope(name)
+
+    def finished(task):
+        with _core._lock:
+            if _discovery_retries.get(name) is task:
+                _discovery_retries.pop(name)
+        if not task.cancelled() and task.exception() is not None:
+            logger.warning("MCP server '%s': discovery retry stopped: %s", name, task.exception())
+
+    def start():
+        with _core._lock:
+            if _discovery_retries.get(name) is not handle:
+                return  # shutdown cancelled the queued callback
+            task = asyncio.create_task(_retry_discovery(name, retry_after))
+            _discovery_retries[name] = task
+        task.add_done_callback(finished)
+
+    with _core._lock:
+        if _core._mcp_loop is not loop:
+            return  # shutdown stopped this loop while config was being read
+        pending = _discovery_retries.get(name)
+        if name in _core._servers or (pending is not None and
+                (not isinstance(pending, asyncio.Task) or not pending.done())):
+            return
+        _core._server_scope_keys.setdefault(name, scope)
+        retry_after = _core._server_connect_retry_after.get(name, time.monotonic())
+        # call_soon_threadsafe copies this caller's ContextVars; create_task inherits them.
+        handle = loop.call_soon_threadsafe(start)
+        _discovery_retries[name] = handle
+
+
+async def _retry_discovery(name: str, retry_after: float) -> None:
+    while True:
+        with _core._lock:
+            if _discovery_retries.get(name) is not asyncio.current_task() or name in _core._servers:
+                return  # shutdown took ownership, or a parked task owns revival
+            # Keep the scheduled deadline even if a manual pass clears the cooldown first.
+            retry_after = max(retry_after, _core._server_connect_retry_after.get(name, 0))
+            delay = max(0.0, retry_after - time.monotonic())
+        logger.info("MCP server '%s': scheduled discovery retry in %.1fs", name, delay)
+        await asyncio.sleep(delay)
+        config = _discovery_retry_config(name)
+        if config is None:
+            return
+        with _core._lock:
+            if name in _core._servers or name in _core._server_connecting:
+                return  # a manual discovery owns the next outcome
+            if _connect_cooldown_active(name):
+                continue  # another failure extended the deadline while we slept
+            _core._server_connecting.add(name)
+        try:
+            await _discover_and_register_server(name, config)
+        except asyncio.CancelledError:
+            with _core._lock:
+                _core._server_connecting.discard(name)
+            raise
+        except Exception as exc:
+            message = _note_connect_failure(name, exc)
+            logger.warning("MCP server '%s': discovery retry failed: %s", name, message)
+        else:
+            _note_connect_success(name)
+            _finish_lazy_connect(name)
+            logger.info("MCP server '%s': discovery retry succeeded", name)
+            return
+
+
+def _cancel_discovery_retries(scope: Optional[str] = None) -> List[asyncio.Task]:
+    """Cancel queued and in-flight retries; shutdown drains tasks on their owning loop."""
+    with _core._lock:
+        names = [name for name in _discovery_retries
+                 if scope is None or _core._server_scope_keys.get(name) == scope]
+        pending = [_discovery_retries.pop(name) for name in names]
+    tasks = []
+    for retry in pending:
+        if isinstance(retry, asyncio.Task):
+            tasks.append(retry)
+            retry_loop = retry.get_loop()
+            if retry_loop.is_running():
+                retry_loop.call_soon_threadsafe(retry.cancel)
+            elif not retry_loop.is_closed():
+                retry.cancel()
+        else:
+            retry.cancel()
+    return tasks
+
 
 def _record_connect_failure(server_name: str) -> None:
     """Stamp a geometric, capped retry cooldown after a failed connect (under ``_lock``)."""
     n = _core._server_connect_failures.get(server_name, 0) + 1
     _core._server_connect_failures[server_name] = n
-    backoff = min(_core._CONNECT_RETRY_BASE_BACKOFF_SEC * (2 ** (n - 1)), _core._CONNECT_RETRY_MAX_BACKOFF_SEC)
+    backoff = min(_core._CONNECT_RETRY_BASE_BACKOFF_SEC, _core._CONNECT_RETRY_MAX_BACKOFF_SEC)
+    for _ in range(n - 1):
+        if backoff >= _core._CONNECT_RETRY_MAX_BACKOFF_SEC:
+            break  # never build an unbounded exponent during indefinite retries
+        backoff = min(backoff * 2, _core._CONNECT_RETRY_MAX_BACKOFF_SEC)
     _core._server_connect_retry_after[server_name] = time.monotonic() + backoff
 
 
@@ -127,6 +235,9 @@ def _note_connect_success(name: str) -> None:
 
 def _adopt_server(name: str, server: _core.MCPServerTask) -> None:
     """Publish *server* into ``_servers`` with its owning registry scope (under ``_lock``)."""
+    task = server._task
+    if task is not None and (task.cancelled() or task.cancelling()):
+        raise RuntimeError(f"MCP server '{name}': cannot adopt a cancelled task")
     with _core._lock:
         _core._servers[name] = server
         _core._server_scope_keys[name] = _core._mcp_registry_scope()
@@ -157,8 +268,14 @@ def _ensure_lazy_server_connected(server_name: str) -> bool:
                                timeout=float(connect_timeout) + 30.0)
     except BaseException as exc:
         logger.warning("Lazy MCP connect failed for '%s': %s", server_name, _note_connect_failure(server_name, exc))
+        _schedule_discovery_retry(server_name)
         return False
     _note_connect_success(server_name)
+    return _finish_lazy_connect(server_name)
+
+
+def _finish_lazy_connect(server_name: str) -> bool:
+    """Reconcile a cached manifest after either a first-use connect or a background retry."""
     with _core._lock:
         _core._lazy_server_configs.pop(server_name, None)
         stale_fingerprint = _core._lazy_server_fingerprints.pop(server_name, None)
@@ -214,7 +331,13 @@ async def _discover_and_register_server(name: str, config: dict) -> List[str]:
             # Recoverable park: the run task self-probes, so adopt it for shutdown/revival.
             _adopt_server(name, server)
         elif server is not None:
-            await server.shutdown()
+            try:
+                await server.shutdown()
+            except asyncio.CancelledError:
+                # Reaping start()'s cancelled run task must not hide the connect timeout.
+                current = asyncio.current_task()
+                if current is not None and current.cancelling():
+                    raise
         raise
     finally:
         _core._connect_server_claim.reset(claim_token)
@@ -305,6 +428,7 @@ async def _discover_all(new_servers: Dict[str, dict]) -> None:
             message = _note_connect_failure(name, result)
             logger.warning("Failed to connect to MCP server '%s'%s: %s",
                            name, f" (command={command})" if command else "", message)
+            _schedule_discovery_retry(name)
         else:
             _note_connect_success(name)
 

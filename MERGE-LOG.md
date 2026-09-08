@@ -450,3 +450,18 @@ and must not be run. See `rollback-preservation.json` and `HANDOFF.md` for the e
 For Discord visibility, use brief parent milestones, native grouped completion
 notices and `/agents`. Ordinary child progress is discarded by this gateway path,
 and its sender ends with the parent turn; no timer/cron watcher was added.
+
+## MCP discovery retries (candidate only)
+
+- Failed discovery connects without an adopted server now retain one background retry per name on the MCP loop. Each attempt reloads enabled config in the originating profile context and uses the existing 30–600s cooldown ladder; successful retries register callable tools and reconcile stale lazy-cache tools. Parked servers retain their existing self-probes.
+- Added global `mcp_discovery_retry: true` (default ON) beside `mcp_discovery_timeout` in `hermes_cli/config_defaults.py`; setting it to false disables this scheduler. Retries stop when the server is removed/disabled, on scoped/global MCP shutdown, or at interpreter exit. Cancelled server tasks are never adopted.
+- Preserved timeout errors through cancelled-task cleanup, bounded backoff arithmetic for indefinite retries, and captured the scheduled deadline so a manual discovery cannot accidentally turn a queued retry into an immediate competing connection.
+- Verification used this worktree's `.venv-safe/bin/python` (the local `.venv` lacks pytest), isolated HOME/HERMES_HOME, and explicitly named files only. Baseline: **133 passed, 0 failed** in the seven existing files. Final command below ran twice: **149 passed, 0 failed** across eight files each time (16 new tests; 5.7s and 5.6s). The new file includes fresh-config/scoped callable-tool integration and real interpreter-exit cancellation. Targeted Ruff and `git diff --check` passed.
+
+Exact test command, run from this worktree twice (the canonical runner invokes `.venv-safe/bin/python -m pytest <each named file> -q -p no:cacheprovider` in separate processes):
+
+```bash
+env -i PATH="$PATH" HOME="$(mktemp -d /private/tmp/hermes-mcp-retry.XXXXXX)" HERMES_PYTHON="$PWD/.venv-safe/bin/python" HERMES_TEST_FILE_RETRIES=0 bash scripts/run_tests.sh -j 2 tests/tools/test_mcp_discovery_retry.py tests/tools/test_mcp_tool.py tests/tools/test_mcp_initial_connect_shutdown.py tests/tools/test_mcp_bridge_single_failure.py tests/tools/test_mcp_lazy_start.py tests/tools/test_mcp_loop_profile_override.py tests/tools/test_mcp_discovery_cross_process.py tests/tools/test_mcp_register_wakes_stale.py -q -p no:cacheprovider
+```
+
+**NOT live until cutover.** No live-runtime edits, service restarts/signals, full-suite runs, or prohibited updater tests were performed.

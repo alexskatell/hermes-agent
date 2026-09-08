@@ -484,6 +484,9 @@ DEFAULT_CONFIG = {
     # up by the between-turns refresh (agent/turn_context.py), so keep it small — a dead server adds
     # this much to first-response latency.
     "mcp_discovery_timeout": 1.5,
+    # Retry failed discovery connects in the background while the server stays configured and
+    # enabled. Uses the per-server exponential cooldown (30s up to 600s); false disables retries.
+    "mcp_discovery_retry": True,
     # Same bound for single-query mode (``hermes -q/-z``). With only ONE turn there is no
     # between-turns refresh, so a server that misses the window is invisible for the whole session;
     # the larger bound lets slow cold-start servers (npx, uvx, remote HTTP) land. Reachable servers

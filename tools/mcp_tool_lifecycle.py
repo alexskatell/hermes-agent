@@ -3,6 +3,7 @@ server shutdown and draining of the background MCP loop."""
 
 import logging
 import asyncio
+import atexit
 import os
 import time
 from typing import Dict, Optional
@@ -102,6 +103,8 @@ def shutdown_mcp_servers(*, scope: Optional[str] = None):
     the Task that opened it. ``scope`` restricts teardown to one multiplexed profile's servers
     (its ``/reload-mcp`` must not kill other profiles') and leaves the shared loop running if
     anything else is still connected."""
+    from tools import mcp_tool_discovery as _discovery
+    retry_tasks = _discovery._cancel_discovery_retries(scope)
     with _core._lock:
         selected = [name for name in _core._servers if scope is None or _core._server_scope_keys.get(name) == scope]
         servers_snapshot = [_core._servers[name] for name in selected]
@@ -123,8 +126,15 @@ def shutdown_mcp_servers(*, scope: Optional[str] = None):
     # failed to connect is never recorded in ``_servers`` (that is the very premise of the #50394 cooldown),
     # so "no live servers" is the MOST likely state in which stale backoff entries exist. Clear them so a
     # post-shutdown restart re-attempts every configured server immediately.
-    if servers_snapshot:
+    if servers_snapshot or retry_tasks:
         async def _shutdown():
+            if retry_tasks:
+                await asyncio.gather(*retry_tasks, return_exceptions=True)
+                # A retry may have completed adoption just before cancellation reached the loop.
+                with _core._lock:
+                    selected[:] = [name for name in _core._servers
+                                   if scope is None or _core._server_scope_keys.get(name) == scope]
+                    servers_snapshot[:] = [_core._servers[name] for name in selected]
             results = await asyncio.gather(*(server.shutdown() for server in servers_snapshot), return_exceptions=True)
             for server, result in zip(servers_snapshot, results):
                 if isinstance(result, Exception):
@@ -154,7 +164,12 @@ def shutdown_mcp_servers(*, scope: Optional[str] = None):
         if not servers_snapshot:
             clear_selected_status()
         _clear_connect_cooldowns(None if scope is None else selected_status)
-    _loop._stop_mcp_loop(only_if_idle=scope is not None)
+        other_retries = bool(_discovery._discovery_retries)
+    if scope is None or not other_retries:
+        _loop._stop_mcp_loop(only_if_idle=scope is not None)
+
+
+atexit.register(shutdown_mcp_servers)
 
 
 def _take_reapable_pids(include_active: bool, server_name: Optional[str]) -> tuple[Dict[int, str], Dict[int, int]]:
@@ -241,6 +256,10 @@ def _stop_mcp_loop_if_idle() -> bool:
     """Stop the MCP loop only when no registered server still owns it. Probe paths create
     temporary MCPServerTasks not placed in ``_servers``; they may clean up an idle loop but
     must not tear down the process-global loop under live agent tools."""
+    from tools import mcp_tool_discovery as _discovery
+    with _core._lock:
+        if _discovery._discovery_retries:
+            return False
     return _loop._stop_mcp_loop(only_if_idle=True)
 
 
