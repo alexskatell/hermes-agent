@@ -8,7 +8,7 @@ from unittest.mock import patch
 import pytest
 
 from agent.iteration_budget import IterationBudget
-from agent.runtime_api import RuntimeCompletedEvent
+from agent.runtime_api import RuntimeCompletedEvent, RuntimeIterationEvent
 from agent.runtime_dispatch import (
     HermesRuntimeHostServices, _collect_runtime_turn, build_runtime_turn_request,
 )
@@ -106,3 +106,28 @@ async def test_sdk_response_boundaries_reach_discord_once_and_reset_per_turn():
     assert result.completed
     assert snapshots == [1]
     assert "iteration 1/750" in _discord_status(agent)
+
+
+def test_real_sdk_types_deduplicate_root_response_boundaries():
+    from claude_agent_sdk import AssistantMessage, StreamEvent, TextBlock
+
+    projector = ClaudeSdkEventProjector(model="diagnostic-model")
+
+    def counts(message):
+        return [event.iteration for event in projector.project(message).events
+                if isinstance(event, RuntimeIterationEvent)]
+
+    def stream(message_id, parent=None):
+        return StreamEvent(uuid="event", session_id="session", parent_tool_use_id=parent,
+                           event={"type": "message_start", "message": {"id": message_id}})
+
+    assert counts(stream("root-1")) == [1]
+    assert counts(AssistantMessage(content=[TextBlock(text="assembled")],
+                                   model="diagnostic-model", message_id="root-1")) == []
+    assert counts(stream("nested-1", parent="tool-1")) == []
+    for invalid in (None, "", 1, "x" * 1024):
+        assert counts(stream(invalid)) == []
+    assert counts(AssistantMessage(content=[TextBlock(text="next")],
+                                   model="diagnostic-model", message_id="root-2")) == [2]
+    projector.begin_turn()
+    assert counts(stream("root-1")) == [1]

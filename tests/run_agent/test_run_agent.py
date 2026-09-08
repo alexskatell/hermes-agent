@@ -1743,7 +1743,7 @@ class TestExecuteToolCalls:
         )
 
         with (
-            patch("run_agent.handle_function_call") as dispatch,
+            patch("model_tools.handle_function_call") as dispatch,
             pytest.raises(RuntimeExecutionError, match="not available in this session"),
         ):
             _run_async(host.execute_tool("terminal", {"command": "pwd"}))
@@ -1761,7 +1761,7 @@ class TestExecuteToolCalls:
             runtime_id="example-runtime",
         )
 
-        with patch("run_agent.handle_function_call") as dispatch:
+        with patch("model_tools.handle_function_call") as dispatch:
             result = _run_async(host.execute_tool("web_search", {"q": "runtime"}))
 
         dispatch.assert_not_called()

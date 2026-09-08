@@ -67,6 +67,9 @@ def _bare_agent() -> AIAgent:
     agent.base_url = ""
     agent.api_key = ""
     agent.api_mode = ""
+    # Runtime selection now restores the primary route before turn-context
+    # construction; mirror the initialized agent without bypassing that seam.
+    agent._fallback_activated = False
     agent.session_id = "test-session"
     agent._parent_session_id = ""
     agent._credential_pool = None
@@ -551,7 +554,7 @@ def test_live_turn_waits_for_review_exit_before_relay_and_turn_context(monkeypat
         ("begin", True),
         ("start_task_run", True),
     ]
-    assert boundary_reached.is_set()
+    assert boundary_reached.is_set(), live_result
     assert seen["interrupt_message"] == "superseded by a new live turn"
     assert seen["review_returned_at_boundary"] is True
     assert live_result == {"boundary_reached": True}
@@ -597,7 +600,7 @@ def test_live_turn_cancels_review_during_startup_before_provider(monkeypatch):
 
     assert not worker.is_alive()
     assert not live.is_alive()
-    assert boundary_reached.is_set()
+    assert boundary_reached.is_set(), live_result
     assert provider_calls == []
     assert run.request_done.is_set()
     assert relay_calls == [
