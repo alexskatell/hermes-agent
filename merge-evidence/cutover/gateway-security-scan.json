@@ -1,0 +1,7 @@
+{
+  "literal_secret": 0,
+  "shell_injection": 0,
+  "dynamic_eval": 0,
+  "unsafe_pickle": 0,
+  "sql_interpolation": 0
+}

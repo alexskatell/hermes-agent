@@ -1,3 +1,13 @@
+--- a/hermes_claude_agent_sdk/compatibility.py
++++ b/hermes_claude_agent_sdk/compatibility.py
+@@ -49,6 +49,7 @@
+         "host_status_v1",
+         "host_tool_execution_v1",
+         "host_tool_request_id_v1",
++        "iteration_progress_v1",
+         "provider_profile_registration_v1",
+         "runtime_model_provenance_v1",
+         "runtime_state_v1",
 --- a/hermes_claude_agent_sdk/configuration.py
 +++ b/hermes_claude_agent_sdk/configuration.py
 @@ -70,7 +70,7 @@
@@ -9,6 +19,15 @@
          connect_timeout_seconds: float = 60.0,
          close_timeout_seconds: float = 15.0,
      ) -> "SDKSessionConfiguration":
+@@ -165,6 +165,8 @@
+             "mcp_servers": dict(self.mcp_servers),
+             "strict_mcp_config": bool(self.mcp_servers),
+             "allowed_tools": list(self.allowed_tools),
++            # Observe message_start before a long thinking/text block finishes.
++            "include_partial_messages": True,
+         }
+         if self.resume_external_session_id is not None:
+             fields["resume"] = self.resume_external_session_id
 --- a/hermes_claude_agent_sdk/content_events.py
 +++ b/hermes_claude_agent_sdk/content_events.py
 @@ -32,6 +32,7 @@
@@ -19,23 +38,34 @@
      RuntimeToolRequestEvent,
      RuntimeUsageEvent,
      RuntimeUsageReceipt,
-@@ -434,6 +435,7 @@
+@@ -59,7 +60,7 @@
+ _SAFE_IDENTIFIER = re.compile(r"[^A-Za-z0-9_.:-]+")
+ _SAFE_MODEL_IDENTIFIER = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.:/-]*$")
+ _SYNTHETIC_MODEL_IDENTIFIERS = frozenset(
+-    {"synthetic", "claude-fable-synthetic"}
++    {"<synthetic>", "synthetic", "claude-fable-synthetic"}
+ )
+ _MISSING = object()
+ _STREAM_TOOL_INDEX_LIMIT = 128
+@@ -434,6 +435,8 @@
          self._provider = _safe_identifier(provider, default="claude-agent-sdk")
          self._selected_model = _safe_model_identifier(model)
          self._reported_models: set[str] = set()
 +        self._response_ids: set[str] = set()
++        self.api_call_count = 0
          self._usage_models: set[str] = set()
          self._usage_canonical_models: dict[str, str | None] = {}
          self._usage_malformed = False
-@@ -459,6 +461,7 @@
+@@ -459,6 +462,8 @@
          contaminating a later turn.
          """
          self._reported_models.clear()
 +        self._response_ids.clear()
++        self.api_call_count = 0
          self._usage_models.clear()
          self._usage_canonical_models.clear()
          self._usage_malformed = False
-@@ -470,15 +473,34 @@
+@@ -470,15 +475,42 @@
          name = _sdk_type_name(message)
          if name == "AssistantMessage":
              return self._project_assistant(message)
@@ -60,7 +90,14 @@
 +            event = _safe_attr(message, "event")
 +            if _mapping_value(event, "type") != "message_start":
 +                return ()
-+            message_id = _mapping_value(_mapping_value(event, "message"), "id")
++            response = _mapping_value(event, "message")
++            model = _mapping_value(response, "model")
++            if (
++                _mapping_value(response, "error") not in (_MISSING, None)
++                or (isinstance(model, str) and model.casefold() in _SYNTHETIC_MODEL_IDENTIFIERS)
++            ):
++                return ()
++            message_id = _mapping_value(response, "id")
 +        else:
 +            message_id = _safe_attr(message, "message_id")
 +        if not isinstance(message_id, str) or not message_id or len(message_id) > _MAX_IDENTIFIER_CHARS:
@@ -68,11 +105,24 @@
 +        if message_id in self._response_ids:
 +            return ()
 +        self._response_ids.add(message_id)
-+        return (RuntimeIterationEvent(iteration=len(self._response_ids)),)
++        self.api_call_count = len(self._response_ids)
++        return (RuntimeIterationEvent(iteration=self.api_call_count),)
  
      def _observe_init_model(self, message: Any) -> None:
          """Retain only a validated SDK init model as session evidence."""
-@@ -697,7 +719,7 @@
+@@ -672,4 +704,11 @@
+     def _project_assistant(self, message: Any) -> ProjectionResult:
++        # Synthetic SDK errors are neither response progress nor commentary.
++        model = _safe_attr(message, "model")
++        if (
++            _safe_attr(message, "error") is not None
++            or (isinstance(model, str) and model.casefold() in _SYNTHETIC_MODEL_IDENTIFIERS)
++        ):
++            return ProjectionResult()
+         self._observe_model_evidence(message)
+         text_parts: list[str] = []
+         tool_events: list[RuntimeToolRequestEvent] = []
+@@ -697,7 +736,7 @@
              # Their private/provider-specific data is intentionally omitted.
  
          text = "\n".join(text_parts)[:_MAX_TEXT_CHARS] if text_parts else None
@@ -81,3 +131,31 @@
          if text:
              events.append(RuntimeContentEvent(text=text))
          events.extend(tool_events)
+@@ -745,6 +784,16 @@
+         self._observe_model_evidence(message)
+         is_error = _safe_attr(message, "is_error")
+         failed = isinstance(is_error, bool) and is_error
++        # ID-less successful replays may supply only a terminal SDK count.
++        # Never invent live progress or replace observed response boundaries.
++        reported_turns = _safe_attr(message, "num_turns")
++        if (
++            is_error is False
++            and not self._response_ids
++            and type(reported_turns) is int
++            and reported_turns > 0
++        ):
++            self.api_call_count = reported_turns
+         # The SDK documents ``ResultMessage.result`` as human-readable result
+         # prose.  On failed results that field can contain provider error text,
+         # so only successful results may become public content or final text.
+--- a/hermes_claude_agent_sdk/runtime.py
++++ b/hermes_claude_agent_sdk/runtime.py
+@@ -613,7 +613,7 @@
+                         "completed": True,
+                         "partial": False,
+                         "error": None,
+-                        "api_calls": 1,
++                        "api_calls": projector.api_call_count,
+                         "provider": _UPSTREAM_PROVIDER,
+                         # Keep the legacy model key as the safe effective /
+                         # canonical identity, never as selected request data.

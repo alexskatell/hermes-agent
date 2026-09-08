@@ -1,0 +1,5 @@
+{
+  "scanned_files": 35,
+  "findings": [],
+  "scope": "every staged candidate source, test, documentation and evidence file; private host snapshot excluded from Git"
+}

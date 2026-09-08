@@ -1,0 +1,10 @@
+{
+  "files_finished": 22,
+  "files_expected": 22,
+  "counts": {
+    "passed": 626,
+    "xfailed": 1
+  },
+  "all_finished": true,
+  "all_observed_exit_zero": true
+}

@@ -874,16 +874,50 @@ class TurnRunner:
                 logger.debug("Could not set up stream consumer: %s", err)
         # Deltas tee to the stream consumer (when text streaming is on) and to streaming TTS.
         delta_sinks = [sc for sc in ((stream_consumer if want_stream_deltas else None), stts) if sc is not None]
+        # Whole-turn runtimes may emit only deltas followed by a None tool boundary, without
+        # an assistant row carrying commentary. Keep those tokens until that boundary; an
+        # unterminated final stays on the normal final-send path, never as an interim preview.
+        pending_commentary: list[str] = []
+        buffer_commentary = want_interim_messages and not want_stream_deltas
         stream_delta_cb = None
-        if delta_sinks:
-            def stream_delta_cb(text: str) -> None:
+        if delta_sinks or buffer_commentary:
+            def on_stream_delta(text: str) -> None:
                 if ctx._run_still_current():
+                    if buffer_commentary:
+                        if text is None and pending_commentary:
+                            commentary = "".join(pending_commentary)
+                            pending_commentary.clear()
+                            emit_interim = getattr(ctx.agent_holder[0], "_emit_interim_assistant_message", None)
+                            logger.info(
+                                "runtime commentary flush for %s: %d chars via %s",
+                                ctx.session_key, len(commentary), "agent-emitter" if callable(emit_interim) else "gateway-cb",
+                            )
+                            if callable(emit_interim):
+                                # Preserve the agent's visibility filter and per-turn commentary dedup.
+                                emit_interim({"role": "assistant", "content": commentary})
+                            else:
+                                interim_assistant_cb(commentary)
+                        elif text is None:
+                            logger.info("runtime tool boundary for %s with no pending commentary", ctx.session_key)
+                        elif text:
+                            pending_commentary.append(text)
                     for sink in delta_sinks:
                         sink.on_delta(text)
+            stream_delta_cb = on_stream_delta
 
         def interim_assistant_cb(text: str, *, already_streamed: bool = False) -> None:
+            logger.info(
+                "interim commentary cb for %s: %d chars already_streamed=%s consumer=%s current=%s",
+                ctx.session_key, len(text or ""), already_streamed, stream_consumer is not None, ctx._run_still_current(),
+            )
             if not ctx._run_still_current():
                 return
+            if not want_stream_deltas:
+                # An explicit built-in/Codex commentary callback owns this segment. Clear the
+                # fallback so its subsequent tool boundary cannot repeat it. Buffered/TTS
+                # deltas can set already_streamed on the agent without reaching the platform.
+                pending_commentary.clear()
+                already_streamed = False
             if stream_consumer is not None:
                 stream_consumer.on_segment_break() if already_streamed else stream_consumer.on_commentary(text)
             elif not already_streamed and ctx._status_adapter and str(text or "").strip():

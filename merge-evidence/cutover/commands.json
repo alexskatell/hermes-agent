@@ -1,0 +1,58 @@
+[
+  {
+    "label": "cutover-parity-red",
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/cutover/parity-files.json --label cutover-parity-red --trees merged --jobs 1 > /tmp/hermes-cutover-parity-red.log 2>&1",
+    "receipt": "../cutover-parity-red.jsonl",
+    "exit": 1,
+    "files": 5,
+    "counts": {
+      "failed": 4,
+      "passed": 14,
+      "xfailed": 1
+    }
+  },
+  {
+    "label": "cutover-gateway-green",
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/cutover/parity-files.json --label cutover-gateway-green --trees merged --jobs 1 > /tmp/hermes-cutover-gateway-green.log 2>&1",
+    "receipt": "../cutover-gateway-green.jsonl",
+    "exit": 0,
+    "files": 5,
+    "counts": {
+      "passed": 18,
+      "xfailed": 1
+    }
+  },
+  {
+    "label": "cutover-gateway-regression",
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/cutover/regression-files.json --label cutover-gateway-regression --trees merged --jobs 3 > /tmp/hermes-cutover-gateway-regression.log 2>&1",
+    "receipt": "../cutover-gateway-regression.jsonl",
+    "exit": 0,
+    "files": 22,
+    "counts": {
+      "passed": 626,
+      "xfailed": 1
+    }
+  },
+  {
+    "label": "cutover-sdk-red",
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/cutover/sdk-files.json --label cutover-sdk-red --trees merged --jobs 1 > /tmp/hermes-cutover-sdk-red.log 2>&1",
+    "receipt": "../cutover-sdk-red.jsonl",
+    "exit": 1,
+    "files": 3,
+    "counts": {
+      "failed": 24,
+      "passed": 13
+    }
+  },
+  {
+    "label": "cutover-final",
+    "command": ".venv-safe/bin/python merge-evidence/run_triage.py --manifest merge-evidence/cutover/final-files.json --label cutover-final --trees merged --jobs 3 > /tmp/hermes-cutover-final.log 2>&1",
+    "receipt": "../cutover-final.jsonl",
+    "exit": 0,
+    "files": 23,
+    "counts": {
+      "passed": 653,
+      "xfailed": 1
+    }
+  }
+]

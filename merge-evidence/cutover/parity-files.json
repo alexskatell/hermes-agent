@@ -1,0 +1,7 @@
+[
+  "tests/gateway/test_runtime_interim_delivery.py",
+  "tests/gateway/test_runtime_interim_multi_commentary.py",
+  "tests/gateway/test_claude_sdk_interim_integration.py",
+  "tests/agent/test_runtime_iteration_progress.py",
+  "tests/agent/test_sdk_iteration_progress.py"
+]

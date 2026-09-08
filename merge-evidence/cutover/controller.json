@@ -1,0 +1,15 @@
+{
+  "status": "candidate verified; activation is a blocked parent/operator handoff",
+  "card_created": false,
+  "kanban_error": "delegate_task child contexts cannot mutate Kanban tasks via the CLI",
+  "board": "default",
+  "delegation_id": "deleg_55c7d4c1",
+  "subagents": [
+    "sa-0-a74f0fc3",
+    "sa-1-01350b7e",
+    "sa-2-afe9670d"
+  ],
+  "handoff": "HANDOFF.md",
+  "final_verification": "final-verification.json",
+  "production_actions_executed": false
+}

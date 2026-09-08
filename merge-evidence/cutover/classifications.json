@@ -1,0 +1,117 @@
+{
+  "scope": "post-audit live-parity extension",
+  "classified_failing_files": 4,
+  "files": [
+    {
+      "file": "tests/gateway/test_runtime_interim_delivery.py",
+      "category": "merge-induced",
+      "basis": "Carried LIVE commentary test fails on candidate before missing nonstreaming commentary hunk; passes after minimum port. Separate from original 54-file triage universe.",
+      "before": {
+        "counts": {
+          "failed": 1,
+          "passed": 3
+        },
+        "failures": [
+          "tests/gateway/test_runtime_interim_delivery.py::test_nonstreaming_commentary_survives_tool_boundaries_without_repeating_final[runtime]"
+        ],
+        "receipt": "../cutover-parity-red.jsonl"
+      },
+      "after": {
+        "counts": {
+          "passed": 4
+        },
+        "receipt": "../cutover-final.jsonl"
+      },
+      "remaining_known_expected_failure": 0
+    },
+    {
+      "file": "tests/gateway/test_runtime_interim_multi_commentary.py",
+      "category": "merge-induced",
+      "basis": "Carried LIVE commentary test fails on candidate before missing nonstreaming commentary hunk; passes after minimum port. Separate from original 54-file triage universe.",
+      "before": {
+        "counts": {
+          "failed": 1
+        },
+        "failures": [
+          "tests/gateway/test_runtime_interim_multi_commentary.py::test_nonstreaming_runtime_delivers_every_distinct_commentary_segment"
+        ],
+        "receipt": "../cutover-parity-red.jsonl"
+      },
+      "after": {
+        "counts": {
+          "passed": 2
+        },
+        "receipt": "../cutover-final.jsonl"
+      },
+      "remaining_known_expected_failure": 0
+    },
+    {
+      "file": "tests/gateway/test_claude_sdk_interim_integration.py",
+      "category": "merge-induced",
+      "basis": "Carried LIVE commentary test fails on candidate before missing nonstreaming commentary hunk; passes after minimum port. Separate from original 54-file triage universe.",
+      "before": {
+        "counts": {
+          "failed": 2,
+          "xfailed": 1
+        },
+        "failures": [
+          "tests/gateway/test_claude_sdk_interim_integration.py::test_sdk_delivers_each_commentary_before_next_tool_batch[content-first]",
+          "tests/gateway/test_claude_sdk_interim_integration.py::test_sdk_delivers_each_commentary_before_next_tool_batch[thinking-only]"
+        ],
+        "receipt": "../cutover-parity-red.jsonl"
+      },
+      "after": {
+        "counts": {
+          "passed": 2,
+          "xfailed": 1
+        },
+        "receipt": "../cutover-final.jsonl"
+      },
+      "remaining_known_expected_failure": 1
+    },
+    {
+      "file": "tests/agent/test_sdk_cutover_contract.py",
+      "category": "merge-induced",
+      "basis": "Post-audit local SDK parity extension: candidate omitted carried partial-message, capability, and terminal-count behavior. Expanded synthetic/error checks also harden known live counter defects; this is not a claim that every new assertion was a pre-existing upstream-suite failure.",
+      "before": {
+        "counts": {
+          "failed": 24
+        },
+        "failures": [
+          "tests/agent/test_sdk_cutover_contract.py::test_options_keep_required_timeout_and_enable_early_message_boundaries",
+          "tests/agent/test_sdk_cutover_contract.py::test_descriptor_rejects_a_host_without_iteration_progress",
+          "tests/agent/test_sdk_cutover_contract.py::test_count_root_responses_not_envelopes_chunks_nested_frames_or_tools",
+          "tests/agent/test_sdk_cutover_contract.py::test_synthetic_and_error_frames_emit_neither_progress_nor_commentary[False-<synthetic>-None]",
+          "tests/agent/test_sdk_cutover_contract.py::test_synthetic_and_error_frames_emit_neither_progress_nor_commentary[False-synthetic-None]",
+          "tests/agent/test_sdk_cutover_contract.py::test_synthetic_and_error_frames_emit_neither_progress_nor_commentary[False-claude-fable-synthetic-None]",
+          "tests/agent/test_sdk_cutover_contract.py::test_synthetic_and_error_frames_emit_neither_progress_nor_commentary[False-claude-fable-5-1-authentication_failed]",
+          "tests/agent/test_sdk_cutover_contract.py::test_synthetic_and_error_frames_emit_neither_progress_nor_commentary[True-<synthetic>-None]",
+          "tests/agent/test_sdk_cutover_contract.py::test_synthetic_and_error_frames_emit_neither_progress_nor_commentary[True-synthetic-None]",
+          "tests/agent/test_sdk_cutover_contract.py::test_synthetic_and_error_frames_emit_neither_progress_nor_commentary[True-claude-fable-synthetic-None]",
+          "tests/agent/test_sdk_cutover_contract.py::test_synthetic_and_error_frames_emit_neither_progress_nor_commentary[True-claude-fable-5-1-authentication_failed]",
+          "tests/agent/test_sdk_cutover_contract.py::test_invalid_terminal_counts_are_not_invented[0]",
+          "tests/agent/test_sdk_cutover_contract.py::test_invalid_terminal_counts_are_not_invented[-1]",
+          "tests/agent/test_sdk_cutover_contract.py::test_invalid_terminal_counts_are_not_invented[True]",
+          "tests/agent/test_sdk_cutover_contract.py::test_invalid_terminal_counts_are_not_invented[2.5]",
+          "tests/agent/test_sdk_cutover_contract.py::test_invalid_terminal_counts_are_not_invented[3]",
+          "tests/agent/test_sdk_cutover_contract.py::test_invalid_terminal_counts_are_not_invented[None]",
+          "tests/agent/test_sdk_cutover_contract.py::test_observed_response_ids_take_precedence_over_terminal_count[1]",
+          "tests/agent/test_sdk_cutover_contract.py::test_observed_response_ids_take_precedence_over_terminal_count[99]",
+          "tests/agent/test_sdk_cutover_contract.py::test_idless_terminal_fallback_is_successful_only_and_does_not_emit_progress",
+          "tests/agent/test_sdk_cutover_contract.py::test_actual_runtime_returns_projector_count_and_preserves_display_only_progress[ids-1-2-expected_progress0]",
+          "tests/agent/test_sdk_cutover_contract.py::test_actual_runtime_returns_projector_count_and_preserves_display_only_progress[ids-99-2-expected_progress1]",
+          "tests/agent/test_sdk_cutover_contract.py::test_actual_runtime_returns_projector_count_and_preserves_display_only_progress[no_ids-3-3-expected_progress2]",
+          "tests/agent/test_sdk_cutover_contract.py::test_actual_runtime_returns_projector_count_and_preserves_display_only_progress[no_evidence-0-0-expected_progress3]"
+        ],
+        "receipt": "../cutover-sdk-red.jsonl"
+      },
+      "after": {
+        "counts": {
+          "passed": 24
+        },
+        "receipt": "../cutover-final.jsonl"
+      },
+      "remaining_known_expected_failure": 0
+    }
+  ]
+}

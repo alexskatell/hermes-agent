@@ -197,6 +197,8 @@ class StreamDeliveryMixin:
         undelivered_parts = list(pending.values())
         visible = "\n\n".join(undelivered_parts).strip() if commentary_parts else self._interim_assistant_visible_text(assistant_msg)
         if not visible or visible == "(empty)" or self._interim_text_was_delivered(visible):
+            if visible and visible != "(empty)":
+                logger.info("interim commentary suppressed as already delivered (%d chars)", len(visible))
             return
         already_streamed = self._interim_content_was_streamed(visible)
         self._enqueue_stream_hook("on_interim_message", text=visible, already_streamed=already_streamed)

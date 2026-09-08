@@ -16,7 +16,8 @@ def test_iteration_event_rejects_invalid_counts(value):
 
 
 def test_host_progress_is_monotonic_and_resets_for_next_turn():
-    agent = SimpleNamespace(_api_call_count=99, _touch_activity=lambda *args, **kwargs: None)
+    activity = []
+    agent = SimpleNamespace(_api_call_count=99, _touch_activity=activity.append)
     host = HermesRuntimeHostServices(agent, task_id="test", runtime_id="test-runtime")
     assert agent._api_call_count == 0
 
@@ -24,6 +25,7 @@ def test_host_progress_is_monotonic_and_resets_for_next_turn():
         for value in (1, 3, 3, 2):
             await host.emit_iteration(value)
         assert agent._api_call_count == 3
+        assert activity == ["runtime iteration #1", "runtime iteration #3"]
         host.refresh_turn(task_id="test-next")
         assert agent._api_call_count == 0
         await host.emit_iteration(1)
@@ -32,8 +34,13 @@ def test_host_progress_is_monotonic_and_resets_for_next_turn():
     asyncio.run(scenario())
 
 
-@pytest.mark.parametrize("outcome", ["completed", "failed", "cancelled"])
-def test_finalizer_preserves_observed_count_without_a_terminal_count(monkeypatch, outcome):
+@pytest.mark.parametrize("outcome,terminal_count,expected", [
+    ("completed", None, 3), ("completed", 1, 3), ("completed", 7, 7),
+    ("failed", None, 3), ("cancelled", None, 3),
+])
+def test_finalizer_preserves_maximum_terminal_and_observed_count(
+    monkeypatch, outcome, terminal_count, expected,
+):
     agent = SimpleNamespace(
         provider="test", model="test", api_mode="agent_runtime", tools=(),
         _api_call_count=3, _strip_think_blocks=lambda text: text,
@@ -55,6 +62,8 @@ def test_finalizer_preserves_observed_count_without_a_terminal_count(monkeypatch
         response={"final_response": "done"} if outcome == "completed" else None,
         failure=failure, cancelled=outcome == "cancelled", terminal=None,
     )
+    if terminal_count is not None:
+        dispatched.response["api_calls"] = terminal_count
     monkeypatch.setattr(turn_runtime, "get_runtime_session", lambda *a, **k:
                         SimpleNamespace(run_turn=lambda request: dispatched))
     monkeypatch.setattr(turn_runtime, "_try_runtime_fallback", lambda *a: False)
@@ -63,4 +72,4 @@ def test_finalizer_preserves_observed_count_without_a_terminal_count(monkeypatch
                         {"api_calls": kwargs["api_call_count"]})
     result = turn_runtime.run_registered_runtime(agent, registration, context)
     assert result is not None
-    assert result["api_calls"] == 3
+    assert result["api_calls"] == expected

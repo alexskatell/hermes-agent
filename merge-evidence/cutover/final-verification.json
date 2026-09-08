@@ -1,0 +1,11 @@
+{
+  "files": 23,
+  "counts": {
+    "passed": 653,
+    "xfailed": 1
+  },
+  "all_exit_zero": true,
+  "receipt": "../cutover-final.jsonl",
+  "manifest": "final-files.json",
+  "live_activation_performed": false
+}

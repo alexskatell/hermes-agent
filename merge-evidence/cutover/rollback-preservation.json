@@ -1,0 +1,10 @@
+{
+  "private_bundle": "/private/tmp/hermes-cutover-private-b8cnyhhh",
+  "preserved_snapshot_file_count": 32,
+  "byte_for_byte_verified": true,
+  "full_env_copied": false,
+  "persistent_target_count": 13,
+  "gui_value_count": 2,
+  "automated_rollback_ready": false,
+  "reason": "Existing revert script remains unqualified; only before-image evidence supplemented. Controller and lifecycle guards remain in force."
+}

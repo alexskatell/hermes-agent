@@ -1,0 +1,23 @@
+[
+  {
+    "lane": 0,
+    "source": "/Users/oc/.hermes/cache/delegation/subagent-summary-0-20260908_134153_559732.txt",
+    "saved": "review-0.md",
+    "source_sha256": "ac59162aed98464dff6d2b2535be136e4d5b980b29580f17398981b194e8b077",
+    "authority": "advisory review; parent final receipts are authoritative"
+  },
+  {
+    "lane": 1,
+    "source": "/Users/oc/.hermes/cache/delegation/subagent-summary-1-20260908_134153_560735.txt",
+    "saved": "review-1.md",
+    "source_sha256": "d8e2c54c0232be3c91ecce39b2bfa26eb3e3341b8bd6f20d2bd7864ee98da3bc",
+    "authority": "advisory review; parent final receipts are authoritative"
+  },
+  {
+    "lane": 2,
+    "source": "/Users/oc/.hermes/cache/delegation/subagent-summary-2-20260908_134153_561052.txt",
+    "saved": "review-2.md",
+    "source_sha256": "f6ddf05926c3b9dd8bb73bfbefb5679c04b69c666b448b95de61d9316f3e16f0",
+    "authority": "advisory review; parent final receipts are authoritative"
+  }
+]

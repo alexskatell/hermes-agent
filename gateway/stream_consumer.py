@@ -883,7 +883,11 @@ class GatewayStreamConsumer(StreamTransportMixin, StreamFallbackMixin, StreamThi
         cumulative = self._cumulative_transport()
         if not cumulative:
             self._reset_segment_state()
-        await self._send_commentary(commentary_text)
+        delivered = await self._send_commentary(commentary_text)
+        logger.info(
+            "stream consumer commentary delivery for %s: ok=%s (%d chars)",
+            self.chat_id, delivered, len(commentary_text or ""),
+        )
         self._last_edit_time = time.monotonic()
         if not cumulative:
             self._reset_segment_state()

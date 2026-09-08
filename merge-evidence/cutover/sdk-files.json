@@ -1,0 +1,5 @@
+[
+  "tests/agent/test_sdk_cutover_contract.py",
+  "tests/agent/test_sdk_iteration_progress.py",
+  "tests/agent/test_runtime_iteration_progress.py"
+]

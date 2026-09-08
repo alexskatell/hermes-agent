@@ -14,17 +14,37 @@ patch from the repository root:
 git apply --directory=.venv-safe/lib/python3.12/site-packages scripts/runtime-plugin-patches/claude-sdk-0.1.0-host-delta.patch
 ```
 
-The patch sets the constructor default `turn_timeout_seconds` to `14400.0`,
-matching the inspected live configuration exactly. It also completes the carried
-`iteration_progress_v1` contract: root SDK response IDs emit one monotonic
-`RuntimeIterationEvent` each, streamed/assembled duplicates are ignored, nested
-subagent responses do not increment the parent, and `begin_turn()` resets the
-counter. IDs remain internal and are not emitted as visible content.
+The patch keeps the required `turn_timeout_seconds` default at `14400.0`.
+This is the cutover policy, not a claim that the current live environment matches:
+the later live audit found its default had drifted back to `600.0`.
 
-Verification uses `tests/agent/test_sdk_iteration_progress.py`, including actual
-0.2.151 SDK dataclasses, plus `tests/agent/test_runtime_iteration_progress.py`.
-The original plugin failed the carried iteration regression before merging;
-this is a local-delta repair, not a change to upstream SDK policy or token budget.
+The four-file patch also:
+
+- Enables partial SDK messages so root response starts can be observed early,
+  and requires the host's `iteration_progress_v1` capability.
+- Emits one monotonic `RuntimeIterationEvent` per distinct valid root response ID.
+  Streamed/assembled duplicates, nested responses, chunks, and synthetic/error
+  frames do not increment the parent. IDs and thinking chunks remain internal.
+- Resets observed IDs and `api_call_count` in `begin_turn()`. Successful ID-less
+  results may provide a positive exact-integer terminal `num_turns`; that fallback
+  emits no invented live progress and never replaces observed IDs. Failed results
+  cannot invent a terminal count.
+- Returns the projector's count instead of a hard-coded one. Host finalization
+  retains the maximum of observed and terminal counts without changing SDK budgets.
+
+Verification uses `tests/agent/test_sdk_iteration_progress.py`,
+`tests/agent/test_sdk_cutover_contract.py` and
+`tests/agent/test_runtime_iteration_progress.py`. The maintained offline tests use
+real 0.2.151 SDK dataclasses, SDKSession/runtime and host dispatcher, replacing
+only authentication/transport and persistence/final-delivery leaves. Network and
+subprocess transport are explicitly forbidden in the cutover contract tests.
+
+The original plugin failed the carried iteration regression before merging.
+The later parity extension also covers negative message shapes, real final counts,
+options, and capability rejection. This is not a change to SDK token-budget policy.
+The known bridge-first commentary ordering xfail remains separate; partial messages
+do not resolve that live race. Live zero-usage suppression changes were not carried
+without an independent accounting/fallback regression check.
 
 `uv sync` without `--inexact` removes packages not in the lockfile, including the
 standalone plugin. Reinstall the source wheel and reapply this patch after such

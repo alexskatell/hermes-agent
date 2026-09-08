@@ -137,7 +137,9 @@ The pre-merge carried commit was tested in
   at that copy. `claude-agent-sdk==0.2.151` was reconstructed from the existing
   cached wheel installation rather than replaced with a different SDK version.
 - `configuration.py:73`: `turn_timeout_seconds: float = 14400.0,`.
-  Configuration bytes match the inspected live site-packages copy exactly.
+  This is the required candidate timeout. A later live audit found a 600-second
+  default and partial-message drift; the controlled reconciliation below supersedes
+  the initial byte-identity observation.
 - `scripts/runtime-plugin-patches/claude-sdk-0.1.0-host-delta.patch` reproduces
   the timeout and iteration-projector changes from the original wheel.
 - `uv pip check --python .venv-safe/bin/python`: all installed packages compatible.
@@ -361,10 +363,90 @@ machine-readable provenance and exact-node evidence for all 54 entries.
   its sole offending path is an installed third-party dependency, not Hermes.
   Other retained environment failures include missing optional dependencies,
   macOS/GNU and systemd assumptions, path aliases/limits, and occupied port 9119.
-- No merge-induced failure remains in the executed file set. The pending live
-  commentary-buffer change has not been ported or validated by this lane.
+- At triage commit `941f3213f8`, no merge-induced failure remained in the
+  executed file set. The then-pending commentary-buffer change is now covered by
+  the controlled live-parity continuation below.
 
 - During final evidence review, a separate cutover snapshot appeared at
   `merge-evidence/rollback-20260908/` (files timestamped 13:04 EDT). It is
-  outside this triage, remains untouched and untracked, and is excluded from
-  these commits. The owning lane must decide how to retain it.
+  outside the original triage and excluded from that commit. The continuation
+  preserved it byte-for-byte outside the worktree; see the private evidence
+  pointer in `merge-evidence/cutover/rollback-preservation.json`.
+
+
+## Controlled live-parity continuation
+
+This continuation starts at triage commit `941f3213f8`. The three follow-up
+reviewers were read-only; Francis alone imported their proposed tests and changed
+the candidate. No live runtime, profile, route, credential, or service was changed.
+The original 54-file failure universe remains historical and unchanged above.
+The added validation files below are a separate live-parity extension.
+
+### Carried and corrected behavior
+
+- Ported the narrow nonstreaming commentary buffer and two delivery diagnostics.
+  Repeated commentary is cleared at its boundary before a new distinct segment.
+  Final-response ownership, stale-turn checks, upstream approval/egress safeguards,
+  and `persist_user_display_metadata` remain intact.
+- Restored the activity assertion and added a mutation-sensitive A/tool/A/tool/B
+  regression. Extended host finalizer coverage for terminal counts below/above
+  observed progress, retaining failed/cancelled coverage.
+- Reconciled the four installed SDK plugin files and their tracked wheel patch:
+  required 14400-second timeout, partial messages, host capability declaration,
+  distinct valid root IDs, synthetic/error exclusions on assembled and streamed
+  frames, successful-only ID-less terminal fallback, and consistent final counts.
+  The existing host already preserves the maximum terminal/observed count.
+- Rejected the live timeout's drift to 600 and the live counter edge cases proven
+  by the offline review. Kept the newer zero-usage suppression delta separate;
+  its accounting/fallback behavior has not been qualified for activation.
+
+### Additional failure attribution
+
+- `tests/gateway/test_runtime_interim_delivery.py`: **merge-induced**; before 1 failed, 3 passed; final 4 passed.
+- `tests/gateway/test_runtime_interim_multi_commentary.py`: **merge-induced**; before 1 failed; final 2 passed.
+- `tests/gateway/test_claude_sdk_interim_integration.py`: **merge-induced**; before 2 failed, 1 xfailed; final 2 passed, 1 xfailed.
+- `tests/agent/test_sdk_cutover_contract.py`: **merge-induced**; before 24 failed; final 24 passed.
+
+The SDK file identifies omitted carried behavior and also tests negative cases
+that harden known live counter defects. Its new assertions are not represented as
+original upstream-suite failures. Exact nodes, categories and before/after counts
+are in `merge-evidence/cutover/classifications.json`.
+
+### Final candidate verification
+
+- **653 passed, zero failed, one known strict xfailed across 23 files.** All final
+  per-file exits are zero; the complete manifest and receipt are reconciled in
+  `merge-evidence/cutover/final-verification.json`.
+- The new SDK contract file was first run red against the unpatched candidate:
+  24 failures. It passes all 24 cases after the four-file patch. The maintained
+  tests exercise actual SDK message/options/session/runtime and host classes with
+  authentication and transport fixtures; external transport is forbidden.
+- The original wheel plus the updated tracked patch reproduces all 16 installed
+  plugin source files exactly. Both forward replay and installed reverse-check
+  passed; fingerprints and backup location are in `sdk-reproduction.json`.
+- Targeted Ruff, `git diff --check`, and dependency validation passed; `uv pip check`
+  checked 134 compatible packages. No unsafe updater tests, full suite, provider
+  inference, external writes, pushes, or production lifecycle actions were run.
+
+### Live activation remains a handoff
+
+The known bridge-first SDK commentary-order race remains a strict expected failure.
+Partial messages do not fix that ordering defect. The newer live accounting delta
+also prevents a blanket claim of complete latest-live parity.
+
+The Kanban CLI denied controller creation because this context is classified as a
+delegate child. No card exists and no guard was bypassed. A permitted parent/operator
+must own the eventual activation, establish quiescence, validate the scoped rollback,
+and adopt changed loaded definitions with the default gateway last.
+
+The earlier rollback preparation child had written an untracked snapshot inside
+the worktree. This continuation preserved all 32 files byte-for-byte outside Git;
+the 22 pinned manifest entries were independently verified. Added private nonsecret
+before-images cover wrappers, symlink identity, the two `.env` value spans and GUI
+values. No full `.env` was copied. The old broad revert script is still unqualified
+and must not be run. See `rollback-preservation.json` and `HANDOFF.md` for the exact
+13-path/two-GUI-value scope, outstanding ownership/rollback checks and exclusions.
+
+For Discord visibility, use brief parent milestones, native grouped completion
+notices and `/agents`. Ordinary child progress is discarded by this gateway path,
+and its sender ends with the parent turn; no timer/cron watcher was added.
