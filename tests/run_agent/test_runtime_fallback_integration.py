@@ -7,10 +7,14 @@ turn-start primary restore that must happen BEFORE runtime resolution on the nex
 
 from __future__ import annotations
 
+import asyncio
+import socket
+import subprocess
 import time
 from types import SimpleNamespace
 from unittest.mock import patch
 
+import pytest
 import run_agent
 
 from agent.runtime_api import (
@@ -21,6 +25,13 @@ from agent.runtime_api import (
     RuntimeFailurePhase,
 )
 from hermes_cli.plugins import PluginContext, PluginManager, PluginManifest
+
+
+@pytest.fixture(autouse=True)
+def no_environment_probe(monkeypatch):
+    # No unrelated background subprocess may outlive a test's transport guard.
+    monkeypatch.setattr("tools.env_probe.warm_environment_probe_async", lambda: None)
+    monkeypatch.setattr("tools.env_probe.get_environment_probe_line", lambda **kw: "")
 
 
 def _mock_response(content, finish_reason="stop"):
@@ -129,6 +140,14 @@ def _run_on_fallback(agent, prompt):
 
     def _fake_api_call(api_kwargs):
         seen.append(dict(api_kwargs))
+        if agent.api_mode == "codex_responses":
+            return SimpleNamespace(
+                id="offline-response", model=agent.model, status="completed", usage=None,
+                output=[SimpleNamespace(
+                    type="message", role="assistant", phase="final_answer",
+                    content=[SimpleNamespace(type="output_text", text="fallback reply")],
+                )],
+            )
         return _mock_response("fallback reply")
 
     with patch.object(agent, "_interruptible_api_call", side_effect=_fake_api_call):
@@ -199,3 +218,143 @@ def test_runtime_failure_without_a_chain_still_fails_the_turn(monkeypatch):
     assert result["failure"].code == "sdk_api_rate_limit_429"
     assert agent._fallback_activated is False
     agent.release_clients()
+
+
+@pytest.mark.parametrize("status", [401, 402, 429])
+@pytest.mark.parametrize("usage,cost,visible,fallback", [
+    ({"input_tokens": 0, "output_tokens": 0}, 0, False, True),
+    ({"input_tokens": 0.0, "output_tokens": 0.0}, 0.0, False, True),
+    ({"input_tokens": 0, "output_tokens": 0}, None, False, True),
+    ({"input_tokens": 1, "output_tokens": 0}, 0, False, False),
+    ({"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 1}, 0, False, False),
+    ({"input_tokens": "0", "output_tokens": 0}, 0, False, False),
+    ({"input_tokens": 0}, 0, False, False),
+    ({"input_tokens": 0, "output_tokens": 0}, 0.01, False, False),
+    ({"input_tokens": 0, "output_tokens": 0}, 0, True, False),
+])
+def test_real_sdk_receipt_controls_astra_fallback_and_primary_restoration(
+    monkeypatch, tmp_path, usage, cost, visible, fallback, status,
+):
+    import claude_agent_sdk as sdk
+    import hermes_cli.plugins as plugins_module
+    from agent import auxiliary_client
+    from hermes_claude_agent_sdk.compatibility import build_runtime_descriptor
+    from hermes_claude_agent_sdk.runtime import ClaudeAgentSDKRuntime
+    from hermes_state import SessionDB
+    from tools import tool_search
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("offline fallback regression attempted external transport")
+
+    monkeypatch.setattr(socket.socket, "connect", forbidden)
+    monkeypatch.setattr(socket, "getaddrinfo", forbidden)
+    monkeypatch.setattr(subprocess, "Popen", forbidden)
+    # Metadata and title generation are unrelated I/O leaves, not fallback decisions.
+    monkeypatch.setattr("tools.env_probe._build_probe_line", lambda: "")
+    monkeypatch.setattr("agent.title_generator.generate_title", lambda *a, **kw: ("offline", "test"))
+    monkeypatch.setattr("agent.model_metadata._fetch_codex_oauth_context_lengths_with_source", lambda *a: ({}, False))
+    monkeypatch.setattr(tool_search, "load_config", lambda: tool_search.ToolSearchConfig.from_raw({"enabled": "off"}))
+    counts = {"sdk_queries": 0, "fallback_clients": 0}
+
+    class Client:
+        def __init__(self, *, options):
+            self.options = sdk.ClaudeAgentOptions(**options)
+            self.queue = asyncio.Queue()
+
+        async def connect(self):
+            pass
+
+        async def query(self, prompt):
+            counts["sdk_queries"] += 1
+            failed = counts["sdk_queries"] == 1
+            self.queue.put_nowait(sdk.SystemMessage(subtype="init", data={"apiKeySource": "none"}))
+            if visible and failed:
+                self.queue.put_nowait(sdk.AssistantMessage(
+                    content=[sdk.TextBlock(text="already visible")], model="claude-fable-5-1",
+                ))
+            self.queue.put_nowait(sdk.ResultMessage(
+                subtype="success", duration_ms=0, duration_api_ms=0, is_error=failed,
+                num_turns=0 if failed else 1, session_id="", api_error_status=status if failed else None,
+                usage=usage if failed else None, total_cost_usd=cost if failed else None,
+                result=None if failed else "restored SDK reply",
+            ))
+
+        async def receive_messages(self):
+            while True:
+                yield await self.queue.get()
+
+        async def interrupt(self):
+            pass
+
+        async def disconnect(self):
+            pass
+
+    manager = PluginManager()
+    manager._discovered = True
+    context = PluginContext(PluginManifest(name="offline-sdk-fallback"), manager)
+    context.register_agent_runtime(
+        descriptor=build_runtime_descriptor(),
+        factory=lambda: ClaudeAgentSDKRuntime(
+            auth_probe=lambda: SimpleNamespace(allowed=True, category="subscription_oauth"),
+            sdk_module=sdk, client_factory=Client, cwd=str(tmp_path), parent_env={},
+        ),
+    )
+    monkeypatch.setattr(plugins_module, "_plugin_manager", manager)
+
+    def fallback_client(provider, **kwargs):
+        assert provider == "openai-codex"
+        assert kwargs["model"] == "gpt-6-astra"
+        assert kwargs["api_mode"] == "codex_responses"
+        counts["fallback_clients"] += 1
+        return SimpleNamespace(
+            base_url="https://chatgpt.com/backend-api/codex", api_key="offline-token",
+            close=lambda: None,
+        ), kwargs["model"]
+
+    monkeypatch.setattr(auxiliary_client, "resolve_provider_client", fallback_client)
+    db = SessionDB(db_path=tmp_path / "fallback.db")
+    agent = run_agent.AIAgent(
+        api_key="", provider="claude-agent-sdk", model="claude-fable-5-1",
+        api_mode="agent_runtime", base_url="runtime://claude-agent-sdk",
+        fallback_model=[{
+            "provider": "openai-codex", "model": "gpt-6-astra", "api_mode": "codex_responses",
+            "request_overrides": {"reasoning": {"effort": "max"}},
+        }],
+        quiet_mode=True, skip_context_files=True, skip_memory=True, enabled_toolsets=[],
+        session_id="sdk-fallback", session_db=db,
+    )
+    agent._cached_system_prompt = "constant offline prompt"
+    agent.compression_enabled = False
+    agent.save_trajectories = False
+    agent._disable_streaming = True
+    try:
+        result, seen = _run_on_fallback(agent, "hello")
+        receipts = db.list_runtime_usage_receipts(agent.session_id)
+        assert counts["sdk_queries"] == 1
+        assert counts["fallback_clients"] == int(fallback)
+        assert len(seen) == int(fallback)
+        assert agent._fallback_activated is fallback
+        if fallback:
+            assert result["final_response"] == "fallback reply"
+            assert receipts == []
+            assert (agent.model, agent.provider, agent.api_mode) == ("gpt-6-astra", "openai-codex", "codex_responses")
+            assert agent.request_overrides["reasoning"] == {"effort": "max"}
+            # Expire the genuine rate-limit cooldown without sleeping or changing routing.
+            agent._rate_limited_until = 0
+            second, next_seen = _run_on_fallback(agent, "again")
+            assert second["final_response"] == "restored SDK reply"
+            assert next_seen == []
+            assert counts == {"sdk_queries": 2, "fallback_clients": 1}
+            assert (agent.model, agent.provider, agent.api_mode) == ("claude-fable-5-1", "claude-agent-sdk", "agent_runtime")
+            assert agent._fallback_activated is False
+            assert agent.client is None and agent._anthropic_client is None
+            assert agent.request_overrides.get("reasoning") is None
+        else:
+            assert result["failed"] is True
+            expected = RuntimeFailurePhase.AFTER_VISIBLE_OUTPUT if visible else RuntimeFailurePhase.AFTER_SIDE_EFFECTS
+            assert result["failure"].phase is expected
+            assert len(receipts) == (0 if visible else 1)
+    finally:
+        agent.release_clients()
+        manager.unload("offline-sdk-fallback")
+        db.close()

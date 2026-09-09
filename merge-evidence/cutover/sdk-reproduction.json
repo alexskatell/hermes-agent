@@ -1,5 +1,5 @@
 {
-  "backup": "/private/tmp/hermes-sdk-pre-cutover-eusfvydn",
+  "backup": "/private/tmp/hermes-port-sdk-before-2e7xwvir",
   "changed_files": [
     "compatibility.py",
     "configuration.py",
@@ -7,8 +7,8 @@
     "runtime.py"
   ],
   "wheel_sha256": "f481b2ae859338d4d9dc6ae05bece9c10a97532474337f949a1db353313d3d9b",
-  "tracked_patch_sha256": "a08c90355f26cd51664157a87fc576f4605b21d99a6235968e5ad3d36169b6bb",
-  "replay": "/private/tmp/hermes-sdk-final-wheel-replay-hk79ze13",
+  "tracked_patch_sha256": "486c6af8bb90fef8d9293075867fdc0476c81a04949d0d73af29fb2918b00819",
+  "replay": "/private/tmp/hermes-port-sdk-replay-0l0ryt57",
   "verified_file_count": 16,
   "plugin_source_sha256": {
     "__init__.py": "fdcaab40b3c265293d53399c43aa096e8a1fd7832b13d27fb176d281f83ce612",
@@ -18,7 +18,7 @@
     "compaction.py": "cfccc5af8c393cef8a2912b7769f2eedd4e4d7b1dbe24ad53766719835719863",
     "compatibility.py": "0720f8a6105d8a74a7232b84d44c0c3457c53e00fb3b7a214c7dc0f03dd9cc11",
     "configuration.py": "da6b00adf7327c4c5f109426a38ec46d301e4aeb5699aae33fc5a62c670c5638",
-    "content_events.py": "143610a42541dfd084928a134ee272c934f80fae50a8cf93b5a35dfa45e89b34",
+    "content_events.py": "60176231f4154e4af1300c538f312f725055c1127224bdb4beccf8caba5e5ba0",
     "diagnostics.py": "ac5fe8e45bfec04ac37fdfae65fed0f0ddfc355e444dd9072f491c086b328560",
     "memory_skills.py": "df22af80866ffd18ab42826f0312e46c51bb790a25c75d270459de820c26d0d1",
     "prompt_context.py": "502668a16b4586dd2117f90b60f3215990696f97e0c56d077daf0e8278c22800",
@@ -31,5 +31,6 @@
   "live_environment_written": false,
   "fresh_original_wheel_replay_exit": 0,
   "installed_reverse_check_exit": 0,
-  "format_note": "Removed two redundant context lines from one hunk to avoid trailing whitespace in the tracked patch itself; all 16 replayed source hashes remain identical to reviewed candidate."
+  "format_note": "Blank context lines are unprefixed; forward replay verifies exact source bytes.",
+  "verification_command": ".venv-safe/bin/python scripts/runtime-plugin-patches/verify_claude_sdk_reproduction.py --wheel /private/tmp/hermes_claude_agent_sdk-0.1.0-py3-none-any.whl"
 }

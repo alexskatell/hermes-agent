@@ -589,3 +589,95 @@ env -i PATH="$PATH" HOME="$(mktemp -d /private/tmp/hermes-port.XXXXXX)" HERMES_P
   Logs: `/private/tmp/hermes-port-auth-{red,green}.log`.
 - No SDK package changes in this commit. No live runtime/profile writes,
   process signals, service operations, or full-suite runs.
+
+## Remaining live ports: zero-usage failure receipt suppression
+
+`002-zero-usage-HOLD.patch` was applied only to the candidate's installed SDK,
+then hardened against the accounting failures exposed by its required regression
+matrix. No upstream-merge context adaptation was needed. The tracked wheel delta
+now reproduces the installed change; copying the ignored package alone would not
+have produced a reproducible release.
+
+- Failed results with explicit numeric-zero input/output, absent-or-numeric-zero
+  optional cache/reasoning counters, and absent/None/numeric-zero cost suppress
+  only their own `RuntimeUsageEvent`. This explicitly accepts absent/None cost
+  only with otherwise confirmed zero work. SessionDB remains empty and failures
+  can stay `BEFORE_VISIBLE_OUTPUT`.
+- Positive or unknown accounting retains a receipt and `AFTER_SIDE_EFFECTS`.
+  The literal live patch failed 10 new cases: mapping lookups, broken accounting
+  properties, and per-model evidence. The port distinguishes failed reads from
+  actual absence; numeric strings, booleans, negatives, and non-finite values
+  cannot prove zero. Any nonempty/malformed `model_usage` retains the receipt;
+  aggregate zeros cannot disprove per-model work. Explicit `usage=None` retains
+  its prior behavior; an unreadable usage property is unknown, not None.
+- Real SDK dataclasses, projector, SDKSession, runtime, host dispatcher and
+  temporary SessionDB exercise the accounting boundary. Whole-turn integration
+  covers 401/402/429, exactly one `gpt-6-astra` / `openai-codex` fallback, and
+  primary restoration after the existing cooldown expires. Fallback selection
+  and turn-start restoration remain real. Auth/client/transport, metadata and
+  title-generation leaves are isolated; network/subprocess transport is forbidden.
+- Earlier usage/state/tool/compaction or content/status/approval effects still
+  prohibit replay. Successful zero receipts, explicit no-usage results, and
+  iteration-only progress keep their existing behavior and terminal counts.
+
+### Regression evidence
+
+The SDK regression command (from this worktree) was:
+
+```bash
+env -i PATH="$PATH" HOME="$(mktemp -d /private/tmp/hermes-port.XXXXXX)" HERMES_PYTHON="$PWD/.venv-safe/bin/python" HERMES_TEST_FILE_RETRIES=0 bash scripts/run_tests.sh -j 2 tests/agent/test_sdk_cutover_contract.py -q -p no:cacheprovider
+```
+
+Before suppression: **24 passed / 8 failed**, then **32 / 0** after the literal
+port. Expanded safety matrix: **96 / 10**, then **106 / 0** after hardening.
+The later unreadable-usage-property regression produced **114 / 2**; both were
+real missing-receipt failures and are fixed in the final run. Property access
+raising `AttributeError` is also covered separately from actual absence.
+
+Final command, from this worktree:
+
+```bash
+env -i PATH="$PATH" HOME="$(mktemp -d /private/tmp/hermes-port.XXXXXX)" HERMES_PYTHON="$PWD/.venv-safe/bin/python" HERMES_TEST_FILE_RETRIES=0 bash scripts/run_tests.sh -j 2 tests/tui_gateway/test_runtime_auth_readiness.py tests/tui_gateway/test_custom_provider_session_persistence.py tests/agent/test_sdk_cutover_contract.py tests/agent/test_turn_runtime_fallback.py tests/run_agent/test_runtime_fallback_integration.py tests/gateway/test_claude_sdk_interim_integration.py tests/gateway/test_decline_fallback_suppression.py tests/agent/test_sdk_iteration_progress.py tests/agent/test_runtime_iteration_progress.py -q -p no:cacheprovider
+```
+
+**236 passed / 0 failed / 1 existing strict xfailed**, nine files, exit 0.
+Per-file passes: readiness 10; custom-provider persistence 36; SDK cutover 116;
+turn fallback 18; whole-turn fallback 30; SDK interim 2 (plus the known
+commentary-ordering xfail); decline suppression 11; SDK iteration 2; host iteration
+11. These counts were parsed and reconciled with the runner summary, which omits
+xfails. The five required SDK/fallback files account for **177 passes + 1 xfail**.
+Output confirms `.venv-safe/bin/python`, two workers, zero file retries, and fresh
+HOME. Raw final output: `/private/tmp/hermes-port-final-tests.log`; red/green logs
+are `/private/tmp/hermes-port-sdk-*.log`. Targeted Ruff and `git diff --check` pass.
+Integration-fixture iterations corrected unrelated environment/title/metadata I/O
+and the Codex Responses response shape; no production fallback logic was changed.
+
+### Wheel-reproduction receipt
+
+The existing receipt is `merge-evidence/cutover/sdk-reproduction.json`; there is
+no `merge-evidence/sdk-reproduction.json` at the evidence root. Its recorded
+**16 source files** all match a fresh original-wheel replay byte-for-byte. Four
+files differ from the original wheel, as before; `content_events.py` was already
+one of them, so its hash changes rather than adding a seventeenth file.
+
+```bash
+.venv-safe/bin/python scripts/runtime-plugin-patches/verify_claude_sdk_reproduction.py --wheel /private/tmp/hermes_claude_agent_sdk-0.1.0-py3-none-any.whl --record --backup /private/tmp/hermes-port-sdk-before-2e7xwvir
+.venv-safe/bin/python scripts/runtime-plugin-patches/verify_claude_sdk_reproduction.py --wheel /private/tmp/hermes_claude_agent_sdk-0.1.0-py3-none-any.whl
+```
+
+Both commands exit 0: forward applicability/application, exact source-set/hash
+comparison, recorded-hash verification, and installed reverse applicability pass.
+The verifier does not import or modify the installed runtime. Generated blank
+context lines are unprefixed to retain valid Git hunks without patch-file trailing
+whitespace; the forward replay verifies the resulting source bytes.
+
+- Wheel SHA-256: `f481b2ae859338d4d9dc6ae05bece9c10a97532474337f949a1db353313d3d9b`.
+- Tracked patch SHA-256: `486c6af8bb90fef8d9293075867fdc0476c81a04949d0d73af29fb2918b00819`.
+- Installed/replayed `content_events.py` SHA-256: `60176231f4154e4af1300c538f312f725055c1127224bdb4beccf8caba5e5ba0`.
+- Recorded replay: `/private/tmp/hermes-port-sdk-replay-0l0ryt57`.
+- Candidate-only source delta for this port: `content_events.py` **+47/-2**.
+
+No live-runtime files, credentials, profiles or service settings were touched;
+no process was restarted/signaled, no full suite or forbidden updater test ran.
+The local commit disables hooks to prevent an inherited hook from running tests
+outside the explicit allowlist. No push or activation.
