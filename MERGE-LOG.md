@@ -564,3 +564,28 @@ passes. Local/carried-delta whitespace checks pass. A whole staged-merge
 `tests/install/windows-e2e.ps1:192`; it is retained unchanged rather than folded
 into an unrelated cleanup. Hooks are disabled for the local merge commit to
 prevent an inherited hook from launching unsafe tests. No push or activation.
+
+## Remaining live ports: runtime-owned auth readiness
+
+- Rechecked `001-runtime-auth.patch` against HEAD
+  `281e0724524359ffb38cda65b9ccc2e8e57445c8` with `git apply --check --verbose`:
+  exit 0; no hunk adaptations were needed after the upstream merge.
+- `setup.runtime_check` and `_probe_credentials` now accept resolved
+  `agent_runtime` authentication ownership without inventing an API key. Ordinary
+  empty-key errors, keyless sentinels, implicit Bedrock checks, and resolver
+  exceptions remain unchanged. Added the eight carried cases and two real
+  registered-profile resolution cases in a temporary `HERMES_HOME`; disabled
+  profiles still fail and API-auth/client leaves are forbidden.
+- Exact command, run from this worktree for red and green:
+
+```bash
+env -i PATH="$PATH" HOME="$(mktemp -d /private/tmp/hermes-port.XXXXXX)" HERMES_PYTHON="$PWD/.venv-safe/bin/python" HERMES_TEST_FILE_RETRIES=0 bash scripts/run_tests.sh -j 2 tests/tui_gateway/test_runtime_auth_readiness.py tests/tui_gateway/test_custom_provider_session_persistence.py -q -p no:cacheprovider
+```
+
+- Initial carried-only red: 42 passed / 2 failed. Extended red: 43 passed /
+  3 failed (both missing guards and real enabled-profile readiness). Green:
+  **46 passed / 0 failed** (10 readiness and 36 persistence cases). Runner output
+  confirms the candidate `.venv-safe` interpreter; no retries or unsafe tests.
+  Logs: `/private/tmp/hermes-port-auth-{red,green}.log`.
+- No SDK package changes in this commit. No live runtime/profile writes,
+  process signals, service operations, or full-suite runs.
