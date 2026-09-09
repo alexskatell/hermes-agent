@@ -465,3 +465,102 @@ env -i PATH="$PATH" HOME="$(mktemp -d /private/tmp/hermes-mcp-retry.XXXXXX)" HER
 ```
 
 **NOT live until cutover.** No live-runtime edits, service restarts/signals, full-suite runs, or prohibited updater tests were performed.
+
+## Latest upstream main refresh (`c32e0acb0e`)
+
+### Merge and preservation
+
+- Fetched `upstream/main` from `https://github.com/nousresearch/hermes-agent.git`:
+  `c32e0acb0ec59d53ac964007c75630e098bcd045`. A final `git ls-remote`
+  confirmed the same tip. The added `upstream` remote leaves `origin` and `fork` intact.
+- **179 commits merged**, counted with `git rev-list --count
+  3e77460170458c41870bc93b95a0f50efc3d576e..upstream/main` before the merge.
+  This is a true two-parent merge into `runtime-v1-upstream-merge-20260908`, not a
+  rebase or squash. The starting HEAD and all 78 upstream-exclusive ancestors,
+  including the original 71 carried commits and today's discovery-retry commit,
+  remain in history. `merge-evidence/upstream-20260908/provenance.json` pins the lists.
+- **Conflicted files: none.** Git auto-merged `agent/conversation_compression.py`
+  and `tests/run_agent/test_run_agent.py`. Upstream's lean-tail recalibration and
+  memory-guidance assertions coexist with the carried host-compaction and runtime
+  dispatch behavior. No product or test assertion was hand-edited for this merge.
+- The discovery implementation, lifecycle cleanup, `mcp_discovery_retry` default,
+  and `tests/tools/test_mcp_discovery_retry.py` are byte-unchanged from starting HEAD.
+
+### Dependencies and plugin receipt
+
+- `pyproject.toml` and `uv.lock` are unchanged; no dependency sync or reinstall was
+  needed. `.venv-safe` remains candidate-owned Python 3.12.13 with editable Hermes
+  0.21.1. The frontend metadata advances Desktop 0.17.1 to 0.17.2 and relocates its
+  mock-server script; the npm lock changes only the Desktop workspace version.
+- `hermes_claude_agent_sdk` imports from this worktree's `.venv-safe`, distribution
+  `hermes-claude-agent-sdk==0.1.0`, transport SDK `claude-agent-sdk==0.2.151`.
+- A fresh isolated HOME enables only `claude-agent-sdk` for the probe. Production
+  `get_provider_profile()` loads the `hermes_agent.plugins` entry point
+  `claude-agent-sdk = hermes_claude_agent_sdk`; production `discover_plugins()`
+  registers runtime `hermes-claude-agent-sdk` and retains the plugin's real factory.
+  Provider ID and runtime ID are intentionally different. No transport client,
+  credential lookup, provider inference, or live profile is used by the probe.
+- The signature default and a constructed `SDKSessionConfiguration` both return
+  `turn_timeout_seconds = 14400.0`. All 16 plugin source hashes match the existing
+  tracked-wheel-patch receipt. Reverse patch-check passes; **no patch reapplication**
+  was necessary. `uv pip check --python .venv-safe/bin/python` reports all 134
+  installed packages compatible.
+- `openai-codex` resolves to `codex_responses`; its bundled profile,
+  `agent.codex_runtime`, `agent.codex_responses_adapter`, and `agent.transports.codex`
+  all import from the candidate. Full receipt and reproducible offline probe:
+  `merge-evidence/upstream-20260908/plugin-verification.json` and `verify_candidate.py`.
+
+### Explicit verification and safety qualification
+
+The final consolidated run names **36 files**: all 23 prior manifest files, the
+new discovery-retry file, all four upstream-touched test files under
+`tests/agent`, `tests/gateway`, and `tests/tools`, plus seven supporting MCP files
+and the auto-merged compression feasibility regression. The original manifest is
+at `merge-evidence/cutover/final-files.json`, referenced by its final-verification
+receipt. No directory selector, full suite, or updater test was run.
+
+**1025 passed, 8 failed, 6 platform-skipped, 1 known strict xfailed; 9 safety-deselected.**
+The runner exits 1 because of the eight failures. The original 23 files account
+for 653 passed and the known strict xfail; discovery-retry passes all 16 tests.
+The shell summary omits xfails, so totals also reconcile the per-file output.
+
+The no-signals instruction requires a narrow exception to full-file coverage:
+nine process-registry cases that issue real SIGTERM/SIGKILL or signal-sending
+cleanup were explicitly deselected with `-k`. The tests remain unchanged, and their
+names/reason are recorded in `safety-exclusions.json`. This is not a claim that
+those nine cases were executed or passed. The new Linux-only systemd-bus case is
+one of the six normal platform skips on this Mac. No live-runtime source/venv,
+profile, service, or process lifecycle was changed.
+
+Exact final command, from this worktree:
+
+```bash
+env -i PATH="$PATH" HOME="$(mktemp -d /private/tmp/hermes-merge.XXXXXX)" HERMES_PYTHON="$PWD/.venv-safe/bin/python" HERMES_TEST_FILE_RETRIES=0 bash scripts/run_tests.sh -j 2 tests/agent/test_runtime_iteration_progress.py tests/agent/test_sdk_cutover_contract.py tests/agent/test_sdk_iteration_progress.py tests/agent/test_turn_runtime_fallback.py tests/gateway/relay/test_relay_egress_declines.py tests/gateway/test_claude_sdk_interim_integration.py tests/gateway/test_completion_delivery.py tests/gateway/test_decline_fallback_suppression.py tests/gateway/test_fallback_chain_reload.py tests/gateway/test_prompt_decline_no_fallback.py tests/gateway/test_runtime_interim_delivery.py tests/gateway/test_runtime_interim_multi_commentary.py tests/gateway/test_runtime_merge_delivery_identity.py tests/gateway/test_stream_consumer.py tests/gateway/test_stream_consumer_draft.py tests/gateway/test_stream_consumer_fresh_final.py tests/gateway/test_stream_consumer_thread_routing.py tests/gateway/test_stream_consumer_tool_progress.py tests/run_agent/test_background_review.py tests/run_agent/test_provider_fallback.py tests/run_agent/test_run_agent.py tests/run_agent/test_runtime_fallback_integration.py tests/tools/test_async_delegation.py tests/tools/test_mcp_discovery_retry.py tests/agent/test_system_prompt.py tests/tools/test_delegate_group_schema.py tests/tools/test_image_generation.py tests/tools/test_process_registry.py tests/run_agent/test_compression_feasibility.py tests/tools/test_mcp_tool.py tests/tools/test_mcp_initial_connect_shutdown.py tests/tools/test_mcp_bridge_single_failure.py tests/tools/test_mcp_lazy_start.py tests/tools/test_mcp_loop_profile_override.py tests/tools/test_mcp_discovery_cross_process.py tests/tools/test_mcp_register_wakes_stale.py -k 'not test_reconcile_flips_exited_when_direct_child_done and not test_wait_returns_when_reader_blocked and not test_close_stdin_allows_eof_driven_process_to_finish and not test_terminate_refuses_when_start_time_mismatches and not test_sigterm_ignoring_daemon_is_sigkilled and not test_escalation_does_not_bypass_recycled_pid_guard and not test_entire_tree_is_sigkilled_not_just_parent and not test_reader_exits_when_orphan_holds_pipe and not test_reader_exit_fires_notify_on_complete' -q -p no:cacheprovider > /private/tmp/hermes-upstream-c32e0acb0e-final-tests.log 2>&1
+```
+
+All eight failures are **pre-existing environment-only systemd assumptions on
+macOS**, under `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation`:
+- `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_failed_systemd_probe_retries_after_cache_ttl`
+- `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails`
+- `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback`
+- `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_is_wrapped_in_systemd_scope`
+- `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_post_spawn_failure_never_kills_gateway_process_group`
+- `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_run_user_scope_available_caches_after_probe`
+- `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_scope_first_probe_is_serialized`
+- `tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_wraps_in_systemd_scope_when_supervisor_and_available`
+
+Both current process-registry source and tests match fetched upstream exactly.
+All eight failing node IDs also match both historical exact-parent and candidate
+receipts in `merge-evidence/differential.jsonl`; those records are retained in
+`environment-failures.json`. The existing MagicMock JSON-serialization thread
+warning remains. No merge-induced failure was found in the executed cases, and no
+upstream or environment failure was fixed, xfailed, or assertion-weakened.
+
+The final command, required/expanded manifests, reconciled per-file counts, safety
+exclusions, failure classifications, and raw log are in
+`merge-evidence/upstream-20260908/`. Targeted Ruff on the new verification helper
+passes. Local/carried-delta whitespace checks pass. A whole staged-merge
+`git diff --cached --check` reports upstream's existing trailing space at
+`tests/install/windows-e2e.ps1:192`; it is retained unchanged rather than folded
+into an unrelated cleanup. Hooks are disabled for the local merge commit to
+prevent an inherited hook from launching unsafe tests. No push or activation.

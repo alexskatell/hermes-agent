@@ -1,0 +1,49 @@
+{
+  "python": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python",
+  "python_version": "3.12.13",
+  "hermes_version": "0.21.1",
+  "plugin_version": "0.1.0",
+  "sdk_version": "0.2.151",
+  "import_path": "/Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/lib/python3.12/site-packages/hermes_claude_agent_sdk",
+  "entry_point": {
+    "group": "hermes_agent.plugins",
+    "name": "claude-agent-sdk",
+    "value": "hermes_claude_agent_sdk"
+  },
+  "provider_registered_via_production_discovery": "claude-agent-sdk",
+  "runtime_registered_via_plugin_manager": "hermes-claude-agent-sdk",
+  "factory_identity_verified": true,
+  "turn_timeout_seconds_default": 14400.0,
+  "constructed_turn_timeout_seconds": 14400.0,
+  "all_16_plugin_sources_match_tracked_patch_receipt": true,
+  "plugin_source_sha256": {
+    "__init__.py": "fdcaab40b3c265293d53399c43aa096e8a1fd7832b13d27fb176d281f83ce612",
+    "__main__.py": "f99fe933928b95456083ebc54e70ff54265d9a05b7cad01598ff8b6fbc2dc550",
+    "auth.py": "dd5cbc43e98c56cb9d68a0dd00a252ff1b16b75b7abfb03654a4c1adfd076351",
+    "billing.py": "4ca0e5c635d9e3069bb4d3227872683f833dd78dc2b0a1a9e4bcf0f7d06699e9",
+    "compaction.py": "cfccc5af8c393cef8a2912b7769f2eedd4e4d7b1dbe24ad53766719835719863",
+    "compatibility.py": "0720f8a6105d8a74a7232b84d44c0c3457c53e00fb3b7a214c7dc0f03dd9cc11",
+    "configuration.py": "da6b00adf7327c4c5f109426a38ec46d301e4aeb5699aae33fc5a62c670c5638",
+    "content_events.py": "143610a42541dfd084928a134ee272c934f80fae50a8cf93b5a35dfa45e89b34",
+    "diagnostics.py": "ac5fe8e45bfec04ac37fdfae65fed0f0ddfc355e444dd9072f491c086b328560",
+    "memory_skills.py": "df22af80866ffd18ab42826f0312e46c51bb790a25c75d270459de820c26d0d1",
+    "prompt_context.py": "502668a16b4586dd2117f90b60f3215990696f97e0c56d077daf0e8278c22800",
+    "provider_profile.py": "c5925a1df9941437bb8e43aa049ed6aab302f926c559af896968b3c56167947c",
+    "runtime.py": "f6dc7f1561ae034bbe90ad72914d4775798b40a92fb5c129746efcd6437f13d9",
+    "sdk_session.py": "7ffb39ca8a78cc1787bce858294acd6492da8f6a4d83357d3b1cd94a86ce92f9",
+    "tool_bridge.py": "4fb4cefb7054d10bef17abdd9820e808e8d6b871088acb2c7385e8ed23d8ad46",
+    "turn_input.py": "7bf31c4152fe123b83df35b7b640c1e451da4a03ed7d9a607c413e2660d3577f"
+  },
+  "patch_reapplied": false,
+  "openai_codex_profile": {
+    "name": "openai-codex",
+    "api_mode": "codex_responses"
+  },
+  "codex_imports": {
+    "plugins.model_providers.openai_codex": "/Users/oc/workspace/hermes-upstream-merge-20260908/plugins/model-providers/openai-codex/__init__.py",
+    "agent.codex_runtime": "/Users/oc/workspace/hermes-upstream-merge-20260908/agent/codex_runtime.py",
+    "agent.codex_responses_adapter": "/Users/oc/workspace/hermes-upstream-merge-20260908/agent/codex_responses_adapter.py",
+    "agent.transports.codex": "/Users/oc/workspace/hermes-upstream-merge-20260908/agent/transports/codex.py"
+  },
+  "no_credentials_or_provider_inference": true
+}

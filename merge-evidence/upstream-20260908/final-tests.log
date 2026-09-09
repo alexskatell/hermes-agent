@@ -1,0 +1,502 @@
+▶ skipping venv without pytest: /Users/oc/workspace/hermes-upstream-merge-20260908/.venv
+▶ no local venv — using Nix dev venv via HERMES_PYTHON: /Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/bin/python
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 36 test files (~914 tests) under ['tests/agent/test_runtime_iteration_progress.py', 'tests/agent/test_sdk_cutover_contract.py', 'tests/agent/test_sdk_iteration_progress.py', 'tests/agent/test_turn_runtime_fallback.py', 'tests/gateway/relay/test_relay_egress_declines.py', 'tests/gateway/test_claude_sdk_interim_integration.py', 'tests/gateway/test_completion_delivery.py', 'tests/gateway/test_decline_fallback_suppression.py', 'tests/gateway/test_fallback_chain_reload.py', 'tests/gateway/test_prompt_decline_no_fallback.py', 'tests/gateway/test_runtime_interim_delivery.py', 'tests/gateway/test_runtime_interim_multi_commentary.py', 'tests/gateway/test_runtime_merge_delivery_identity.py', 'tests/gateway/test_stream_consumer.py', 'tests/gateway/test_stream_consumer_draft.py', 'tests/gateway/test_stream_consumer_fresh_final.py', 'tests/gateway/test_stream_consumer_thread_routing.py', 'tests/gateway/test_stream_consumer_tool_progress.py', 'tests/run_agent/test_background_review.py', 'tests/run_agent/test_provider_fallback.py', 'tests/run_agent/test_run_agent.py', 'tests/run_agent/test_runtime_fallback_integration.py', 'tests/tools/test_async_delegation.py', 'tests/tools/test_mcp_discovery_retry.py', 'tests/agent/test_system_prompt.py', 'tests/tools/test_delegate_group_schema.py', 'tests/tools/test_image_generation.py', 'tests/tools/test_process_registry.py', 'tests/run_agent/test_compression_feasibility.py', 'tests/tools/test_mcp_tool.py', 'tests/tools/test_mcp_initial_connect_shutdown.py', 'tests/tools/test_mcp_bridge_single_failure.py', 'tests/tools/test_mcp_lazy_start.py', 'tests/tools/test_mcp_loop_profile_override.py', 'tests/tools/test_mcp_discovery_cross_process.py', 'tests/tools/test_mcp_register_wakes_stale.py']; running with -j 2
+[  0.3% |     3/~914 | ✓11 | ✗ 0] ✓ tests/agent/test_runtime_iteration_progress.py (11✓, 0.4s)
+[  1.2% |    11/~914 | ✓35 | ✗ 0] ✓ tests/agent/test_sdk_cutover_contract.py (24✓, 1.1s)
+[  1.4% |    13/~914 | ✓37 | ✗ 0] ✓ tests/agent/test_sdk_iteration_progress.py (2✓, 1.1s)
+[  2.4% |    22/~914 | ✓55 | ✗ 0] ✓ tests/agent/test_turn_runtime_fallback.py (18✓, 0.4s)
+[  5.8% |    53/~914 | ✓89 | ✗ 0] ✓ tests/gateway/relay/test_relay_egress_declines.py (34✓, 1.1s)
+[  5.9% |    54/~914 | ✓91 | ✗ 0] ✓ tests/gateway/test_claude_sdk_interim_integration.py (2✓ 1xf, 2.1s)
+[ 11.6% |   106/~914 | ✓158 | ✗  0] ✓ tests/agent/test_system_prompt.py (67✓, 6.0s)
+[ 12.8% |   117/~914 | ✓169 | ✗  0] ✓ tests/gateway/test_decline_fallback_suppression.py (11✓, 0.5s)
+[ 16.6% |   152/~914 | ✓215 | ✗  0] ✓ tests/gateway/test_completion_delivery.py (46✓, 2.5s)
+[ 17.1% |   156/~914 | ✓219 | ✗  0] ✓ tests/gateway/test_fallback_chain_reload.py (4✓, 0.4s)
+[ 18.4% |   168/~914 | ✓233 | ✗  0] ✓ tests/gateway/test_prompt_decline_no_fallback.py (14✓, 0.7s)
+[ 18.6% |   170/~914 | ✓237 | ✗  0] ✓ tests/gateway/test_runtime_interim_delivery.py (4✓, 1.0s)
+[ 18.8% |   172/~914 | ✓239 | ✗  0] ✓ tests/gateway/test_runtime_interim_multi_commentary.py (2✓, 1.1s)
+[ 19.0% |   174/~914 | ✓242 | ✗  0] ✓ tests/gateway/test_runtime_merge_delivery_identity.py (3✓, 0.5s)
+[ 20.4% |   186/~914 | ✓254 | ✗  0] ✓ tests/gateway/test_stream_consumer_draft.py (12✓, 1.1s)
+[ 21.4% |   196/~914 | ✓264 | ✗  0] ✓ tests/gateway/test_stream_consumer_fresh_final.py (10✓, 0.8s)
+[ 21.9% |   200/~914 | ✓268 | ✗  0] ✓ tests/gateway/test_stream_consumer_thread_routing.py (4✓, 0.4s)
+[ 23.5% |   215/~914 | ✓283 | ✗  0] ✓ tests/gateway/test_stream_consumer_tool_progress.py (15✓, 3.2s)
+[ 28.9% |   264/~914 | ✓349 | ✗  0] ✓ tests/gateway/test_stream_consumer.py (66✓, 6.1s)
+[ 30.5% |   279/~914 | ✓364 | ✗  0] ✓ tests/run_agent/test_background_review.py (15✓, 1.0s)
+[ 31.8% |   291/~914 | ✓377 | ✗  0] ✓ tests/run_agent/test_compression_feasibility.py (13✓, 0.8s)
+[ 34.1% |   312/~914 | ✓406 | ✗  0] ✓ tests/run_agent/test_provider_fallback.py (29✓, 2.6s)
+[ 34.5% |   315/~914 | ✓409 | ✗  0] ✓ tests/run_agent/test_runtime_fallback_integration.py (3✓, 1.4s)
+[ 38.2% |   349/~914 | ✓443 | ✗  0] ✓ tests/tools/test_async_delegation.py (34✓, 14.8s)
+[ 38.4% |   351/~914 | ✓445 | ✗  0] ✓ tests/tools/test_delegate_group_schema.py (2✓, 0.7s)
+[ 44.0% |   402/~914 | ✓501 | ✗  0] ✓ tests/tools/test_image_generation.py (56✓, 1.1s)
+[ 44.6% |   408/~914 | ✓507 | ✗  0] ✓ tests/tools/test_mcp_bridge_single_failure.py (6✓, 0.8s)
+[ 44.7% |   409/~914 | ✓508 | ✗  0] ✓ tests/tools/test_mcp_discovery_cross_process.py (1✓, 1.4s)
+[ 46.0% |   420/~914 | ✓524 | ✗  0] ✓ tests/tools/test_mcp_discovery_retry.py (16✓, 1.0s)
+[ 46.4% |   424/~914 | ✓528 | ✗  0] ✓ tests/tools/test_mcp_initial_connect_shutdown.py (4✓, 0.8s)
+[ 48.2% |   441/~914 | ✓545 | ✗  0] ✓ tests/tools/test_mcp_lazy_start.py (17✓, 0.7s)
+[ 48.6% |   444/~914 | ✓548 | ✗  0] ✓ tests/tools/test_mcp_loop_profile_override.py (3✓, 0.6s)
+[ 48.7% |   445/~914 | ✓549 | ✗  0] ✓ tests/tools/test_mcp_register_wakes_stale.py (1✓, 0.6s)
+[ 59.7% |   546/~914 | ✓650 | ✗  0] ✓ tests/tools/test_mcp_tool.py (101✓, 3.1s)
+[ 88.4% |   808/~914 | ✓940 | ✗  0] ✓ tests/run_agent/test_run_agent.py (290✓, 29.5s)
+[100.0% |   914/~914 | ✓1025 | ✗   8] ✗ tests/tools/test_process_registry.py (85✓ 8✗ 6s, 4.4s)
+
+  ╔╍ Failed: tests/tools/test_process_registry.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║     File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/__init__.py", line 179, in dump
+  ║       for chunk in iterable:
+  ║                    ^^^^^^^^
+  ║     File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/encoder.py", line 432, in _iterencode
+  ║       yield from _iterencode_dict(o, _current_indent_level)
+  ║     File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+  ║       yield from chunks
+  ║     File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/encoder.py", line 439, in _iterencode
+  ║       o = _default(o)
+  ║           ^^^^^^^^^^^
+  ║     File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/encoder.py", line 180, in default
+  ║       raise TypeError(f'Object of type {o.__class__.__name__} '
+  ║   TypeError: Object of type MagicMock is not JSON serializable
+  ║   
+  ║   Enable tracemalloc to get traceback where the object was allocated.
+  ║   See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+  ║     warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+  ║ 
+  ║ -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_wraps_in_systemd_scope_when_supervisor_and_available
+  ║ FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_post_spawn_failure_never_kills_gateway_process_group
+  ║ FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_is_wrapped_in_systemd_scope
+  ║ FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback
+  ║ FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails
+  ║ FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_run_user_scope_available_caches_after_probe
+  ║ FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_scope_first_probe_is_serialized
+  ║ FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_failed_systemd_probe_retries_after_cache_ttl
+  ║ 8 failed, 85 passed, 6 skipped, 9 deselected, 1 warning in 4.14s
+  ║
+  ║  Repro: python -m pytest tests/tools/test_process_registry.py -k not test_reconcile_flips_exited_when_direct_child_done and not test_wait_returns_when_reader_blocked and not test_close_stdin_allows_eof_driven_process_to_finish and not test_terminate_refuses_when_start_time_mismatches and not test_sigterm_ignoring_daemon_is_sigkilled and not test_escalation_does_not_bypass_recycled_pid_guard and not test_entire_tree_is_sigkilled_not_just_parent and not test_reader_exits_when_orphan_holds_pipe and not test_reader_exit_fires_notify_on_complete -q -p no:cacheprovider
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 36 files, 1025 tests passed, 8 failed, 6 skipped (100% complete) in 49.9s (2 workers) ===
+
+  note: linux_only tests (in 1 file) were SKIPPED on this host (darwin); they run on the main Linux CI lane.
+  note: windows_only tests (in 1 file) were SKIPPED on this host (darwin); they run on the tests-os CI lane (windows-latest).
+  Durations cached to test_durations.json (36 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   36
+  Total subprocess CPU-wall: 95.8s  (runner wall: 49.9s, parallelism: 2x)
+  P50: 1.05s  P90: 5.97s  P95: 14.78s  P99: 29.47s  Max: 29.47s
+  <1s: 15 files (42%)  <2s: 26 files (72%)
+  Top 10 slowest:
+     29.47s  tests/run_agent/test_run_agent.py
+     14.78s  tests/tools/test_async_delegation.py
+      6.09s  tests/gateway/test_stream_consumer.py
+      5.97s  tests/agent/test_system_prompt.py
+      4.43s  tests/tools/test_process_registry.py
+      3.22s  tests/gateway/test_stream_consumer_tool_progress.py
+      3.13s  tests/tools/test_mcp_tool.py
+      2.58s  tests/run_agent/test_provider_fallback.py
+      2.50s  tests/gateway/test_completion_delivery.py
+      2.08s  tests/gateway/test_claude_sdk_interim_integration.py
+
+=== Failure output ===
+
+--- tests/tools/test_process_registry.py ---
+..ssss..............................................s........F......FFFF [ 72%]
+...FsFF....................                                              [100%]
+=================================== FAILURES ===================================
+_ TestSystemdCgroupIsolation.test_wraps_in_systemd_scope_when_supervisor_and_available _
+
+self = <tests.tools.test_process_registry.TestSystemdCgroupIsolation object at 0x10a80ef90>
+registry = <tools.process_registry.ProcessRegistry object at 0x10c3c9c40>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10c6f3710>
+_gateway_identity = None
+
+    def test_wraps_in_systemd_scope_when_supervisor_and_available(
+        self, registry, monkeypatch, _gateway_identity
+    ):
+        """Under a supervisor with systemd-run available, the spawn argv is
+        wrapped in ``systemd-run --user --scope --unit=hermes-worker-<id>``."""
+        fake_popen, captured = self._fake_popen_capture()
+    
+        monkeypatch.setattr("tools.process_registry._find_shell", lambda: "/bin/bash")
+        monkeypatch.setattr(
+            "tools.process_registry._systemd_run_user_scope_available",
+            lambda: True,
+        )
+        monkeypatch.setattr(
+            "gateway.restart.is_gateway_supervisor_process",
+            lambda: True,
+        )
+        # _build_systemd_scope_argv calls shutil.which — point it at a stub.
+        monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/systemd-run")
+    
+        with (
+            patch("subprocess.Popen", side_effect=fake_popen),
+            patch("threading.Thread", return_value=MagicMock()),
+            patch.object(registry, "_write_checkpoint"),
+        ):
+            session = registry.spawn_local("echo hello", cwd="/tmp")
+    
+        argv = captured["argv"]
+>       assert argv[0] == "/usr/bin/systemd-run", argv
+E       AssertionError: ['/bin/bash', '-lic', 'set +m; echo hello']
+E       assert '/bin/bash' == '/usr/bin/systemd-run'
+E         
+E         - /usr/bin/systemd-run
+E         + /bin/bash
+
+tests/tools/test_process_registry.py:1941: AssertionError
+_ TestSystemdCgroupIsolation.test_systemd_post_spawn_failure_never_kills_gateway_process_group _
+
+self = <tests.tools.test_process_registry.TestSystemdCgroupIsolation object at 0x10a80e240>
+registry = <tools.process_registry.ProcessRegistry object at 0x10c720b90>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d7cda60>
+_gateway_identity = None
+
+    def test_systemd_post_spawn_failure_never_kills_gateway_process_group(
+        self, registry, monkeypatch, _gateway_identity
+    ):
+        """Cleanup must not killpg: scope teardown is the authoritative path."""
+        fake_popen, _captured = self._fake_popen_capture()
+        fake_proc = fake_popen(["placeholder"])
+    
+        monkeypatch.setattr("tools.process_registry._find_shell", lambda: "/bin/bash")
+        monkeypatch.setattr(
+            "tools.process_registry._systemd_run_user_scope_available",
+            lambda: True,
+        )
+        monkeypatch.setattr(
+            "gateway.restart.is_gateway_supervisor_process",
+            lambda: True,
+        )
+        monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/systemd-run")
+    
+        broken_reader = MagicMock()
+        broken_reader.start.side_effect = RuntimeError("reader failed")
+    
+        with patch("subprocess.Popen", return_value=fake_proc), \
+            patch("threading.Thread", return_value=broken_reader), \
+            patch("tools.process_registry._stop_systemd_unit", return_value=True) as stop_unit, \
+            patch("os.killpg") as killpg, \
+            patch.object(registry, "_write_checkpoint"):
+            with pytest.raises(RuntimeError, match="reader failed"):
+                registry.spawn_local("echo hello", cwd="/tmp")
+    
+>       stop_unit.assert_called_once()
+
+tests/tools/test_process_registry.py:2163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <MagicMock name='_stop_systemd_unit' id='4499415712'>
+
+    def assert_called_once(self):
+        """assert that the mock was called only once.
+        """
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to have been called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+>           raise AssertionError(msg)
+E           AssertionError: Expected '_stop_systemd_unit' to have been called once. Called 0 times.
+
+../../.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/unittest/mock.py:928: AssertionError
+____ TestSystemdCgroupIsolation.test_pty_spawn_is_wrapped_in_systemd_scope _____
+
+self = <tests.tools.test_process_registry.TestSystemdCgroupIsolation object at 0x10a7febd0>
+registry = <tools.process_registry.ProcessRegistry object at 0x10c3ab6b0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d7cd7c0>
+_gateway_identity = None
+
+    def test_pty_spawn_is_wrapped_in_systemd_scope(self, registry, monkeypatch, _gateway_identity):
+        """Interactive executors receive the same sibling-cgroup isolation."""
+        from ptyprocess import PtyProcess
+    
+        fake_pty = MagicMock()
+        fake_pty.pid = 4321
+    
+        monkeypatch.setattr("tools.process_registry._find_shell", lambda: "/bin/bash")
+        monkeypatch.setattr(
+            "tools.process_registry._systemd_run_user_scope_available",
+            lambda: True,
+        )
+        monkeypatch.setattr(
+            "gateway.restart.is_gateway_supervisor_process",
+            lambda: True,
+        )
+        monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/systemd-run")
+    
+        with patch.object(PtyProcess, "spawn", return_value=fake_pty) as pty_spawn, \
+            patch("threading.Thread", return_value=MagicMock()), \
+            patch.object(registry, "_write_checkpoint"):
+            session = registry.spawn_local("codex", cwd="/tmp", use_pty=True)
+    
+        argv = pty_spawn.call_args.args[0]
+>       assert argv[0] == "/usr/bin/systemd-run"
+E       AssertionError: assert '/bin/bash' == '/usr/bin/systemd-run'
+E         
+E         - /usr/bin/systemd-run
+E         + /bin/bash
+
+tests/tools/test_process_registry.py:2192: AssertionError
+_ TestSystemdCgroupIsolation.test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback _
+
+self = <tests.tools.test_process_registry.TestSystemdCgroupIsolation object at 0x10a821130>
+registry = <tools.process_registry.ProcessRegistry object at 0x10d86d430>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d7cd250>
+_gateway_identity = None
+
+    def test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback(
+        self, registry, monkeypatch, _gateway_identity
+    ):
+        """A failed PTY scope must not collide with the pipe fallback scope."""
+        from ptyprocess import PtyProcess
+    
+        events = []
+        fake_proc = MagicMock()
+        fake_proc.pid = 4321
+        fake_proc.stdout = iter([])
+        fake_proc.stdin = MagicMock()
+        fake_proc.poll.return_value = None
+    
+        def fake_popen(argv, **_kwargs):
+            events.append(("pipe", list(argv)))
+            return fake_proc
+    
+        def fake_stop(unit_name):
+            events.append(("stop", unit_name))
+            return True
+    
+        def fail_pty(*_args, **_kwargs):
+            events.append(("pty", None))
+            raise RuntimeError("PTY wrapper failed after scope creation")
+    
+        monkeypatch.setattr("tools.process_registry._find_shell", lambda: "/bin/bash")
+        monkeypatch.setattr(
+            "tools.process_registry._systemd_run_user_scope_available",
+            lambda: True,
+        )
+        monkeypatch.setattr(
+            "gateway.restart.is_gateway_supervisor_process",
+            lambda: True,
+        )
+        monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/systemd-run")
+    
+        with patch.object(PtyProcess, "spawn", side_effect=fail_pty), \
+            patch("subprocess.Popen", side_effect=fake_popen), \
+            patch("tools.process_registry._stop_systemd_unit", side_effect=fake_stop), \
+            patch("threading.Thread", return_value=MagicMock()), \
+            patch.object(registry, "_write_checkpoint"):
+            session = registry.spawn_local("codex", cwd="/tmp", use_pty=True)
+    
+>       assert [event[0] for event in events] == ["pty", "stop", "pipe"]
+E       AssertionError: assert ['pty', 'pipe'] == ['pty', 'stop', 'pipe']
+E         
+E         At index 1 diff: 'pipe' != 'stop'
+E         Right contains one more item: 'pipe'
+E         Use -v to get more diff
+
+tests/tools/test_process_registry.py:2242: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  tools.process_registry:process_registry.py:919 PTY spawn failed (PTY wrapper failed after scope creation), falling back to pipe mode
+_ TestSystemdCgroupIsolation.test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails _
+
+self = <tests.tools.test_process_registry.TestSystemdCgroupIsolation object at 0x10a821820>
+registry = <tools.process_registry.ProcessRegistry object at 0x10c2f9670>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10c216180>
+_gateway_identity = None
+
+    def test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails(
+        self, registry, monkeypatch, _gateway_identity
+    ):
+        """Do not launch a duplicate command while the failed PTY scope may live."""
+        from ptyprocess import PtyProcess
+    
+        monkeypatch.setattr("tools.process_registry._find_shell", lambda: "/bin/bash")
+        monkeypatch.setattr(
+            "tools.process_registry._systemd_run_user_scope_available",
+            lambda: True,
+        )
+        monkeypatch.setattr(
+            "gateway.restart.is_gateway_supervisor_process",
+            lambda: True,
+        )
+        monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/systemd-run")
+    
+        with patch.object(
+            PtyProcess,
+            "spawn",
+            side_effect=RuntimeError("PTY wrapper failed after scope creation"),
+        ), patch("subprocess.Popen") as pipe_spawn, patch(
+            "tools.process_registry._stop_systemd_unit", return_value=False
+        ) as stop_unit:
+>           with pytest.raises(RuntimeError, match="could not be reaped"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE RuntimeError
+
+tests/tools/test_process_registry.py:2278: Failed
+------------------------------ Captured log call -------------------------------
+WARNING  tools.process_registry:process_registry.py:919 PTY spawn failed (PTY wrapper failed after scope creation), falling back to pipe mode
+_ TestSystemdCgroupIsolation.test_systemd_run_user_scope_available_caches_after_probe _
+
+self = <tests.tools.test_process_registry.TestSystemdCgroupIsolation object at 0x10a8232c0>
+registry = <tools.process_registry.ProcessRegistry object at 0x10d86ee10>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10c2f9910>
+
+    def test_systemd_run_user_scope_available_caches_after_probe(
+        self, registry, monkeypatch
+    ):
+        """The availability check probes once and caches — a second call must
+        not re-probe (and must return the same value)."""
+        import tools.process_registry as pr
+    
+        # Reset the cache.
+        monkeypatch.setattr(pr, "_SYSTEMD_SCOPE_AVAILABLE", None)
+        probe_calls = []
+    
+        def fake_run(*args, **kwargs):
+            probe_calls.append(args)
+            return subprocess.CompletedProcess(args=args[0], returncode=0)
+    
+        monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/systemd-run")
+        monkeypatch.setattr("subprocess.run", fake_run)
+    
+        first = pr._systemd_run_user_scope_available()
+        second = pr._systemd_run_user_scope_available()
+>       assert first is True
+E       assert False is True
+
+tests/tools/test_process_registry.py:2368: AssertionError
+___ TestSystemdCgroupIsolation.test_systemd_scope_first_probe_is_serialized ____
+
+self = <tests.tools.test_process_registry.TestSystemdCgroupIsolation object at 0x10a824050>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d7b7a40>
+
+    def test_systemd_scope_first_probe_is_serialized(self, monkeypatch):
+        """Concurrent first-use callers must wait for one definitive probe.
+    
+        A temporary cached ``False`` would let a racing worker spawn inside the
+        gateway cgroup, defeating the OOM isolation guarantee.
+        """
+        import tools.process_registry as pr
+    
+        monkeypatch.setattr(pr, "_SYSTEMD_SCOPE_AVAILABLE", None)
+        probe_started = threading.Event()
+        release_probe = threading.Event()
+        probe_calls = []
+        results = []
+    
+        def fake_run(*args, **kwargs):
+            probe_calls.append(args)
+            probe_started.set()
+            assert release_probe.wait(timeout=2)
+            return subprocess.CompletedProcess(args=args[0], returncode=0)
+    
+        monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/systemd-run")
+        monkeypatch.setattr("subprocess.run", fake_run)
+    
+        first = threading.Thread(
+            target=lambda: results.append(pr._systemd_run_user_scope_available())
+        )
+        second = threading.Thread(
+            target=lambda: results.append(pr._systemd_run_user_scope_available())
+        )
+        first.start()
+>       assert probe_started.wait(timeout=2)
+E       assert False
+E        +  where False = wait(timeout=2)
+E        +    where wait = <threading.Event at 0x10d86dc70: unset>.wait
+
+tests/tools/test_process_registry.py:2457: AssertionError
+_ TestSystemdCgroupIsolation.test_failed_systemd_probe_retries_after_cache_ttl _
+
+self = <tests.tools.test_process_registry.TestSystemdCgroupIsolation object at 0x10a823b90>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d7b64b0>
+
+    def test_failed_systemd_probe_retries_after_cache_ttl(self, monkeypatch):
+        import tools.process_registry as pr
+    
+        monkeypatch.setattr(pr, "_SYSTEMD_SCOPE_AVAILABLE", None)
+        monkeypatch.setattr(pr, "_SYSTEMD_SCOPE_PROBED_AT", 0.0, raising=False)
+        clock = [100.0]
+        probe_results = [1, 0]
+        probe_calls = []
+    
+        def fake_run(*args, **kwargs):
+            probe_calls.append(args)
+            return subprocess.CompletedProcess(
+                args=args[0], returncode=probe_results.pop(0)
+            )
+    
+        monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/systemd-run")
+        monkeypatch.setattr("tools.process_registry.time.monotonic", lambda: clock[0])
+        monkeypatch.setattr("subprocess.run", fake_run)
+    
+        assert pr._systemd_run_user_scope_available() is False
+        assert pr._systemd_run_user_scope_available() is False
+>       assert len(probe_calls) == 1
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/tools/test_process_registry.py:2495: AssertionError
+=============================== warnings summary ===============================
+tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_worker_memory_limit_caps_oversized_local_guard_override
+  /Users/oc/workspace/hermes-upstream-merge-20260908/.venv-safe/lib/python3.12/site-packages/_pytest/threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread proc-reader-proc_3e697ddb8305
+  
+  Traceback (most recent call last):
+    File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+      self.run()
+    File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/threading.py", line 1012, in run
+      self._target(*self._args, **self._kwargs)
+    File "/Users/oc/workspace/hermes-upstream-merge-20260908/tools/process_registry.py", line 1112, in _reader_loop
+      self._finish_reader(
+    File "/Users/oc/workspace/hermes-upstream-merge-20260908/tools/process_registry.py", line 1127, in _finish_reader
+      self._finish_exited(session, exit_code())
+    File "/Users/oc/workspace/hermes-upstream-merge-20260908/tools/process_registry.py", line 1251, in _finish_exited
+      self._move_to_finished(session)
+    File "/Users/oc/workspace/hermes-upstream-merge-20260908/tools/process_registry.py", line 1262, in _move_to_finished
+      save_completed_result(session)
+    File "/Users/oc/workspace/hermes-upstream-merge-20260908/tools/process_registry_results.py", line 61, in save_completed_result
+      atomic_json_write(directory / f"{session.id}.json", record, mode=0o600)
+    File "/Users/oc/workspace/hermes-upstream-merge-20260908/utils.py", line 223, in atomic_json_write
+      _atomic_write(path, lambda f: json.dump(data, f, indent=indent, ensure_ascii=False, **dump_kwargs),
+    File "/Users/oc/workspace/hermes-upstream-merge-20260908/utils.py", line 192, in _atomic_write
+      write(f)
+    File "/Users/oc/workspace/hermes-upstream-merge-20260908/utils.py", line 223, in <lambda>
+      _atomic_write(path, lambda f: json.dump(data, f, indent=indent, ensure_ascii=False, **dump_kwargs),
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/__init__.py", line 179, in dump
+      for chunk in iterable:
+                   ^^^^^^^^
+    File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/encoder.py", line 432, in _iterencode
+      yield from _iterencode_dict(o, _current_indent_level)
+    File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+      yield from chunks
+    File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/encoder.py", line 439, in _iterencode
+      o = _default(o)
+          ^^^^^^^^^^^
+    File "/Users/oc/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/json/encoder.py", line 180, in default
+      raise TypeError(f'Object of type {o.__class__.__name__} '
+  TypeError: Object of type MagicMock is not JSON serializable
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_wraps_in_systemd_scope_when_supervisor_and_available
+FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_post_spawn_failure_never_kills_gateway_process_group
+FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_is_wrapped_in_systemd_scope
+FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback
+FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails
+FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_run_user_scope_available_caches_after_probe
+FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_scope_first_probe_is_serialized
+FAILED tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_failed_systemd_probe_retries_after_cache_ttl
+8 failed, 85 passed, 6 skipped, 9 deselected, 1 warning in 4.14s
+
+=== 1 file with test failures (8 tests failed) ===
+  tests/tools/test_process_registry.py  (8 tests failed)

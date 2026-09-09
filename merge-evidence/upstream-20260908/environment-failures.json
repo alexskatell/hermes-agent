@@ -1,0 +1,60 @@
+{
+  "classification": "environment-only / pre-existing-upstream",
+  "file": "tests/tools/test_process_registry.py",
+  "nodes": [
+    "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_failed_systemd_probe_retries_after_cache_ttl",
+    "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails",
+    "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback",
+    "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_is_wrapped_in_systemd_scope",
+    "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_post_spawn_failure_never_kills_gateway_process_group",
+    "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_run_user_scope_available_caches_after_probe",
+    "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_scope_first_probe_is_serialized",
+    "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_wraps_in_systemd_scope_when_supervisor_and_available"
+  ],
+  "reason": "Eight Linux systemd assumptions run unmarked on macOS; production _IS_LINUX gate correctly disables those paths. Current source and test are identical to fetched upstream. Exact same eight nodes appear in both historical exact-parent and candidate receipts.",
+  "historical_receipts": [
+    {
+      "file": "tests/tools/test_process_registry.py",
+      "label": "differential-base",
+      "counts": {
+        "failed": 8,
+        "passed": 94,
+        "skipped": 5
+      },
+      "exit": 1,
+      "failures": [
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_wraps_in_systemd_scope_when_supervisor_and_available",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_post_spawn_failure_never_kills_gateway_process_group",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_is_wrapped_in_systemd_scope",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_run_user_scope_available_caches_after_probe",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_scope_first_probe_is_serialized",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_failed_systemd_probe_retries_after_cache_ttl"
+      ],
+      "tree": "/tmp/hermes-triage-base-63ec22e797"
+    },
+    {
+      "file": "tests/tools/test_process_registry.py",
+      "label": "differential-merged",
+      "counts": {
+        "failed": 8,
+        "passed": 94,
+        "skipped": 5
+      },
+      "exit": 1,
+      "failures": [
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_wraps_in_systemd_scope_when_supervisor_and_available",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_post_spawn_failure_never_kills_gateway_process_group",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_is_wrapped_in_systemd_scope",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_reaps_scope_before_distinct_pipe_fallback",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_pty_spawn_failure_does_not_fallback_when_scope_reap_fails",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_run_user_scope_available_caches_after_probe",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_systemd_scope_first_probe_is_serialized",
+        "tests/tools/test_process_registry.py::TestSystemdCgroupIsolation::test_failed_systemd_probe_retries_after_cache_ttl"
+      ],
+      "tree": "/Users/oc/workspace/hermes-upstream-merge-20260908"
+    }
+  ],
+  "action": "Leave upstream tests and implementation unchanged."
+}

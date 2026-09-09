@@ -1,0 +1,17 @@
+{
+  "file": "tests/tools/test_process_registry.py",
+  "count": 9,
+  "test_names": [
+    "test_reconcile_flips_exited_when_direct_child_done",
+    "test_wait_returns_when_reader_blocked",
+    "test_close_stdin_allows_eof_driven_process_to_finish",
+    "test_terminate_refuses_when_start_time_mismatches",
+    "test_sigterm_ignoring_daemon_is_sigkilled",
+    "test_escalation_does_not_bypass_recycled_pid_guard",
+    "test_entire_tree_is_sigkilled_not_just_parent",
+    "test_reader_exits_when_orphan_holds_pipe",
+    "test_reader_exit_fires_notify_on_complete"
+  ],
+  "reason": "These cases send real SIGTERM/SIGKILL or call signal-sending cleanup; the task prohibits signaling any process. No test source or assertion was edited.",
+  "pytest_selector": "not test_reconcile_flips_exited_when_direct_child_done and not test_wait_returns_when_reader_blocked and not test_close_stdin_allows_eof_driven_process_to_finish and not test_terminate_refuses_when_start_time_mismatches and not test_sigterm_ignoring_daemon_is_sigkilled and not test_escalation_does_not_bypass_recycled_pid_guard and not test_entire_tree_is_sigkilled_not_just_parent and not test_reader_exits_when_orphan_holds_pipe and not test_reader_exit_fires_notify_on_complete"
+}
